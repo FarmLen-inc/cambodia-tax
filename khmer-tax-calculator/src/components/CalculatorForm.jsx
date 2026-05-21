@@ -37,6 +37,29 @@ const FIELDS = {
   transportation_tax: [
     { name: "vehicleType", label: "ប្រភេទយានយន្ត", icon: "directions_car", type: "select", options: VEHICLE_OPTIONS_MAP },
   ],
+  registration_tax: [
+    { name: "transferType", label: "ប្រភេទការផ្ទេរ", icon: "swap_horiz", type: "select", options: [
+      { value: "real_estate", label: "អចលនទ្រព្យ (ដី/ផ្ទះ) — ៤%" },
+      { value: "vehicle",     label: "យានយន្ត / មធ្យោបាយ — ៤%" },
+      { value: "shares",      label: "ភាគហ៊ុន (Corporate Shares) — ០.១%" },
+      { value: "contract",    label: "កិច្ចសន្យារដ្ឋ/សាធារណៈ — ០.១%" },
+    ]},
+    { name: "contractValue", label: "តម្លៃកិច្ចសន្យា / តម្លៃទីផ្សារ", unit: "រៀល", icon: "sell", type: "number" },
+    { name: "gdtValue", label: "តម្លៃ GDT (អចលនទ្រព្យប៉ុណ្ណោះ)", unit: "រៀល", icon: "account_balance", type: "number" },
+  ],
+  fiscal_stamp_duty: [
+    { name: "signType", label: "ប្រភេទផ្ទាំងប័ណ្ណ", icon: "signpost", type: "select", options: [
+      { value: "unlit",     label: "ផ្ទាំងគ្មានពន្លឺ — ២០,០០០ រៀល/m²/ឆ្នាំ" },
+      { value: "lit",       label: "ផ្ទាំងមានពន្លឺ — ៤០,០០០ រៀល/m²/ឆ្នាំ" },
+      { value: "billboard", label: "ផ្ទាំងធំ/ផ្លូវ — ៨០,០០០ រៀល/m²/ឆ្នាំ" },
+    ]},
+    { name: "languagePosition", label: "ទីតាំងភាសា", icon: "translate", type: "select", options: [
+      { value: "khmer_top",   label: "ភាសាខ្មែរខ្ពស់ជាង (ត្រឹមត្រូវ) — ×១.០" },
+      { value: "foreign_top", label: "ភាសាបរទេសខ្ពស់ជាង (ពិន័យ) — ×២.០" },
+    ]},
+    { name: "signWidth",  label: "ទទឹងផ្ទាំង", unit: "មែត្រ", icon: "width",  type: "number" },
+    { name: "signHeight", label: "កម្ពស់ផ្ទាំង", unit: "មែត្រ", icon: "height", type: "number" },
+  ],
   tax_on_income: [
     { name: "entityType", label: "ប្រភេទអ្នកបង់ពន្ធ", icon: "business", type: "select", options: [
       { value: "corporate",    label: "នីតិបុគ្គលទូទៅ (Corporate) — ២០%" },
@@ -108,6 +131,8 @@ const REQUIRED = {
   public_lighting_tax: ["invoiceValue", "ratePercent"],
   accommodation_tax:  ["accommodationFee", "ratePercent"],
   transportation_tax: ["vehicleType"],
+  registration_tax:   ["transferType", "contractValue"],
+  fiscal_stamp_duty:  ["signType", "languagePosition", "signWidth", "signHeight"],
   tax_on_income:      ["entityType", "taxableProfit"],
   tax_on_salary:      ["grossSalary"],
   vat:                ["supplyValue"],
@@ -119,6 +144,8 @@ const REQUIRED = {
 
 const SELECT_DEFAULTS = {
   transportation_tax: { vehicleType: "car_under_1500" },
+  registration_tax:   { transferType: "real_estate", gdtValue: "0" },
+  fiscal_stamp_duty:  { signType: "lit", languagePosition: "khmer_top" },
   tax_on_income:      { entityType: "corporate" },
   tax_on_salary:      { hasSpouse: "no", numChildren: "0", nssfContribution: "20000" },
   vat:                { inputVat: "0" },

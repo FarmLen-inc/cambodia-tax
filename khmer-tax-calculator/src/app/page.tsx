@@ -19,6 +19,8 @@ const TAX_ICONS: Record<string, string> = {
   minimum_tax:         "bar_chart",
   withholding_tax:     "content_cut",
   patent_tax:          "verified",
+  registration_tax:    "app_registration",
+  fiscal_stamp_duty:   "signpost",
 };
 
 const CATEGORY_LABELS: Record<string, { km: string; en: string; style: string; icon: string }> = {

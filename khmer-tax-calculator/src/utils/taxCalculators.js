@@ -89,6 +89,73 @@ export const calculateTax = (type, inputs) => {
       break;
     }
 
+    case "registration_tax": {
+      const TRANSFER_RATES = {
+        real_estate: { label: "អចលនទ្រព្យ (ដី/ផ្ទះ)",            rate: 0.04, useMax: true  },
+        vehicle:     { label: "យានយន្ត / មធ្យោបាយដឹកជញ្ជូន",    rate: 0.04, useMax: false },
+        shares:      { label: "ភាគហ៊ុន (Corporate Shares)",       rate: 0.001, useMax: false },
+        contract:    { label: "កិច្ចសន្យារដ្ឋ/សាធារណៈ",           rate: 0.001, useMax: false },
+      };
+      const transferKey = inputs.transferType || "real_estate";
+      const selected = TRANSFER_RATES[transferKey] ?? TRANSFER_RATES.real_estate;
+      const contractValue = Math.max(parseFloat(inputs.contractValue) || 0, 0);
+      const gdtValue = Math.max(parseFloat(inputs.gdtValue) || 0, 0);
+
+      taxableAmount = selected.useMax ? Math.max(contractValue, gdtValue) : contractValue;
+      rateUsed = selected.rate * 100;
+      taxAmount = taxableAmount * selected.rate;
+      formulaUsed = selected.useMax
+        ? "ពន្ធ = max(តម្លៃកិច្ចសន្យា, តម្លៃ GDT) × ៤%"
+        : `ពន្ធ = តម្លៃ × ${rateUsed}%`;
+      steps = [
+        `១. ប្រភេទផ្ទេរ: ${selected.label}`,
+        ...(selected.useMax
+          ? [
+              `២. តម្លៃកិច្ចសន្យា: ${contractValue.toLocaleString()} រៀល`,
+              `៣. តម្លៃ GDT: ${gdtValue.toLocaleString()} រៀល`,
+              `៤. មូលដ្ឋានគិតពន្ធ = max(${contractValue.toLocaleString()}, ${gdtValue.toLocaleString()}) = ${taxableAmount.toLocaleString()} រៀល`,
+              `៥. ពន្ធ = ${taxableAmount.toLocaleString()} × ${rateUsed}% = ${taxAmount.toLocaleString()} រៀល`,
+            ]
+          : [
+              `២. តម្លៃទ្រព្យ/ភាគហ៊ុន: ${contractValue.toLocaleString()} រៀល`,
+              `៣. ពន្ធ = ${contractValue.toLocaleString()} × ${rateUsed}% = ${taxAmount.toLocaleString()} រៀល`,
+            ]
+        ),
+      ];
+      break;
+    }
+
+    case "fiscal_stamp_duty": {
+      const SIGN_RATES = {
+        unlit:     { label: "ផ្ទាំងគ្មានពន្លឺ (Unlit)",              rate: 20_000 },
+        lit:       { label: "ផ្ទាំងមានពន្លឺ (Illuminated)",          rate: 40_000 },
+        billboard: { label: "ផ្ទាំងធំ/ផ្លូវ (Large Billboard)",       rate: 80_000 },
+      };
+      const LANG_COEFFICIENTS = {
+        khmer_top:   { label: "ភាសាខ្មែរខ្ពស់ជាង (ត្រឹមត្រូវ)",     coef: 1.0 },
+        foreign_top: { label: "ភាសាបរទេសខ្ពស់ជាង (ពិន័យ ×២)",        coef: 2.0 },
+      };
+      const signKey = inputs.signType || "lit";
+      const langKey = inputs.languagePosition || "khmer_top";
+      const width = Math.max(parseFloat(inputs.signWidth) || 0, 0);
+      const height = Math.max(parseFloat(inputs.signHeight) || 0, 0);
+      const selectedSign = SIGN_RATES[signKey] ?? SIGN_RATES.lit;
+      const selectedLang = LANG_COEFFICIENTS[langKey] ?? LANG_COEFFICIENTS.khmer_top;
+
+      const area = width * height;
+      taxableAmount = area;
+      rateUsed = 0;
+      taxAmount = area * selectedSign.rate * selectedLang.coef;
+      formulaUsed = "ពន្ធ = ទទឹង × កម្ពស់ × អត្រា/m² × hệ số ភាសា";
+      steps = [
+        `១. ផ្ទៃផ្ទាំង = ${width} × ${height} = ${area.toLocaleString()} m²`,
+        `២. ប្រភេទ: ${selectedSign.label} — ${selectedSign.rate.toLocaleString()} រៀល/m²`,
+        `៣. ទីតាំងភាសា: ${selectedLang.label} (×${selectedLang.coef})`,
+        `៤. ពន្ធ = ${area.toLocaleString()} × ${selectedSign.rate.toLocaleString()} × ${selectedLang.coef} = ${taxAmount.toLocaleString()} រៀល/ឆ្នាំ`,
+      ];
+      break;
+    }
+
     case "tax_on_income": {
       const entityType = inputs.entityType || "corporate";
       const profit = Math.max(parseFloat(inputs.taxableProfit) || 0, 0);

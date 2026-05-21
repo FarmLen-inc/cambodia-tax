@@ -28,11 +28,21 @@ const CATEGORY_LABELS: Record<string, { km: string; en: string; style: string; i
 
 export default function Home() {
   const [filter, setFilter] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const toggle = (category: string) =>
     setFilter((prev) => (prev === category ? null : category));
 
-  const visibleTaxes = filter ? taxes.filter((t) => t.category === filter) : taxes;
+  const visibleTaxes = taxes.filter((t) => {
+    const matchCategory = filter ? t.category === filter : true;
+    const searchString = searchQuery.toLowerCase();
+    const matchSearch =
+      !searchQuery ||
+      t.nameKm.toLowerCase().includes(searchString) ||
+      t.nameEn.toLowerCase().includes(searchString) ||
+      t.summary.toLowerCase().includes(searchString);
+    return matchCategory && matchSearch;
+  });
 
   return (
     <div className="antialiased flex flex-col min-h-screen">
@@ -46,6 +56,8 @@ export default function Home() {
                 className="w-full bg-surface-container-high text-on-surface placeholder:text-outline rounded-full py-3 pl-12 pr-4 border-none focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all font-body-md text-body-md shadow-inner"
                 placeholder="ស្វែងរក..."
                 type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
           </div>
@@ -103,10 +115,15 @@ export default function Home() {
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {visibleTaxes.map((tax) => {
-              const cat = CATEGORY_LABELS[tax.category] ?? CATEGORY_LABELS["Sub-National Tax"];
-              const icon = TAX_ICONS[tax.id] ?? "calculate";
-              const accentColor = tax.category === "National Tax" ? "bg-primary" : "bg-secondary";
+            {visibleTaxes.length === 0 ? (
+              <div className="col-span-full py-12 text-center text-on-surface-variant font-body-md">
+                រកមិនឃើញពន្ធដែលអ្នកស្វែងរកទេ!
+              </div>
+            ) : (
+              visibleTaxes.map((tax) => {
+                const cat = CATEGORY_LABELS[tax.category] ?? CATEGORY_LABELS["Sub-National Tax"];
+                const icon = TAX_ICONS[tax.id] ?? "calculate";
+                const accentColor = tax.category === "National Tax" ? "bg-primary" : "bg-secondary";
               const btnColor = tax.category === "National Tax"
                 ? "text-primary hover:bg-primary hover:text-on-primary"
                 : "text-secondary hover:bg-secondary hover:text-on-secondary";
@@ -140,7 +157,8 @@ export default function Home() {
                   </Link>
                 </article>
               );
-            })}
+            })
+          )}
           </div>
         </section>
       </main>

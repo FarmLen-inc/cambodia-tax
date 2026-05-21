@@ -9,6 +9,24 @@ import CalculatorForm from "../../../components/CalculatorForm";
 import ResultBox from "../../../components/ResultBox";
 import { useState } from "react";
 
+const colorMap = {
+  '1': 'blue',
+  '2': 'green',
+  '3': 'purple',
+  '4': 'orange',
+  '5': 'blue',
+  '6': 'green',
+};
+
+const iconMap = {
+  '1': '🏢',
+  '2': '👤',
+  '3': '💰',
+  '4': '📦',
+  '5': '✂️',
+  '6': '📊',
+};
+
 export default function TaxDetailPage({ params }) {
   const resolvedParams = use(params);
   const tax = getTaxById(resolvedParams.id);
@@ -16,11 +34,13 @@ export default function TaxDetailPage({ params }) {
 
   if (!tax) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-slate-800 mb-4">Tax Not Found</h1>
-          <Link href="/" className="text-indigo-600 hover:text-indigo-800 font-medium">← Back to Overview</Link>
-        </div>
+      <div style={{ textAlign: 'center', padding: '48px 20px' }}>
+        <h1 style={{ fontSize: '24px', fontWeight: '700', color: 'var(--text-dark)', marginBottom: '16px' }}>
+          Tax Not Found
+        </h1>
+        <Link href="/" style={{ color: 'var(--primary)', fontWeight: '700' }}>
+          ← Back to Calculators
+        </Link>
       </div>
     );
   }
@@ -30,66 +50,175 @@ export default function TaxDetailPage({ params }) {
     setResult(calcResult);
   };
 
+  const color = colorMap[tax.id] || 'blue';
+  const icon = iconMap[tax.id] || '📋';
+
   return (
-    <div className="min-h-screen bg-slate-50 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto space-y-6">
-        <Link href="/" className="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium transition-colors">
-          <ChevronLeft className="w-4 h-4 mr-1" />
-          Back to Overview
+    <div>
+      {/* Breadcrumb & Back Link */}
+      <div style={{ marginBottom: '24px' }}>
+        <Link href="/" style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          color: 'var(--primary)',
+          fontWeight: '700',
+          textDecoration: 'none',
+          fontSize: '13px',
+          fontFamily: 'Poppins',
+          gap: '6px'
+        }}>
+          ← Back to Calculators
         </Link>
-        
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
-          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-slate-100 pb-6 mb-6">
-            <div>
-              <span className="inline-block bg-emerald-100 text-emerald-800 text-xs font-semibold px-3 py-1 rounded-full mb-3">
-                {tax.category}
-              </span>
-              <h1 className="text-3xl font-bold text-slate-900 mb-2">{tax.nameEn}</h1>
-              <h2 className="text-xl text-slate-600 font-medium">{tax.nameKm}</h2>
-            </div>
+      </div>
+
+      {/* Header Section */}
+      <div className="card" style={{ marginBottom: '32px' }}>
+        <div style={{ display: 'flex', gap: '16px', marginBottom: '24px', alignItems: 'flex-start' }}>
+          <div className={`ct-icon ${color}`} style={{ fontSize: '28px' }}>
+            {icon}
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="space-y-6 text-slate-700">
-              <div>
-                <h3 className="font-semibold text-slate-900">Summary</h3>
-                <p>{tax.summary}</p>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <h3 className="font-semibold text-slate-900">Who Pays</h3>
-                  <p>{tax.whoPays}</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-slate-900">Tax Base</h3>
-                  <p>{tax.taxBase}</p>
-                </div>
-              </div>
-              <div className="bg-slate-50 p-4 rounded-lg border border-slate-100">
-                <h3 className="font-semibold text-slate-900 mb-1">Formula</h3>
-                <p className="font-mono text-sm text-indigo-700">{tax.formula}</p>
-              </div>
-              <div>
-                <h3 className="font-semibold text-slate-900">Example</h3>
-                <p className="text-sm italic text-slate-600">{tax.example}</p>
-              </div>
-              <div className="bg-amber-50 text-amber-800 p-4 rounded-lg text-sm">
-                <p>{tax.notes}</p>
-              </div>
+          <div>
+            <div className={`badge badge-${color}`} style={{ marginBottom: '8px' }}>
+              {tax.category}
             </div>
-            
-            <div className="lg:pl-8">
-              <CalculatorForm tax={tax} onCalculate={handleCalculate} />
-            </div>
+            <h1 style={{
+              fontSize: '28px',
+              fontWeight: '700',
+              color: 'var(--text-dark)',
+              marginBottom: '4px'
+            }}>
+              {tax.nameEn}
+            </h1>
+            <p style={{
+              fontSize: '16px',
+              color: 'var(--text-muted)',
+              fontWeight: '600'
+            }}>
+              {tax.nameKm}
+            </p>
           </div>
         </div>
 
-        {result && (
-          <div className="max-w-2xl mx-auto">
-            <ResultBox result={result} />
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gap: '20px',
+          paddingTop: '20px',
+          borderTop: '1px solid var(--border)'
+        }}>
+          <div>
+            <div style={{
+              fontSize: '11px',
+              color: 'var(--text-muted)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px',
+              fontFamily: 'Poppins',
+              marginBottom: '6px'
+            }}>
+              Summary
+            </div>
+            <p style={{ fontSize: '13.5px', lineHeight: '1.6', color: 'var(--text-mid)' }}>
+              {tax.summary}
+            </p>
           </div>
-        )}
+          <div>
+            <div style={{
+              fontSize: '11px',
+              color: 'var(--text-muted)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px',
+              fontFamily: 'Poppins',
+              marginBottom: '6px'
+            }}>
+              Who Pays
+            </div>
+            <p style={{ fontSize: '13.5px', lineHeight: '1.6', color: 'var(--text-mid)' }}>
+              {tax.whoPays}
+            </p>
+          </div>
+          <div>
+            <div style={{
+              fontSize: '11px',
+              color: 'var(--text-muted)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px',
+              fontFamily: 'Poppins',
+              marginBottom: '6px'
+            }}>
+              Tax Base
+            </div>
+            <p style={{ fontSize: '13.5px', lineHeight: '1.6', color: 'var(--text-mid)' }}>
+              {tax.taxBase}
+            </p>
+          </div>
+        </div>
       </div>
+
+      {/* Formula & Details */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+        gap: '24px',
+        marginBottom: '32px'
+      }}>
+        <div className="card">
+          <div className="card-title">
+            <div className="ct-icon blue">📐</div>
+            <div>Formula</div>
+          </div>
+          <div style={{
+            padding: '14px',
+            background: '#f4f9ff',
+            borderRadius: 'var(--radius-sm)',
+            fontFamily: 'monospace',
+            fontSize: '13px',
+            color: 'var(--primary)',
+            lineHeight: '1.7',
+            border: '1px solid var(--border)'
+          }}>
+            {tax.formula}
+          </div>
+        </div>
+
+        <div className="card">
+          <div className="card-title">
+            <div className="ct-icon green">💡</div>
+            <div>Example</div>
+          </div>
+          <p style={{
+            fontSize: '13px',
+            lineHeight: '1.7',
+            color: 'var(--text-mid)',
+            fontStyle: 'italic'
+          }}>
+            {tax.example}
+          </p>
+        </div>
+      </div>
+
+      {/* Important Notes */}
+      <div className="info-card blue" style={{ marginBottom: '32px' }}>
+        <div className="ic-icon">⚠️</div>
+        <div>
+          <strong>Important:</strong> {tax.notes}
+        </div>
+      </div>
+
+      {/* Calculator Form */}
+      <div className="card" style={{ marginBottom: '32px' }}>
+        <div className="card-title">
+          <div className="ct-icon orange">🧮</div>
+          <div>Calculator</div>
+        </div>
+        <CalculatorForm tax={tax} onCalculate={handleCalculate} />
+      </div>
+
+      {/* Results */}
+      {result && (
+        <div style={{ marginBottom: '32px' }}>
+          <ResultBox result={result} />
+        </div>
+      )}
     </div>
   );
 }

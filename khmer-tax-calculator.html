@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ប្រព័ន្ធគណនាពន្ធ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Preahvihear&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --bg: #e8f4fb;
+      --sidebar-bg: #0a2540;
+      --sidebar-accent: #1a3a5c;
+      --card-bg: #ffffff;
+      --primary: #1565c0;
+      --primary-light: #1e88e5;
+      --green: #00897b;
+      --green-light: #26a69a;
+      --purple: #6a1b9a;
+      --purple-light: #8e24aa;
+      --danger: #c62828;
+      --text-dark: #0d1b2a;
+      --text-mid: #2e4057;
+      --text-muted: #607d8b;
+      --border: #d0e4f5;
+      --shadow: 0 4px 24px rgba(21,101,192,0.10);
+      --shadow-hover: 0 8px 32px rgba(21,101,192,0.18);
+      --radius: 18px;
+      --radius-sm: 10px;
+      --transition: 0.22s cubic-bezier(.4,0,.2,1);
+      --sidebar-w: 260px;
+    }
+
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Preahvihear', 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      width: var(--sidebar-w);
+      min-height: 100vh;
+      background: var(--sidebar-bg);
+      position: fixed;
+      top: 0; left: 0;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      box-shadow: 4px 0 24px rgba(0,0,0,0.18);
+      transition: transform var(--transition);
+    }
+    .sidebar-logo {
+      padding: 32px 24px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .sidebar-logo .logo-icon {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, #1e88e5, #00bcd4);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(30,136,229,0.3);
+    }
+    .sidebar-logo h2 {
+      color: #fff;
+      font-size: 15px;
+      line-height: 1.5;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    .sidebar-logo p {
+      color: rgba(255,255,255,0.45);
+      font-size: 11px;
+      margin-top: 2px;
+    }
+    .sidebar-nav {
+      flex: 1;
+      padding: 20px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .nav-label {
+      color: rgba(255,255,255,0.3);
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 10px 10px 6px;
+      font-family: 'Poppins', sans-serif;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      color: rgba(255,255,255,0.65);
+      font-size: 13.5px;
+      transition: all var(--transition);
+      border: none;
+      background: transparent;
+      text-align: left;
+      width: 100%;
+    }
+    .nav-item:hover {
+      background: rgba(255,255,255,0.07);
+      color: #fff;
+    }
+    .nav-item.active {
+      background: linear-gradient(90deg, #1e88e5 0%, #0d47a1 100%);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(30,136,229,0.35);
+    }
+    .nav-item .nav-icon {
+      width: 34px; height: 34px;
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px;
+      background: rgba(255,255,255,0.07);
+      flex-shrink: 0;
+    }
+    .nav-item.active .nav-icon {
+      background: rgba(255,255,255,0.18);
+    }
+    .sidebar-footer {
+      padding: 18px 24px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.3);
+      font-size: 11px;
+      font-family: 'Poppins', sans-serif;
+    }
+    .currency-btn {
+      width: 100%;
+      padding: 10px 16px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all var(--transition);
+      font-weight: 600;
+    }
+    .currency-btn:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    /* ===== HAMBURGER (mobile) ===== */
+    .hamburger {
+      display: none;
+      position: fixed;
+      top: 16px; left: 16px;
+      z-index: 200;
+      background: var(--sidebar-bg);
+      border: none;
+      border-radius: 10px;
+      width: 42px; height: 42px;
+      align-items: center; justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+      flex-direction: column;
+      gap: 5px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px; height: 2.5px;
+      background: #fff;
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 99;
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      padding: 40px 36px;
+      min-height: 100vh;
+    }
+
+    /* ===== PAGE HEADER ===== */
+    .page-header {
+      margin-bottom: 32px;
+    }
+    .page-header .breadcrumb {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-family: 'Poppins', sans-serif;
+    }
+    .page-header h1 {
+      font-size: 26px;
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+    .page-header p {
+      color: var(--text-muted);
+      font-size: 13.5px;
+      margin-top: 4px;
+    }
+
+    /* ===== SECTION ===== */
+    .section { display: none; }
+    .section.active { display: block; animation: fadeUp 0.35s ease; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== INFO CARD ===== */
+    .info-card {
+      border-radius: var(--radius);
+      padding: 18px 22px;
+      margin-bottom: 24px;
+      font-size: 13.5px;
+      line-height: 1.75;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .info-card.blue  { background: #e3f2fd; border-left: 4px solid #1e88e5; color: #0d47a1; }
+    .info-card.green { background: #e0f2f1; border-left: 4px solid #00897b; color: #004d40; }
+    .info-card.purple{ background: #f3e5f5; border-left: 4px solid #8e24aa; color: #4a148c; }
+    .info-card.orange{ background: #fff3e0; border-left: 4px solid #ef6c00; color: #bf360c; }
+    .info-card .ic-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+
+    /* ===== CARD ===== */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px 30px;
+      margin-bottom: 24px;
+      transition: box-shadow var(--transition);
+    }
+    .card:hover { box-shadow: var(--shadow-hover); }
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-title .ct-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .ct-icon.blue   { background: #e3f2fd; }
+    .ct-icon.green  { background: #e0f2f1; }
+    .ct-icon.purple { background: #f3e5f5; }
+    .ct-icon.orange { background: #fff3e0; }
+
+    /* ===== FORM ELEMENTS ===== */
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      color: var(--text-mid);
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
+    .form-group label span { color: var(--danger); }
+    .input-wrap { position: relative; }
+    .input-wrap .unit {
+      position: absolute;
+      right: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 12.5px;
+      font-family: 'Poppins', sans-serif;
+      pointer-events: none;
+    }
+    input[type="number"], input[type="text"], select {
+      width: 100%;
+      padding: 13px 44px 13px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: 'Preahvihear', sans-serif;
+      font-size: 14px;
+      color: var(--text-dark);
+      background: #f8fbff;
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      appearance: none;
+    }
+    input[type="number"]:focus, select:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(30,136,229,0.12);
+      background: #fff;
+    }
+    input[type="number"].error, select.error {
+      border-color: var(--danger);
+      box-shadow: 0 0 0 3px rgba(198,40,40,0.09);
+    }
+    .error-msg {
+      color: var(--danger);
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+    .error-msg.show { display: block; }
+
+    /* ===== RADIO GROUP ===== */
+    .radio-group {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 13.5px;
+      color: var(--text-mid);
+      padding: 11px 20px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      transition: all var(--transition);
+      background: #f8fbff;
+    }
+    .radio-label:hover { border-color: var(--primary-light); }
+    .radio-label input[type="radio"] { display: none; }
+    .radio-label.checked {
+      border-color: var(--primary);
+      background: #e3f2fd;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .radio-dot {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+    .radio-label.checked .radio-dot {
+      border-color: var(--primary);
+      background: var(--primary);
+    }
+    .radio-label.checked .radio-dot::after {
+      content: '';
+      width: 6px; height: 6px;
+      background: #fff;
+      border-radius: 50%;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .btn {
+      padding: 13px 28px;
+      border-radius: 11px;
+      border: none;
+      font-family: 'Preahvihear', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #1e88e5, #0d47a1);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(30,136,229,0.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(30,136,229,0.38);
+    }
+    .btn-green {
+      background: linear-gradient(135deg, #26a69a, #00695c);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(0,137,123,0.28);
+    }
+    .btn-green:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(0,137,123,0.38);
+    }
+    .btn-purple {
+      background: linear-gradient(135deg, #8e24aa, #4a148c);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(106,27,154,0.28);
+    }
+    .btn-purple:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(106,27,154,0.38);
+    }
+    .btn-orange {
+      background: linear-gradient(135deg, #ff9800, #ef6c00);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(239,108,0,0.3);
+    }
+    .btn-orange:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(239,108,0,0.4);
+    }
+    .btn-reset {
+      background: #f1f5f9;
+      color: var(--text-mid);
+      border: 1.5px solid var(--border);
+    }
+    .btn-reset:hover { background: #e2eaf3; }
+
+    /* ===== RESULT PANEL ===== */
+    .result-panel {
+      display: none;
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: 22px;
+      box-shadow: var(--shadow);
+      animation: fadeUp 0.3s ease;
+    }
+    .result-panel.show { display: block; }
+    .result-header {
+      padding: 16px 22px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .result-header.blue   { background: linear-gradient(90deg, #1565c0, #1e88e5); }
+    .result-header.green  { background: linear-gradient(90deg, #00695c, #00897b); }
+    .result-header.purple { background: linear-gradient(90deg, #4a148c, #8e24aa); }
+    .result-header.orange { background: linear-gradient(90deg, #ef6c00, #ff9800); }
+    .result-body { padding: 22px; background: var(--card-bg); }
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 13px 0;
+      border-bottom: 1px dashed var(--border);
+      font-size: 14px;
+    }
+    .result-row:last-child { border-bottom: none; }
+    .result-row .r-label { color: var(--text-muted); }
+    .result-row .r-value { font-weight: 700; color: var(--text-dark); font-size: 15px; }
+    .result-row.highlight .r-value { color: var(--primary); font-size: 18px; }
+    .result-row.highlight-green .r-value { color: var(--green); font-size: 18px; }
+    .result-row.highlight-purple .r-value { color: var(--purple); font-size: 18px; }
+    .result-row.highlight-orange .r-value { color: #ef6c00; font-size: 18px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .badge-blue   { background: #e3f2fd; color: #1565c0; }
+    .badge-green  { background: #e0f2f1; color: #00695c; }
+    .badge-purple { background: #f3e5f5; color: #6a1b9a; }
+    .badge-orange { background: #fff3e0; color: #e65100; }
+
+    /* ===== TAX TABLE ===== */
+    .tax-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+    .tax-table th {
+      background: linear-gradient(90deg, #1565c0, #1e88e5);
+      color: #fff;
+      padding: 11px 14px;
+      text-align: left;
+      font-weight: 600;
+    }
+    .tax-table th:first-child { border-radius: 10px 0 0 0; }
+    .tax-table th:last-child  { border-radius: 0 10px 0 0; }
+    .tax-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-mid);
+    }
+    .tax-table tr:last-child td { border-bottom: none; }
+    .tax-table tr:nth-child(even) td { background: #f4f9ff; }
+    .tax-table tr.active-row td {
+      background: #e3f2fd;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* ===== STATS GRID ===== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-sm);
+      padding: 18px 16px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      border-top: 3px solid transparent;
+      transition: var(--transition);
+    }
+    .stat-card.blue   { border-top-color: var(--primary); }
+    .stat-card.green  { border-top-color: var(--green); }
+    .stat-card.purple { border-top-color: var(--purple); }
+    .stat-card.orange { border-top-color: #f57c00; }
+    .stat-card .sc-label { font-size: 12px; color: var(--text-muted); }
+    .stat-card .sc-value { font-size: 18px; font-weight: 700; color: var(--text-dark); }
+
+    /* ===== CLASSIFICATION BADGE ===== */
+    .class-result {
+      display: none;
+      margin-top: 18px;
+      animation: fadeUp 0.3s ease;
+    }
+    .class-result.show { display: block; }
+    .class-badge {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+      border: 1.5px solid #bbdefb;
+      border-radius: var(--radius);
+      padding: 20px 24px;
+    }
+    .class-badge .cb-icon { font-size: 36px; }
+    .class-badge .cb-info h3 { font-size: 17px; font-weight: 700; color: var(--text-dark); }
+    .class-badge .cb-info p  { font-size: 13px; color: var(--text-muted); margin-top: 3px; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .main { margin-left: 0; padding: 80px 18px 30px; }
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .hamburger { display: flex; }
+      .overlay.show { display: block; }
+    }
+    @media (max-width: 500px) {
+      .btn-row { flex-direction: column; }
+      .btn { width: 100%; justify-content: center; }
+      .radio-group { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== HAMBURGER ===== -->
+<button class="hamburger" id="hamburger" aria-label="Menu">
+  <span></span><span></span><span></span>
+</button>
+<div class="overlay" id="overlay"></div>
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">🏛️</div>
+    <h2>ប្រព័ន្ធគណនាពន្ធ</h2>
+    <p>Cambodia Tax Calculator</p>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-label">មុខងារ</div>
+    <button class="nav-item active" onclick="showSection('business', this)">
+      <div class="nav-icon">🏢</div>
+      ចាត់ថ្នាក់អាជីវកម្ម
+    </button>
+    <button class="nav-item" onclick="showSection('salary', this)">
+      <div class="nav-icon">💵</div>
+      ពន្ធប្រាក់បៀវត្ស
+    </button>
+    <button class="nav-item" onclick="showSection('vat', this)">
+      <div class="nav-icon">🧾</div>
+      ពន្ធលើតម្លៃបន្ថែម
+    </button>
+    <button class="nav-item" onclick="showSection('excise', this)">
+      <div class="nav-icon">🥃</div>
+      អាករពិសេស
+    </button>
+    <button class="nav-item" onclick="showSection('withholding', this)">
+      <div class="nav-icon">✂️</div>
+      ពន្ធកាត់ទុក
+    </button>
+    <button class="nav-item" onclick="showSection('minimum', this)">
+      <div class="nav-icon">📊</div>
+      ពន្ធអប្បបរមា
+    </button>
+  </nav>
+  <div class="sidebar-footer">
+    <button id="currencyToggle" class="currency-btn" onclick="setCurrency(currencyConfig.current === 'KHR' ? 'USD' : 'KHR')">💵 USD</button>
+    <div style="font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 12px;">© 2026 ប្រព័ន្ធគណនាពន្ធ</div>
+  </div>
+</aside>
+
+<!-- ===== MAIN ===== -->
+<main class="main">
+
+  <!-- ========== SECTION 1: BUSINESS CLASSIFICATION ========== -->
+  <div class="section active" id="section-business">
+    <div class="page-header">
+      <div class="breadcrumb">ទំព័រដើម › ចាត់ថ្នាក់អាជីវកម្ម</div>
+      <h1>🏢 ចាត់ថ្នាក់អាជីវកម្ម</h1>
+      <p>បញ្ចូលប្រាក់ចំណូលប្រចាំឆ្នាំ ដើម្បីដឹងថ្នាក់អាជីវកម្មរបស់អ្នក</p>
+    </div>
+
+    <div class="info-card blue">
+      <div class="ic-icon">ℹ️</div>
+      <div>
+        <strong>អំពីការចាត់ថ្នាក់:</strong> ការចាត់ថ្នាក់អាជីវកម្មគឺផ្អែកលើប្រាក់ចំណូលប្រចាំឆ្នាំ ដែលចែកជា ៣ ប្រភេទ៖
+        អាជីវកម្ម<strong>តូច</strong> (ក្រោម ២៥០ លានរៀល), អាជីវកម្ម<strong>មធ្យម</strong> (ក្រោម ៧០០ លានរៀល)
+        និងអាជីវកម្ម<strong>ធំ</strong> (លើស ៧០០ លានរៀល)។
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="ct-icon blue">📊</div>
+        ព័ត៌មានប្រាក់ចំណូល
+      </div>
+      <div class="form-group">
+        <label>ប្រាក់ចំណូលប្រចាំឆ្នាំ (<span class="currency-label">រៀល</span>) <span>*</span></label>
+        <div class="input-wrap">
+          <input type="number" id="bizIncome" placeholder="ឧ. 150000000" min="0"/>
+          <span class="unit"><span class="currency-symbol">រៀល</span></span>
+        </div>
+        <div class="error-msg" id="bizIncomeErr">⚠️ សូមបញ្ចូលប្រាក់ចំណូល</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="classifyBusiness()">🔍 ចាត់ថ្នាក់</button>
+        <button class="btn btn-reset" onclick="resetBusiness()">🔄 កំណត់ឡើងវិញ</button>
+      </div>
+      <div class="class-result" id="classResult"></div>
+    </div>
+
+    <!-- Tax table for reference -->
+    <div class="card">
+      <div class="card-title">
+        <div class="ct-icon blue">📋</div>
+        តារាងចាត់ថ្នាក់អាជីវកម្ម
+      </div>
+      <table class="tax-table">
+        <thead>
+          <tr>
+            <th>ប្រភេទ</th>
+            <th>ប្រាក់ចំណូល (រៀល/ឆ្នាំ)</th>
+            <th>អត្រា (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🏪 អាជីវកម្មតូច</td>
+            <td>ក្រោម ២៥០,០០០,០០០</td>
+            <td><span class="badge badge-blue">ក្រោម ២.៥%</span></td>
+          </tr>
+          <tr>
+            <td>🏬 អាជីវកម្មមធ្យម</td>
+            <td>ក្រោម ៧០០,០០០,០០០</td>
+            <td><span class="badge badge-orange">ក្រោម ១០%</span></td>
+          </tr>
+          <tr>
+            <td>🏦 អាជីវកម្មធំ</td>
+            <td>លើស ៧០០,០០០,០០០</td>
+            <td><span class="badge badge-purple">ក្រោម ២០%+</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 2: SALARY TAX ========== -->
+  <div class="section" id="section-salary">
+    <div class="page-header">
+      <div class="breadcrumb">ទំព័រដើម › ពន្ធប្រាក់បៀវត្ស</div>
+      <h1>💵 គណនាពន្ធប្រាក់បៀវត្ស</h1>
+      <p>គណនាពន្ធប្រាក់បៀវត្សដោយប្រើអត្រាពន្ធជាអ្នកជំហាន</p>
+    </div>
+
+    <div class="info-card green">
+      <div class="ic-icon">💡</div>
+      <div>
+        <strong>វិធីគណនា:</strong> ពន្ធប្រាក់បៀវត្សគណនាតាម<strong>ប្រាក់ខែសរុប</strong> ដោយប្រើរូបមន្ត
+        <em>ប្រាក់ខែ × អត្រា − ចំនួនថេរ</em>។ ប្រាក់ខែចាប់ ០ – ១,៥០០,០០០ រៀល មិនគិតពន្ធ។
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="ct-icon green">💰</div>
+        ព័ត៌មានប្រាក់បៀវត្ស
+      </div>
+      <div class="form-group">
+        <label>ប្រាក់ខែសរុប (<span class="currency-label">រៀល</span>) <span>*</span></label>
+        <div class="input-wrap">
+          <input type="number" id="salaryInput" placeholder="ឧ. 3000000" min="0"/>
+          <span class="unit"><span class="currency-symbol">រៀល</span></span>
+        </div>
+        <div class="error-msg" id="salaryErr">⚠️ សូមបញ្ចូលប្រាក់ខែ</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-green" onclick="calcSalary()">🧮 គណនា</button>
+        <button class="btn btn-reset" onclick="resetSalary()">🔄 កំណត់ឡើងវិញ</button>
+      </div>
+    </div>
+
+    <div class="result-panel" id="salaryResult">
+      <div class="result-header green">💵 លទ្ធផលគណនាពន្ធប្រាក់បៀវត្ស</div>
+      <div class="result-body">
+        <div id="salaryStats" class="stats-grid"></div>
+        <div class="result-row">
+          <span class="r-label">ប្រាក់ខែសរុប</span>
+          <span class="r-value" id="rSalary">-</span>
+        </div>
+        <div class="result-row">
+          <span class="r-label">ជំហានពន្ធ</span>
+          <span class="r-value" id="rBracket">-</span>
+        </div>
+        <div class="result-row">
+          <span class="r-label">អត្រាពន្ធ</span>
+          <span class="r-value" id="rRate">-</span>
+        </div>
+        <div class="result-row highlight-green">
+          <span class="r-label">ចំនួនពន្ធ</span>
+          <span class="r-value" id="rTax">-</span>
+        </div>
+        <div class="result-row highlight">
+          <span class="r-label">ប្រាក់ខែបន្ទាប់ពីកាត់ពន្ធ</span>
+          <span class="r-value" id="rNet">-</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tax bracket reference table -->
+    <div class="card">
+      <div class="card-title">
+        <div class="ct-icon green">📋</div>
+        តារាងអត្រាពន្ធប្រាក់បៀវត្ស
+      </div>
+      <table class="tax-table" id="salaryTable">
+        <thead>
+          <tr>
+            <th>ប្រាក់ខែ (រៀល)</th>
+            <th>អត្រា</th>
+            <th>រូបមន្ត</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>០ – ១,៥០០,០០០</td><td>0%</td><td>—</td></tr>
+          <tr><td>១,៥០០,០០១ – ២,០០០,០០០</td><td>5%</td><td>ម × 5% − 75,000</td></tr>
+          <tr><td>២,០០០,០០១ – ៨,៥០០,០០០</td><td>10%</td><td>ម × 10% − 175,000</td></tr>
+          <tr><td>៨,៥០០,០០១ – ១២,៥០០,០០០</td><td>15%</td><td>ម × 15% − 600,000</td></tr>
+          <tr><td>លើស ១២,៥០០,០០០</td><td>20%</td><td>ម × 20% − 1,225,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 3: VAT ========== -->
+  <div class="section" id="section-vat">
+    <div class="page-header">
+      <div class="breadcrumb">ទំព័រដើម › ពន្ធលើតម្លៃបន្ថែម</div>
+      <h1>🧾 ពន្ធលើតម្លៃបន្ថែម (VAT)</h1>
+      <p>គណនា VAT ១០% ទៅតាមតម្លៃរួម ឬ មិនរួម</p>
+    </div>
+
+    <div class="info-card purple">
+      <div class="ic-icon">📝</div>
+      <div>
+        <strong>VAT នៅកម្ពុជា:</strong> អត្រា VAT = <strong>១០%</strong>។
+        ប្រសិនបើ<em>តម្លៃរួមពន្ធ</em>: ពន្ធ = តម្លៃ × ១០ ÷ ១១០ ។
+        ប្រសិនបើ<em>តម្លៃមិនរួមពន្ធ</em>: ពន្ធ = តម្លៃ × ១០% ។
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="ct-icon purple">🧾</div>
+        ព័ត៌មានតម្លៃ
+      </div>
+
+      <div class="form-group">
+        <label>ប្រភេទតម្លៃ <span>*</span></label>
+        <div class="radio-group" id="vatTypeGroup">
+          <label class="radio-label checked" onclick="selectVatType(this,'included')">
+            <input type="radio" name="vatType" value="included" checked/>
+            <div class="radio-dot"></div>
+            ✅ តម្លៃរួមពន្ធ
+          </label>
+          <label class="radio-label" onclick="selectVatType(this,'excluded')">
+            <input type="radio" name="vatType" value="excluded"/>
+            <div class="radio-dot"></div>
+            🏷️ តម្លៃមិនរួមពន្ធ
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>តម្លៃ (<span class="currency-label">រៀល</span>) <span>*</span></label>
+        <div class="input-wrap">
+          <input type="number" id="vatInput" placeholder="ឧ. 1100000" min="0"/>
+          <span class="unit"><span class="currency-symbol">រៀល</span></span>
+        </div>
+        <div class="error-msg" id="vatErr">⚠️ សូមបញ្ចូលតម្លៃ</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-purple" onclick="calcVAT()">🧮 គណនា</button>
+        <button class="btn btn-reset" onclick="resetVAT()">🔄 កំណត់ឡើងវិញ</button>
+      </div>
+    </div>
+
+    <div class="result-panel" id="vatResult">
+      <div class="result-header purple">🧾 លទ្ធផលគណនា VAT</div>
+      <div class="result-body">
+        <div id="vatStats" class="stats-grid"></div>
+        <div class="result-row">
+          <span class="r-label">ប្រភេទ</span>
+          <span class="r-value" id="rVatType">-</span>
+        </div>
+        <div class="result-row">
+          <span class="r-label">តម្លៃដើម</span>
+          <span class="r-value" id="rOrigPrice">-</span>
+        </div>
+        <div class="result-row highlight-purple">
+          <span class="r-label">ចំនួន VAT (១០%)</span>
+          <span class="r-value" id="rVatAmt">-</span>
+        </div>
+        <div class="result-row highlight">
+          <span class="r-label">តម្លៃសរុប (រួមពន្ធ)</span>
+          <span class="r-value" id="rFinalPrice">-</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="ct-icon purple">📋</div>
+        ឧទាហរណ៍ VAT
+      </div>
+      <table class="tax-table">
+        <thead>
+          <tr><th>ស្ថានភាព</th><th>រូបមន្ត</th><th>ឧទាហរណ៍</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>✅ តម្លៃរួមពន្ធ</td>
+            <td>ពន្ធ = ម × 10/110</td>
+            <td>1,100,000 → ពន្ធ 100,000</td>
+          </tr>
+          <tr>
+            <td>🏷️ តម្លៃមិនរួមពន្ធ</td>
+            <td>ពន្ធ = ម × 10%</td>
+            <td>1,000,000 → ពន្ធ 100,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 4: EXCISE TAX ========== -->
+  <div class="section" id="section-excise">
+    <div class="page-header">
+      <div class="breadcrumb">ទំព័រដើម › អាករពិសេស</div>
+      <h1>🥃 គណនាអាករពិសេស</h1>
+      <p>អាករពិសេស = មូលដ្ឋានគិតអាករ × អត្រាអាករ</p>
+    </div>
+
+    <div class="info-card orange">
+      <div class="ic-icon">📌</div>
+      <div>
+        <strong>អំពីអាករពិសេស:</strong> អាករពិសេស គឺជាអាករដែលរដ្ឋដាក់លើទំនិញ និងសេវាមួយចំនួន
+        ដែលមិនចាំបាច់សម្រាប់ជីវភាពប្រចាំថ្ងៃ ឬអាចប៉ះពាល់ដល់សុខភាព។
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="ct-icon orange">🧮</div>
+        ព័ត៌មានគណនាអាករពិសេស
+      </div>
+
+      <div class="form-group">
+        <label>ជ្រើសរើសទំនិញ/សេវា <span>*</span></label>
+        <select id="exciseItem" onchange="syncExciseRate()">
+          <option value="">-- សូមជ្រើសរើស --</option>
+          <optgroup label="ទំនិញ">
+            <option value="ស្រា" data-rate="35" data-type="ទំនិញ">ស្រា (35%)</option>
+            <option value="ស្រាបៀរ" data-rate="30" data-type="ទំនិញ">ស្រាបៀរ (30%)</option>
+            <option value="បារី" data-rate="20" data-type="ទំនិញ">បារី (20%)</option>
+            <option value="ស៊ីហ្គា" data-rate="25" data-type="ទំនិញ">ស៊ីហ្គា (25%)</option>
+            <option value="ភេសជ្ជៈ" data-rate="10" data-type="ទំនិញ">ភេសជ្ជៈ (10%)</option>
+            <option value="ស៊ីម៉ង់ត៍" data-rate="5" data-type="ទំនិញ">ស៊ីម៉ង់ត៍ (5%)</option>
+          </optgroup>
+          <optgroup label="សេវា">
+            <option value="ដឹកជញ្ជូនអ្នកដំណើរតាមផ្លូវអាកាស" data-rate="10" data-type="សេវា">សេវាលើថ្លៃលក់សំបុត្រដឹកជញ្ជូនអ្នកដំណើរតាមផ្លូវអាកាស (10%)</option>
+            <option value="កម្សាន្ត" data-rate="10" data-type="សេវា">សេវាលំហែកម្សាន្ត (10%)</option>
+            <option value="ទូរគមនាគមន៍" data-rate="3" data-type="សេវា">សេវាទូរគមនាគមន៍ និងក្រៅប្រទេស (3%)</option>
+          </optgroup>
+        </select>
+        <div class="error-msg" id="exciseItemErr">⚠️ សូមជ្រើសរើសទំនិញ ឬ សេវា</div>
+      </div>
+
+      <div class="form-group">
+        <label>តម្លៃលក់សរុប (រួម VAT & អាករពិសេស) (<span class="currency-label">រៀល</span>) <span>*</span></label>
+        <div class="input-wrap">
+          <input type="number" id="exciseBase" placeholder="ឧ. 1300000" min="0"/>
+          <span class="unit"><span class="currency-symbol">រៀល</span></span>
+        </div>
+        <div class="error-msg" id="exciseBaseErr">⚠️ សូមបញ្ចូលតម្លៃលក់សរុប</div>
+      </div>
+
+      <div class="form-group">
+        <label>អត្រាអាករពិសេស (%) <span>*</span></label>
+        <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">រូបមន្ត៖ Tax Base = 90% × (Selling Price ÷ (1.1 × (1 + Rate)))</div>
+        <div class="input-wrap">
+          <input type="number" id="exciseRate" placeholder="បញ្ចូលអត្រា" min="0" max="100" step="0.01"/>
+          <span class="unit">%</span>
+        </div>
+        <div class="error-msg" id="exciseRateErr">⚠️ សូមបញ្ចូលអត្រាអាករត្រឹមត្រូវ</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-orange" onclick="calcExciseTax()">🧮 គណនា</button>
+        <button class="btn btn-reset" onclick="resetExciseTax()">🔄 កំណត់ឡើងវិញ</button>
+      </div>
+    </div>
+
+    <div class="result-panel" id="exciseResult">
+      <div class="result-header orange">🥃 លទ្ធផលគណនាអាករពិសេស</div>
+      <div class="result-body">
+        <div id="exciseStats" class="stats-grid"></div>
+        <div class="result-row">
+          <span class="r-label">ប្រភេទពន្ធ</span>
+          <span class="r-value" id="rExciseType">-</span>
+        </div>
+        <div class="result-row">
+          <span class="r-label">មុខទំនិញ/សេវា</span>
+          <span class="r-value" id="rExciseItem">-</span>
+        </div>
+        <div class="result-row">
+          <span class="r-label">តម្លៃលក់សរុប (រួម VAT & អាករពិសេស)</span>
+          <span class="r-value" id="rExciseSellingPrice">-</span>
+        </div>
+        <div class="result-row">
+          <span class="r-label">មូលដ្ឋានគិតអាករ (90%)</span>
+          <span class="r-value" id="rExciseBase">-</span>
+        </div>
+        <div class="result-row">
+          <span class="r-label">អត្រាអាករពិសេស</span>
+          <span class="r-value" id="rExciseRate">-</span>
+        </div>
+        <div class="result-row">
+          <span class="r-label">អត្រា VAT</span>
+          <span class="r-value" id="rExciseVatRate">-</span>
+        </div>
+        <div class="result-row highlight-orange">
+          <span class="r-label">អាករពិសេសត្រូវបង់</span>
+          <span class="r-value" id="rExciseTax">-</span>
+        </div>
+        <div class="result-row highlight">
+          <span class="r-label">តម្លៃក្រោយ (មូលដ្ឋាន + អាករពិសេស)</span>
+          <span class="r-value" id="rExciseFinal">-</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulas Reference -->
+    <div class="card">
+      <div class="card-title">
+        <div class="ct-icon orange">📐</div>
+        រូបមន្តគណនាអាករពិសេស (ក្រោយ VAT)
+      </div>
+      <div style="font-size: 13px; line-height: 1.8; color: var(--text-mid);">
+        <p><strong>១. មូលដ្ឋានគិតអាករ (Tax Base):</strong></p>
+        <p style="margin-left: 20px; background: #f8fbff; padding: 12px; border-radius: 8px; font-family: 'Courier New', monospace;">
+          Tax Base = 90% × Selling Price ÷ [(1 + VAT Rate) × (1 + Special Tax Rate)]
+        </p>
+        
+        <p style="margin-top: 16px;"><strong>២. អាករពិសេស (Special Tax):</strong></p>
+        <p style="margin-left: 20px; background: #f8fbff; padding: 12px; border-radius: 8px; font-family: 'Courier New', monospace;">
+          Special Tax = Tax Base × Special Tax Rate
+        </p>
+        
+        <p style="margin-top: 16px;"><strong>ឧទាហរណ៍: ស្រាបៀរ (VAT 10%, Special Tax 30%):</strong></p>
+        <p style="margin-left: 20px; background: #e0f2f1; padding: 12px; border-radius: 8px;">
+          ប្រសិនបើតម្លៃលក់ = 1,300,000 រៀល<br>
+          Tax Base = 90% × 1,300,000 ÷ (1.1 × 1.3) = 1,170,000 ÷ 1.43 ≈ 818,182 រៀល<br>
+          Special Tax = 818,182 × 30% ≈ 245,455 រៀល
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="ct-icon orange">📋</div>
+        តារាងអត្រាអាករពិសេស
+      </div>
+      <table class="tax-table" id="exciseTable">
+        <thead>
+          <tr>
+            <th>មុខទំនិញ/សេវា</th>
+            <th>ប្រភេទ</th>
+            <th>អត្រា</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-item="ស្រា"><td>ស្រា</td><td>ទំនិញ</td><td><span class="badge badge-orange">35%</span></td></tr>
+          <tr data-item="ស្រាបៀរ"><td>ស្រាបៀរ</td><td>ទំនិញ</td><td><span class="badge badge-orange">30%</span></td></tr>
+          <tr data-item="បារី"><td>បារី</td><td>ទំនិញ</td><td><span class="badge badge-orange">20%</span></td></tr>
+          <tr data-item="ស៊ីហ្គា"><td>ស៊ីហ្គា</td><td>ទំនិញ</td><td><span class="badge badge-orange">25%</span></td></tr>
+          <tr data-item="ភេសជ្ជៈ"><td>ភេសជ្ជៈ</td><td>ទំនិញ</td><td><span class="badge badge-orange">10%</span></td></tr>
+          <tr data-item="ស៊ីម៉ង់ត៍"><td>ស៊ីម៉ង់ត៍</td><td>ទំនិញ</td><td><span class="badge badge-orange">5%</span></td></tr>
+          <tr data-item="ដឹកជញ្ជូនអ្នកដំណើរតាមផ្លូវអាកាស"><td>សេវាលើថ្លៃលក់សំបុត្រដឹកជញ្ជូនអ្នកដំណើរតាមផ្លូវអាកាស</td><td>សេវា</td><td><span class="badge badge-orange">10%</span></td></tr>
+          <tr data-item="កម្សាន្ត"><td>សេវាលំហែកម្សាន្ត</td><td>សេវា</td><td><span class="badge badge-orange">10%</span></td></tr>
+          <tr data-item="ទូរគមនាគមន៍"><td>សេវាទូរគមនាគមន៍ និងក្រៅប្រទេស</td><td>សេវា</td><td><span class="badge badge-orange">3%</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 5: WITHHOLDING TAX ========== -->
+  <div class="section" id="section-withholding">
+    <div class="page-header">
+      <div class="breadcrumb">ទំព័រដើម › ពន្ធកាត់ទុក</div>
+      <h1>✂️ ពន្ធកាត់ទុក (Withholding Tax)</h1>
+      <p>គណនាពន្ធដែលត្រូវកាត់ទុកមុនពេលបង់ប្រាក់</p>
+    </div>
+
+    <div class="info-card purple">
+      <div class="ic-icon">ℹ️</div>
+      <div>
+        <strong>អំពីពន្ធកាត់ទុក:</strong> ពន្ធកាត់ទុក គឺជាពន្ធដែលអ្នកបង់ប្រាក់ (ក្រុមហ៊ុន) ត្រូវ "កាត់ទុក" មួយភាគពីប្រាក់ដែលត្រូវបង់ឱ្យអ្នកទទួលប្រាក់ 
+        ហើយយកទៅបង់ជូនរដ្ឋជំនួស។ អត្រាខុសគ្នាអាស្រ័យលើប្រភេទចំណូល និងលក្ខណៈលក្ខណ៍ឋានរបស់អ្នកទទួលប្រាក់។
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="ct-icon purple">📋</div>
+        ព័ត៌មានពន្ធកាត់ទុក
+      </div>
+      <div class="form-group">
+        <label>ប្រភេទចំណូល <span>*</span></label>
+        <div class="radio-group" id="incomeTypeGroup">
+          <label class="radio-label checked" onclick="selectIncomeType(this, 'service')">
+            <input type="radio" name="incomeType" value="service" checked/>
+            <div class="radio-dot"></div>
+            សេវាកម្ម
+          </label>
+          <label class="radio-label" onclick="selectIncomeType(this, 'rent')">
+            <input type="radio" name="incomeType" value="rent"/>
+            <div class="radio-dot"></div>
+            ការជួល
+          </label>
+          <label class="radio-label" onclick="selectIncomeType(this, 'interest')">
+            <input type="radio" name="incomeType" value="interest"/>
+            <div class="radio-dot"></div>
+            ការប្រាក់
+          </label>
+          <label class="radio-label" onclick="selectIncomeType(this, 'royalty')">
+            <input type="radio" name="incomeType" value="royalty"/>
+            <div class="radio-dot"></div>
+            Royalty
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group" id="residencyGroup" style="display: flex; gap: 20px;">
+        <label style="margin-bottom: 0;">មតិយបបបរិស្ថាន</label>
+        <div class="radio-group" style="flex: 1;">
+          <label class="radio-label checked" onclick="selectResidency(this, 'resident')">
+            <input type="radio" name="residency" value="resident" checked/>
+            <div class="radio-dot"></div>
+            ឯកសលក្ខន៍ក្នុងស្រុក
+          </label>
+          <label class="radio-label" onclick="selectResidency(this, 'non-resident')">
+            <input type="radio" name="residency" value="non-resident"/>
+            <div class="radio-dot"></div>
+            ឯកសលក្ខន៍ក្រៅស្រុក
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group" id="rentTypeGroup" style="display: none;">
+        <label>ប្រភេទការជួល <span>*</span></label>
+        <div class="radio-group">
+          <label class="radio-label checked" onclick="selectRentType(this, 'building')">
+            <input type="radio" name="rentType" value="building" checked/>
+            <div class="radio-dot"></div>
+            ផ្ទះ/ការិយាល័យ
+          </label>
+          <label class="radio-label" onclick="selectRentType(this, 'land')">
+            <input type="radio" name="rentType" value="land"/>
+            <div class="radio-dot"></div>
+            ដី
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>ចំនួនប្រាក់ (<span class="currency-label">រៀល</span>) <span>*</span></label>
+        <div class="input-wrap">
+          <input type="number" id="withholderAmount" placeholder="ឧ. 5000000" min="0"/>
+          <span class="unit"><span class="currency-symbol">រៀល</span></span>
+        </div>
+        <div class="error-msg" id="withholderAmountErr">⚠️ សូមបញ្ចូលចំនួនប្រាក់</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-purple" onclick="calcWithholding()">🧮 គណនា</button>
+        <button class="btn btn-reset" onclick="resetWithholding()">🔄 កំណត់ឡើងវិញ</button>
+      </div>
+    </div>
+
+    <div class="result-panel" id="withholdingResult">
+      <div class="result-header purple">✂️ លទ្ធផលគណនាពន្ធកាត់ទុក</div>
+      <div class="result-body">
+        <div id="withholdingStats" class="stats-grid"></div>
+        <div class="result-row">
+          <span class="r-label">ប្រភេទចំណូល</span>
+          <span class="r-value" id="rIncomeType">-</span>
+        </div>
+        <div class="result-row">
+          <span class="r-label">លក្ខណៈលក្ខណ៍ឋាន</span>
+          <span class="r-value" id="rResidency">-</span>
+        </div>
+        <div class="result-row">
+          <span class="r-label">ចំនួនប្រាក់សរុប</span>
+          <span class="r-value" id="rGrossAmount">-</span>
+        </div>
+        <div class="result-row">
+          <span class="r-label">អត្រាពន្ធកាត់ទុក</span>
+          <span class="r-value" id="rWithholdingRate">-</span>
+        </div>
+        <div class="result-row highlight-purple">
+          <span class="r-label">ពន្ធកាត់ទុក</span>
+          <span class="r-value" id="rWithholdingTax">-</span>
+        </div>
+        <div class="result-row highlight">
+          <span class="r-label">ចំនួនប្រាក់សុទ្ធ (បន្ទាប់ពីកាត់ពន្ធ)</span>
+          <span class="r-value" id="rNetAmount">-</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="ct-icon purple">📊</div>
+        ព័ត៌មានលម្អិត
+      </div>
+      <table class="tax-table">
+        <thead>
+          <tr>
+            <th>ប្រភេទចំណូល</th>
+            <th>ឯកសលក្ខន៍ក្នុងស្រុក</th>
+            <th>ឯកសលក្ខន៍ក្រៅស្រុក</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>សេវាកម្ម</strong></td>
+            <td><span class="badge badge-purple">15%</span></td>
+            <td><span class="badge badge-orange">14%</span></td>
+          </tr>
+          <tr>
+            <td><strong>ការជួល</strong></td>
+            <td><span class="badge badge-green">10%</span></td>
+            <td><span class="badge badge-orange">14%</span></td>
+          </tr>
+          <tr>
+            <td><strong>ការប្រាក់</strong></td>
+            <td><span class="badge badge-purple">15%</span></td>
+            <td><span class="badge badge-orange">14%</span></td>
+          </tr>
+          <tr>
+            <td><strong>Royalty</strong></td>
+            <td><span class="badge badge-purple">15%</span></td>
+            <td><span class="badge badge-orange">14%</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 6: MINIMUM TAX ========== -->
+  <div class="section" id="section-minimum">
+    <div class="page-header">
+      <div class="breadcrumb">ទំព័រដើម › ពន្ធអប្បបរមា</div>
+      <h1>📊 ពន្ធអប្បបរមា (Minimum Tax)</h1>
+      <p>គណនាពន្ធអប្បបរមាលើលក្ខណៈឋាននៃប្រាក់ចំណូល</p>
+    </div>
+
+    <div class="info-card blue">
+      <div class="ic-icon">ℹ️</div>
+      <div>
+        <strong>អំពីពន្ធអប្បបរមា:</strong> ពន្ធអប្បបរមា គឺជាពន្ធដែលរដ្ឋកំណត់ឱ្យសហគ្រាសបង់យ៉ាងតិច <strong>១%</strong> លើលក្ខណៈឋាននៃប្រាក់ចំណូលប្រចាំឆ្នាំ 
+        ទោះបីអាជីវកម្មខាត ឬមិនមានប្រាក់ចំណេញក៏ដោយ។ ក្រុមហ៊ុនត្រូវបង់ចំនួនដែលខ្ពស់ជាងៈ ពន្ធលើប្រាក់ចំណូល (TOI) ឬ ពន្ធអប្បបរមា។
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="ct-icon blue">📈</div>
+        ព័ត៌មានលក្ខណៈឋាននៃប្រាក់ចំណូល
+      </div>
+      <div class="form-group">
+        <label>លក្ខណៈឋាននៃប្រាក់ចំណូលប្រចាំឆ្នាំ (<span class="currency-label">រៀល</span>) <span>*</span></label>
+        <div class="input-wrap">
+          <input type="number" id="minimumTurnover" placeholder="ឧ. 500000000" min="0"/>
+          <span class="unit"><span class="currency-symbol">រៀល</span></span>
+        </div>
+        <div class="error-msg" id="minimumTurnoverErr">⚠️ សូមបញ្ចូលលក្ខណៈឋាននៃប្រាក់ចំណូល</div>
+      </div>
+
+      <div class="form-group">
+        <label>ពន្ធលើប្រាក់ចំណូល (TOI) ឯកសារ (<span class="currency-label">រៀល</span>)</label>
+        <div class="input-wrap">
+          <input type="number" id="minimumTOI" placeholder="ឧ. 3000000" min="0"/>
+          <span class="unit"><span class="currency-symbol">រៀល</span></span>
+        </div>
+        <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">ឈានលែង – ប្រើដើម្បីប្រៀបធៀប ឬទុកឱ្យទទេ</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="calcMinimumTax()">🧮 គណនា</button>
+        <button class="btn btn-reset" onclick="resetMinimumTax()">🔄 កំណត់ឡើងវិញ</button>
+      </div>
+    </div>
+
+    <div class="result-panel" id="minimumResult">
+      <div class="result-header blue">📊 លទ្ធផលគណនាពន្ធអប្បបរមា</div>
+      <div class="result-body">
+        <div id="minimumStats" class="stats-grid"></div>
+        <div class="result-row">
+          <span class="r-label">លក្ខណៈឋាននៃប្រាក់ចំណូលប្រចាំឆ្នាំ</span>
+          <span class="r-value" id="rMinTurnover">-</span>
+        </div>
+        <div class="result-row">
+          <span class="r-label">អត្រាពន្ធអប្បបរមា</span>
+          <span class="r-value" id="rMinRate">-</span>
+        </div>
+        <div class="result-row highlight-blue">
+          <span class="r-label">ពន្ធអប្បបរមា (១% × ចំណូល)</span>
+          <span class="r-value" id="rMinTax">-</span>
+        </div>
+        <div class="result-row" id="toiRow" style="display: none;">
+          <span class="r-label">ពន្ធលើប្រាក់ចំណូល (TOI)</span>
+          <span class="r-value" id="rMinTOI">-</span>
+        </div>
+        <div class="result-row highlight" id="finalRow" style="display: none;">
+          <span class="r-label">ពន្ធត្រូវបង់ (រើស ខ្ពស់ជាង)</span>
+          <span class="r-value" id="rMinFinal">-</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="ct-icon blue">📋</div>
+        ព័ត៌មាននិងឧទាហរណ៍
+      </div>
+      <table class="tax-table">
+        <thead>
+          <tr>
+            <th>ចំណាត់ការ</th>
+            <th>ពិពណ៌នា</th>
+            <th>រូបមន្ត</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>អត្រាពន្ធ</td>
+            <td>សរុប ១% លើលក្ខណៈឋាននៃប្រាក់ចំណូល</td>
+            <td><span class="badge badge-blue">១%</span></td>
+          </tr>
+          <tr>
+            <td>មូលដ្ឋាននៃពន្ធ</td>
+            <td>ឆ្នាំលក្ខណៈឋាននៃប្រាក់ចំណូលសរុប (រួមបញ្ចូលពន្ធ)</td>
+            <td>Annual Turnover</td>
+          </tr>
+          <tr>
+            <td>រូបមន្ត</td>
+            <td>Minimum Tax = Annual Turnover × 1%</td>
+            <td>ម × 1%</td>
+          </tr>
+          <tr>
+            <td>ប្រៀបធៀប</td>
+            <td>បង់ចំនួនដែល <strong>ខ្ពស់ជាង</strong> រវាង Minimum Tax និង TOI</td>
+            <td>max(TOI, Min Tax)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="ct-icon blue">💡</div>
+        ឧទាហរណ៍
+      </div>
+      <div style="font-size: 13.5px; line-height: 1.8; color: var(--text-mid);">
+        <p><strong>ឧទាហរណ៍ ១៖ Minimum Tax > TOI</strong></p>
+        <p style="margin-left: 20px; background: #e3f2fd; padding: 12px; border-radius: 8px;">
+          • លក្ខណៈឋាននៃប្រាក់ចំណូល = 500,000$<br>
+          • ពន្ធអប្បបរមា = 500,000 × 1% = <strong>5,000$</strong><br>
+          • TOI = 3,000$<br>
+          <strong style="color: #1565c0;">→ ត្រូវបង់ = 5,000$ (ពន្ធអប្បបរមា)</strong>
+        </p>
+
+        <p style="margin-top: 16px;"><strong>ឧទាហរណ៍ ២៖ TOI > Minimum Tax</strong></p>
+        <p style="margin-left: 20px; background: #e3f2fd; padding: 12px; border-radius: 8px;">
+          • លក្ខណៈឋាននៃប្រាក់ចំណូល = 500,000$<br>
+          • ពន្ធអប្បបរមា = 500,000 × 1% = 5,000$<br>
+          • TOI = 12,000$<br>
+          <strong style="color: #1565c0;">→ ត្រូវបង់ = 12,000$ (TOI)</strong>
+        </p>
+
+        <p style="margin-top: 16px;"><strong>ឧទាហរណ៍ ៣៖ នៅក្នុងរៀល</strong></p>
+        <p style="margin-left: 20px; background: #e3f2fd; padding: 12px; border-radius: 8px;">
+          • លក្ខណៈឋាននៃប្រាក់ចំណូល = 2,000,000,000 រៀល<br>
+          • ពន្ធអប្បបរមា = 2,000,000,000 × 1% = <strong>20,000,000 រៀល</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+/* ===== GLOBAL CURRENCY STATE ===== */
+const currencyConfig = {
+  exchange_rate: 4100, // 1 USD = 4,100 KHR (configurable)
+  current: 'KHR', // KHR or USD
+};
+
+function setCurrency(currency) {
+  currencyConfig.current = currency;
+  localStorage.setItem('tax_calculator_currency', currency);
+  
+  // Update all currency labels and symbols
+  const label = getCurrencyLabel();
+  document.querySelectorAll('.currency-label').forEach(el => el.textContent = label);
+  document.querySelectorAll('.currency-symbol').forEach(el => el.textContent = label);
+  
+  // Update button text
+  document.getElementById('currencyToggle').textContent = currency === 'KHR' ? '💵 USD' : '💶 KHR';
+  
+  // Refresh all calculations
+  setTimeout(() => {
+    if (document.getElementById('salaryResult').classList.contains('show')) calcSalary();
+    if (document.getElementById('vatResult').classList.contains('show')) calcVAT();
+    if (document.getElementById('exciseResult').classList.contains('show')) calcExciseTax();
+    if (document.getElementById('withholdingResult').classList.contains('show')) calcWithholding();
+  }, 100);
+}
+
+function getCurrencySymbol(currency = currencyConfig.current) {
+  return currency === 'USD' ? '$' : '៛';
+}
+
+function getCurrencyLabel(currency = currencyConfig.current) {
+  return currency === 'USD' ? 'USD' : 'រៀល';
+}
+
+function toKHR(amount, fromCurrency) {
+  if (fromCurrency === 'KHR') return amount;
+  return amount * currencyConfig.exchange_rate;
+}
+
+function fromKHR(amount, toCurrency) {
+  if (toCurrency === 'KHR') return amount;
+  return amount / currencyConfig.exchange_rate;
+}
+
+// Initialize currency from localStorage
+document.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem('tax_calculator_currency');
+  if (saved && (saved === 'KHR' || saved === 'USD')) {
+    currencyConfig.current = saved;
+  }
+  const toggle = document.getElementById('currencyToggle');
+  if (toggle) {
+    toggle.textContent = currencyConfig.current === 'KHR' ? '💵 USD' : '💶 KHR';
+  }
+  // Update all currency labels
+  const label = getCurrencyLabel();
+  document.querySelectorAll('.currency-label').forEach(el => el.textContent = label);
+  document.querySelectorAll('.currency-symbol').forEach(el => el.textContent = label);
+});
+
+/* ===== NAVIGATION ===== */
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('active');
+  btn.classList.add('active');
+  // Close sidebar on mobile
+  if (window.innerWidth <= 900) toggleSidebar(false);
+}
+
+// Hamburger
+const sidebar  = document.getElementById('sidebar');
+const hamburger= document.getElementById('hamburger');
+const overlay  = document.getElementById('overlay');
+hamburger.addEventListener('click', () => toggleSidebar(true));
+overlay.addEventListener('click',   () => toggleSidebar(false));
+function toggleSidebar(open) {
+  sidebar.classList.toggle('open', open);
+  overlay.classList.toggle('show', open);
+}
+
+/* ===== HELPERS ===== */
+function fmt(khrAmount, displayCurrency = currencyConfig.current) {
+  const amount = displayCurrency === 'USD' ? fromKHR(khrAmount, 'USD') : khrAmount;
+  const symbol = getCurrencySymbol(displayCurrency);
+  const label = getCurrencyLabel(displayCurrency);
+  return Math.round(amount).toLocaleString(displayCurrency === 'USD' ? 'en-US' : 'km-KH') + ' ' + label;
+}
+function clearError(inputId, errId) {
+  document.getElementById(inputId).classList.remove('error');
+  document.getElementById(errId).classList.remove('show');
+}
+function showError(inputId, errId) {
+  document.getElementById(inputId).classList.add('error');
+  document.getElementById(errId).classList.add('show');
+}
+
+/* ===== SECTION 1: BUSINESS CLASSIFICATION ===== */
+function classifyBusiness() {
+  const inputVal = parseFloat(document.getElementById('bizIncome').value);
+  clearError('bizIncome','bizIncomeErr');
+  if (!inputVal || inputVal <= 0) { showError('bizIncome','bizIncomeErr'); return; }
+
+  // Convert input to KHR for calculation
+  const val = currencyConfig.current === 'USD' ? toKHR(inputVal, 'USD') : inputVal;
+
+  let icon, name, desc, badge, color;
+  if (val < 250_000_000) {
+    icon = '🏪'; name = 'អាជីវកម្មតូច';
+    desc = `ប្រាក់ចំណូល ${fmt(val)} — ចាត់ជាអាជីវកម្ម<strong>តូច</strong> (ក្រោម ២៥០ លានរៀល)`;
+    badge = 'badge-blue'; color = 'blue';
+  } else if (val < 700_000_000) {
+    icon = '🏬'; name = 'អាជីវកម្មមធ្យម';
+    desc = `ប្រាក់ចំណូល ${fmt(val)} — ចាត់ជាអាជីវកម្ម<strong>មធ្យម</strong> (ក្រោម ៧០០ លានរៀល)`;
+    badge = 'badge-orange'; color = 'orange';
+  } else {
+    icon = '🏦'; name = 'អាជីវកម្មធំ';
+    desc = `ប្រាក់ចំណូល ${fmt(val)} — ចាត់ជាអាជីវកម្ម<strong>ធំ</strong> (លើស ៧០០ លានរៀល)`;
+    badge = 'badge-purple'; color = 'purple';
+  }
+
+  const el = document.getElementById('classResult');
+  el.innerHTML = `
+    <div class="class-badge">
+      <div class="cb-icon">${icon}</div>
+      <div class="cb-info">
+        <h3><span class="badge ${badge}">${name}</span></h3>
+        <p>${desc}</p>
+      </div>
+    </div>`;
+  el.classList.add('show');
+}
+function resetBusiness() {
+  document.getElementById('bizIncome').value = '';
+  document.getElementById('classResult').classList.remove('show');
+  clearError('bizIncome','bizIncomeErr');
+}
+
+/* ===== SECTION 2: SALARY TAX ===== */
+function calcSalary() {
+  const inputSalary = parseFloat(document.getElementById('salaryInput').value);
+  clearError('salaryInput','salaryErr');
+  if (!inputSalary || inputSalary < 0) { showError('salaryInput','salaryErr'); return; }
+
+  // Convert input to KHR for calculation
+  const salary = currencyConfig.current === 'USD' ? toKHR(inputSalary, 'USD') : inputSalary;
+
+  let tax = 0, rate = 0, bracket = '', formula = '';
+  if (salary <= 1_500_000)         { tax = 0; rate = 0;  bracket = '០ – ១,៥០០,០០០'; }
+  else if (salary <= 2_000_000)    { tax = salary * 0.05  - 75_000;     rate = 5;  bracket = '១,៥០០,០០១ – ២,០០០,០០០'; }
+  else if (salary <= 8_500_000)    { tax = salary * 0.10  - 175_000;    rate = 10; bracket = '២,០០០,០០១ – ៨,៥០០,០០០'; }
+  else if (salary <= 12_500_000)   { tax = salary * 0.15  - 600_000;    rate = 15; bracket = '៨,៥០០,០០១ – ១២,៥០០,០០០'; }
+  else                             { tax = salary * 0.20  - 1_225_000;  rate = 20; bracket = 'លើស ១២,៥០០,០០០'; }
+
+  tax = Math.max(0, tax);
+  const net = salary - tax;
+  const pct = salary > 0 ? ((tax/salary)*100).toFixed(1) : 0;
+
+  // Stats
+  document.getElementById('salaryStats').innerHTML = `
+    <div class="stat-card green">
+      <div class="sc-label">ប្រាក់ខែ</div>
+      <div class="sc-value">${fmt(salary)}</div>
+    </div>
+    <div class="stat-card orange">
+      <div class="sc-label">ពន្ធ</div>
+      <div class="sc-value">${fmt(tax)}</div>
+    </div>
+    <div class="stat-card blue">
+      <div class="sc-label">ប្រាក់ខែសុទ្ធ</div>
+      <div class="sc-value">${fmt(net)}</div>
+    </div>
+    <div class="stat-card purple">
+      <div class="sc-label">% ពន្ធ</div>
+      <div class="sc-value">${pct}%</div>
+    </div>`;
+
+  document.getElementById('rSalary').textContent  = fmt(salary);
+  document.getElementById('rBracket').innerHTML   = `<span class="badge badge-green">${bracket}</span>`;
+  document.getElementById('rRate').innerHTML      = `<span class="badge badge-orange">${rate}%</span>`;
+  document.getElementById('rTax').textContent     = fmt(tax);
+  document.getElementById('rNet').textContent     = fmt(net);
+
+  // Highlight active bracket
+  const rows = document.querySelectorAll('#salaryTable tbody tr');
+  rows.forEach((r,i) => {
+    r.classList.remove('active-row');
+    if ((i===0 && rate===0)||(i===1&&rate===5)||(i===2&&rate===10)||(i===3&&rate===15)||(i===4&&rate===20)) r.classList.add('active-row');
+  });
+
+  document.getElementById('salaryResult').classList.add('show');
+}
+function resetSalary() {
+  document.getElementById('salaryInput').value = '';
+  document.getElementById('salaryResult').classList.remove('show');
+  clearError('salaryInput','salaryErr');
+  document.querySelectorAll('#salaryTable tbody tr').forEach(r => r.classList.remove('active-row'));
+}
+
+/* ===== SECTION 3: VAT ===== */
+let vatType = 'included';
+function selectVatType(el, type) {
+  vatType = type;
+  document.querySelectorAll('#vatTypeGroup .radio-label').forEach(l => l.classList.remove('checked'));
+  el.classList.add('checked');
+}
+function calcVAT() {
+  const inputPrice = parseFloat(document.getElementById('vatInput').value);
+  clearError('vatInput','vatErr');
+  if (!inputPrice || inputPrice <= 0) { showError('vatInput','vatErr'); return; }
+
+  // Convert input to KHR for calculation
+  const price = currencyConfig.current === 'USD' ? toKHR(inputPrice, 'USD') : inputPrice;
+
+  let orig, vatAmt, final, typeLabel;
+  if (vatType === 'included') {
+    vatAmt = price * 10 / 110;
+    orig   = price - vatAmt;
+    final  = price;
+    typeLabel = '✅ តម្លៃរួមពន្ធ';
+  } else {
+    vatAmt = price * 0.10;
+    orig   = price;
+    final  = price + vatAmt;
+    typeLabel = '🏷️ តម្លៃមិនរួមពន្ធ';
+  }
+
+  const pct = ((vatAmt / final)*100).toFixed(1);
+
+  document.getElementById('vatStats').innerHTML = `
+    <div class="stat-card purple">
+      <div class="sc-label">តម្លៃដើម</div>
+      <div class="sc-value">${fmt(orig)}</div>
+    </div>
+    <div class="stat-card orange">
+      <div class="sc-label">VAT (10%)</div>
+      <div class="sc-value">${fmt(vatAmt)}</div>
+    </div>
+    <div class="stat-card blue">
+      <div class="sc-label">តម្លៃសរុប</div>
+      <div class="sc-value">${fmt(final)}</div>
+    </div>
+    <div class="stat-card green">
+      <div class="sc-label">% VAT</div>
+      <div class="sc-value">${pct}%</div>
+    </div>`;
+
+  document.getElementById('rVatType').innerHTML   = `<span class="badge badge-purple">${typeLabel}</span>`;
+  document.getElementById('rOrigPrice').textContent = fmt(orig);
+  document.getElementById('rVatAmt').textContent  = fmt(vatAmt);
+  document.getElementById('rFinalPrice').textContent = fmt(final);
+
+  document.getElementById('vatResult').classList.add('show');
+}
+function resetVAT() {
+  document.getElementById('vatInput').value = '';
+  document.getElementById('vatResult').classList.remove('show');
+  clearError('vatInput','vatErr');
+}
+
+/* ===== SECTION 4: EXCISE TAX ===== */
+function syncExciseRate() {
+  const itemSelect = document.getElementById('exciseItem');
+  const rateInput = document.getElementById('exciseRate');
+  const selected = itemSelect.options[itemSelect.selectedIndex];
+  const knownRate = selected ? selected.getAttribute('data-rate') : '';
+
+  clearError('exciseItem', 'exciseItemErr');
+  clearError('exciseRate', 'exciseRateErr');
+
+  if (!itemSelect.value) {
+    rateInput.value = '';
+    rateInput.readOnly = false;
+    rateInput.placeholder = 'បញ្ចូលអត្រា';
+    return;
+  }
+
+  if (knownRate) {
+    rateInput.value = knownRate;
+    rateInput.readOnly = true;
+    rateInput.placeholder = 'អត្រាកំណត់រួច';
+  } else {
+    rateInput.value = '';
+    rateInput.readOnly = false;
+    rateInput.placeholder = 'សូមបញ្ចូលអត្រាសេវា';
+  }
+}
+
+function calcExciseTax() {
+  const itemSelect = document.getElementById('exciseItem');
+  const selected = itemSelect.options[itemSelect.selectedIndex];
+  const item = itemSelect.value;
+  const inputSellingPrice = parseFloat(document.getElementById('exciseBase').value);
+  const specialTaxRate = parseFloat(document.getElementById('exciseRate').value);
+
+  // Convert input to KHR for calculation
+  const sellingPrice = currencyConfig.current === 'USD' ? toKHR(inputSellingPrice, 'USD') : inputSellingPrice;
+
+  clearError('exciseItem', 'exciseItemErr');
+  clearError('exciseBase', 'exciseBaseErr');
+  clearError('exciseRate', 'exciseRateErr');
+
+  let hasError = false;
+  if (!item) {
+    showError('exciseItem', 'exciseItemErr');
+    hasError = true;
+  }
+  if (!sellingPrice || sellingPrice <= 0) {
+    showError('exciseBase', 'exciseBaseErr');
+    hasError = true;
+  }
+  if (!specialTaxRate || specialTaxRate < 0 || specialTaxRate > 100) {
+    showError('exciseRate', 'exciseRateErr');
+    hasError = true;
+  }
+  if (hasError) return;
+
+  const itemType = selected.getAttribute('data-type') || 'មិនបានកំណត់';
+  const vatRate = 0.10; // VAT fixed at 10% in Cambodia
+  const specialTaxRateDecimal = specialTaxRate / 100;
+
+  // Formula: Tax Base = 90% × Selling Price ÷ [(1 + VAT Rate) × (1 + Special Tax Rate)]
+  const taxBase = (0.9 * sellingPrice) / ((1 + vatRate) * (1 + specialTaxRateDecimal));
+  
+  // Special Tax = Tax Base × Special Tax Rate
+  const specialTax = taxBase * specialTaxRateDecimal;
+  
+  const finalPrice = taxBase + specialTax;
+
+  document.getElementById('exciseStats').innerHTML = `
+    <div class="stat-card orange">
+      <div class="sc-label">តម្លៃលក់សរុប</div>
+      <div class="sc-value">${fmt(sellingPrice)}</div>
+    </div>
+    <div class="stat-card purple">
+      <div class="sc-label">មូលដ្ឋាន (90%)</div>
+      <div class="sc-value">${fmt(taxBase)}</div>
+    </div>
+    <div class="stat-card green">
+      <div class="sc-label">អាករពិសេស</div>
+      <div class="sc-value">${fmt(specialTax)}</div>
+    </div>
+    <div class="stat-card blue">
+      <div class="sc-label">តម្លៃក្រោយ</div>
+      <div class="sc-value">${fmt(finalPrice)}</div>
+    </div>`;
+
+  document.getElementById('rExciseType').innerHTML = `<span class="badge badge-purple">${itemType}</span>`;
+  document.getElementById('rExciseItem').textContent = item;
+  document.getElementById('rExciseSellingPrice').textContent = fmt(sellingPrice);
+  document.getElementById('rExciseBase').textContent = fmt(taxBase);
+  document.getElementById('rExciseRate').innerHTML = `<span class="badge badge-orange">${specialTaxRate}%</span>`;
+  document.getElementById('rExciseVatRate').innerHTML = `<span class="badge badge-blue">10%</span>`;
+  document.getElementById('rExciseTax').textContent = fmt(specialTax);
+  document.getElementById('rExciseFinal').textContent = fmt(finalPrice);
+
+  document.querySelectorAll('#exciseTable tbody tr').forEach((r) => {
+    r.classList.toggle('active-row', r.getAttribute('data-item') === item);
+  });
+
+  document.getElementById('exciseResult').classList.add('show');
+}
+
+function resetExciseTax() {
+  const rateInput = document.getElementById('exciseRate');
+
+  document.getElementById('exciseItem').value = '';
+  document.getElementById('exciseBase').value = '';
+  rateInput.value = '';
+  rateInput.readOnly = false;
+  rateInput.placeholder = 'បញ្ចូលអត្រា';
+
+  clearError('exciseItem', 'exciseItemErr');
+  clearError('exciseBase', 'exciseBaseErr');
+  clearError('exciseRate', 'exciseRateErr');
+
+  document.getElementById('exciseResult').classList.remove('show');
+  document.querySelectorAll('#exciseTable tbody tr').forEach((r) => r.classList.remove('active-row'));
+}
+
+/* ===== SECTION 5: WITHHOLDING TAX ===== */
+let withholdingIncomeType = 'service';
+let withholdingResidency = 'resident';
+let withholdingRentType = 'building';
+
+function selectIncomeType(el, type) {
+  withholdingIncomeType = type;
+  document.querySelectorAll('#incomeTypeGroup .radio-label').forEach(l => l.classList.remove('checked'));
+  el.classList.add('checked');
+  
+  // Show/hide rent type selection
+  const rentTypeGroup = document.getElementById('rentTypeGroup');
+  if (type === 'rent') {
+    rentTypeGroup.style.display = 'flex';
+  } else {
+    rentTypeGroup.style.display = 'none';
+  }
+}
+
+function selectResidency(el, residency) {
+  withholdingResidency = residency;
+  document.querySelectorAll('#residencyGroup .radio-label').forEach(l => l.classList.remove('checked'));
+  el.classList.add('checked');
+}
+
+function selectRentType(el, type) {
+  withholdingRentType = type;
+  document.querySelectorAll('#rentTypeGroup .radio-label').forEach(l => l.classList.remove('checked'));
+  el.classList.add('checked');
+}
+
+function calcWithholding() {
+  const inputAmount = parseFloat(document.getElementById('withholderAmount').value);
+  clearError('withholderAmount', 'withholderAmountErr');
+  
+  if (!inputAmount || inputAmount <= 0) {
+    showError('withholderAmount', 'withholderAmountErr');
+    return;
+  }
+
+  // Convert input to KHR for calculation
+  const amount = currencyConfig.current === 'USD' ? toKHR(inputAmount, 'USD') : inputAmount;
+
+  // Determine withholding tax rate based on type and residency
+  let rate = 0;
+  let incomeTypeLabel = '';
+  
+  switch (withholdingIncomeType) {
+    case 'service':
+      incomeTypeLabel = 'សេវាកម្ម';
+      rate = withholdingResidency === 'resident' ? 0.15 : 0.14;
+      break;
+    case 'rent':
+      incomeTypeLabel = 'ការជួល (' + (withholdingRentType === 'building' ? 'ផ្ទះ/ការិយាល័យ' : 'ដី') + ')';
+      rate = withholdingResidency === 'resident' ? 0.10 : 0.14;
+      break;
+    case 'interest':
+      incomeTypeLabel = 'ការប្រាក់';
+      rate = withholdingResidency === 'resident' ? 0.15 : 0.14;
+      break;
+    case 'royalty':
+      incomeTypeLabel = 'Royalty';
+      rate = withholdingResidency === 'resident' ? 0.15 : 0.14;
+      break;
+  }
+
+  const withholdingTax = amount * rate;
+  const netAmount = amount - withholdingTax;
+  const ratePercent = (rate * 100).toFixed(0);
+  const residencyLabel = withholdingResidency === 'resident' ? '✅ ឯកលក្ខណ៍ក្នុងស្រុក' : '🌍 ឯកលក្ខណ៍ក្រៅស្រុក';
+
+  // Stats
+  document.getElementById('withholdingStats').innerHTML = `
+    <div class="stat-card purple">
+      <div class="sc-label">ចំនួនប្រាក់សរុប</div>
+      <div class="sc-value">${fmt(amount)}</div>
+    </div>
+    <div class="stat-card orange">
+      <div class="sc-label">អត្រាពន្ធកាត់ទុក</div>
+      <div class="sc-value">${ratePercent}%</div>
+    </div>
+    <div class="stat-card green">
+      <div class="sc-label">ពន្ធកាត់ទុក</div>
+      <div class="sc-value">${fmt(withholdingTax)}</div>
+    </div>
+    <div class="stat-card blue">
+      <div class="sc-label">ចំនួនប្រាក់សុទ្ធ</div>
+      <div class="sc-value">${fmt(netAmount)}</div>
+    </div>`;
+
+  document.getElementById('rIncomeType').innerHTML = `<span class="badge badge-purple">${incomeTypeLabel}</span>`;
+  document.getElementById('rResidency').innerHTML = `<span class="badge ${withholdingResidency === 'resident' ? 'badge-blue' : 'badge-orange'}">${residencyLabel}</span>`;
+  document.getElementById('rGrossAmount').textContent = fmt(amount);
+  document.getElementById('rWithholdingRate').innerHTML = `<span class="badge badge-purple">${ratePercent}%</span>`;
+  document.getElementById('rWithholdingTax').textContent = fmt(withholdingTax);
+  document.getElementById('rNetAmount').textContent = fmt(netAmount);
+
+  document.getElementById('withholdingResult').classList.add('show');
+}
+
+function resetWithholding() {
+  document.getElementById('withholderAmount').value = '';
+  document.getElementById('withholdingResult').classList.remove('show');
+  clearError('withholderAmount', 'withholderAmountErr');
+  
+  // Reset selections
+  withholdingIncomeType = 'service';
+  withholdingResidency = 'resident';
+  withholdingRentType = 'building';
+  
+  // Update UI
+  document.querySelectorAll('#incomeTypeGroup .radio-label').forEach(l => l.classList.remove('checked'));
+  document.querySelectorAll('#incomeTypeGroup .radio-label')[0].classList.add('checked');
+  
+  document.querySelectorAll('#residencyGroup .radio-label').forEach(l => l.classList.remove('checked'));
+  document.querySelectorAll('#residencyGroup .radio-label')[0].classList.add('checked');
+  
+  document.querySelectorAll('#rentTypeGroup .radio-label').forEach(l => l.classList.remove('checked'));
+  document.querySelectorAll('#rentTypeGroup .radio-label')[0].classList.add('checked');
+  
+  document.getElementById('rentTypeGroup').style.display = 'none';
+}
+
+/* ===== SECTION 6: MINIMUM TAX ===== */
+function calcMinimumTax() {
+  const inputTurnover = parseFloat(document.getElementById('minimumTurnover').value);
+  const inputTOI = parseFloat(document.getElementById('minimumTOI').value || 0);
+  
+  clearError('minimumTurnover', 'minimumTurnoverErr');
+  
+  if (!inputTurnover || inputTurnover <= 0) {
+    showError('minimumTurnover', 'minimumTurnoverErr');
+    return;
+  }
+
+  // Convert input to KHR for calculation
+  const turnover = currencyConfig.current === 'USD' ? toKHR(inputTurnover, 'USD') : inputTurnover;
+  const toi = currencyConfig.current === 'USD' ? toKHR(inputTOI, 'USD') : inputTOI;
+
+  const minimumTaxRate = 0.01; // 1%
+  const minimumTax = turnover * minimumTaxRate;
+  
+  // Determine final tax payable
+  let taxPayable = minimumTax;
+  let comparison = 'Minimum Tax';
+  
+  if (toi > 0) {
+    taxPayable = Math.max(minimumTax, toi);
+    comparison = toi > minimumTax ? 'TOI' : 'Minimum Tax';
+  }
+
+  const turnoverLabel = currencyConfig.current === 'USD' ? (turnover / currencyConfig.exchange_rate).toFixed(0) + '$' : fmt(turnover);
+
+  // Stats
+  document.getElementById('minimumStats').innerHTML = `
+    <div class="stat-card blue">
+      <div class="sc-label">ចំណូលប្រចាំឆ្នាំ</div>
+      <div class="sc-value">${fmt(turnover)}</div>
+    </div>
+    <div class="stat-card purple">
+      <div class="sc-label">ពន្ធអប្បបរមា</div>
+      <div class="sc-value">${fmt(minimumTax)}</div>
+    </div>
+    <div class="stat-card orange">
+      <div class="sc-label">ប្រៀបធៀប</div>
+      <div class="sc-value">${comparison}</div>
+    </div>
+    <div class="stat-card green">
+      <div class="sc-label">ត្រូវបង់</div>
+      <div class="sc-value">${fmt(taxPayable)}</div>
+    </div>`;
+
+  document.getElementById('rMinTurnover').textContent = fmt(turnover);
+  document.getElementById('rMinRate').innerHTML = '<span class="badge badge-blue">1%</span>';
+  document.getElementById('rMinTax').textContent = fmt(minimumTax);
+
+  // Show TOI comparison if provided
+  if (toi > 0) {
+    document.getElementById('toiRow').style.display = 'flex';
+    document.getElementById('finalRow').style.display = 'flex';
+    document.getElementById('rMinTOI').textContent = fmt(toi);
+    document.getElementById('rMinFinal').innerHTML = `<span class="badge ${toi > minimumTax ? 'badge-orange' : 'badge-green'}">${fmt(taxPayable)}</span>`;
+  } else {
+    document.getElementById('toiRow').style.display = 'none';
+    document.getElementById('finalRow').style.display = 'none';
+  }
+
+  document.getElementById('minimumResult').classList.add('show');
+}
+
+function resetMinimumTax() {
+  document.getElementById('minimumTurnover').value = '';
+  document.getElementById('minimumTOI').value = '';
+  document.getElementById('minimumResult').classList.remove('show');
+  clearError('minimumTurnover', 'minimumTurnoverErr');
+  document.getElementById('toiRow').style.display = 'none';
+  document.getElementById('finalRow').style.display = 'none';
+}
+</script>
+</body>
+</html>

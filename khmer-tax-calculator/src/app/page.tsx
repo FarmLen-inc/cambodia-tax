@@ -60,25 +60,35 @@ export default function Home() {
     <div className="antialiased flex flex-col min-h-screen">
       {/* TopAppBar */}
       <header className="bg-surface shadow-sm sticky top-0 z-50">
-        <div className="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop h-20 max-w-7xl mx-auto">
-          <div className="hidden md:flex flex-1 justify-center">
-            <div className="relative w-full" style={{ maxWidth: 600 }}>
-              <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
-              <input
-                className="w-full bg-surface-container-high text-on-surface placeholder:text-outline rounded-full py-3 pl-12 pr-4 border-none focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all font-body-md text-body-md shadow-inner"
-                placeholder="ស្វែងរក..."
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
+        <div className="flex flex-col w-full max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
+          <div className="flex justify-between items-center h-16">
+            {/* Search — full width on mobile, centered on desktop */}
+            <div className="flex flex-1 justify-center">
+              <div className="relative w-full" style={{ maxWidth: 600 }}>
+                <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+                <input
+                  className="w-full bg-surface-container-high text-on-surface placeholder:text-outline rounded-full py-3 pl-12 pr-4 border-none focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all font-body-md text-body-md shadow-inner"
+                  placeholder="ស្វែងរក..."
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+            </div>
+            {/* Desktop category filter */}
+            <div className="hidden lg:flex items-center gap-6 ml-6">
+              <button onClick={() => toggle("National Tax")} className={`font-label-md text-label-md transition-colors whitespace-nowrap ${filter === "National Tax" ? "text-secondary underline underline-offset-4" : "text-primary hover:text-secondary"}`}>ថ្នាក់ជាតិ</button>
+              <button onClick={() => toggle("Sub-National Tax")} className={`font-label-md text-label-md transition-colors whitespace-nowrap ${filter === "Sub-National Tax" ? "text-secondary underline underline-offset-4" : "text-primary hover:text-secondary"}`}>ថ្នាក់ក្រោមជាតិ</button>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="hidden lg:flex items-center gap-6 mr-4">
-              <button onClick={() => toggle("National Tax")} className={`font-label-md text-label-md transition-colors ${filter === "National Tax" ? "text-secondary underline underline-offset-4" : "text-primary hover:text-secondary"}`}>ថ្នាក់ជាតិ</button>
-              <button onClick={() => toggle("Sub-National Tax")} className={`font-label-md text-label-md transition-colors ${filter === "Sub-National Tax" ? "text-secondary underline underline-offset-4" : "text-primary hover:text-secondary"}`}>ថ្នាក់ក្រោមជាតិ</button>
-            </div>
-            <button aria-label="Account" className="p-2 rounded-full hover:bg-surface-variant transition-colors text-primary" />
+          {/* Mobile category filter chips */}
+          <div className="lg:hidden flex gap-2 pb-3 overflow-x-auto">
+            <button onClick={() => toggle("National Tax")} className={`flex-shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-full font-label-md text-[12px] transition-colors ${filter === "National Tax" ? "bg-primary text-on-primary" : "bg-surface-container-high text-on-surface-variant"}`}>
+              <span className="material-symbols-outlined text-[14px]">public</span>ថ្នាក់ជាតិ
+            </button>
+            <button onClick={() => toggle("Sub-National Tax")} className={`flex-shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-full font-label-md text-[12px] transition-colors ${filter === "Sub-National Tax" ? "bg-primary text-on-primary" : "bg-surface-container-high text-on-surface-variant"}`}>
+              <span className="material-symbols-outlined text-[14px]">map</span>ថ្នាក់ក្រោមជាតិ
+            </button>
           </div>
         </div>
       </header>
@@ -194,25 +204,6 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* Bottom Nav Bar (Mobile Only) */}
-      <nav className="md:hidden bg-surface-container-lowest fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-gutter shadow-[0_-4px_12px_rgba(0,0,0,0.05)] rounded-t-lg">
-        <button className="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 scale-90 transition-transform duration-150">
-          <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>home</span>
-          <span className="font-label-md text-label-md text-[10px] mt-1">ទំព័រដើម</span>
-        </button>
-        <button className="flex flex-col items-center justify-center text-outline px-4 py-1 hover:bg-surface-variant rounded-full">
-          <span className="material-symbols-outlined">calculate</span>
-          <span className="font-label-md text-label-md text-[10px] mt-1">ឧបករណ៍គណនា</span>
-        </button>
-        <button className="flex flex-col items-center justify-center text-outline px-4 py-1 hover:bg-surface-variant rounded-full">
-          <span className="material-symbols-outlined">history</span>
-          <span className="font-label-md text-label-md text-[10px] mt-1">ប្រវត្តិ</span>
-        </button>
-        <button className="flex flex-col items-center justify-center text-outline px-4 py-1 hover:bg-surface-variant rounded-full">
-          <span className="material-symbols-outlined">person</span>
-          <span className="font-label-md text-label-md text-[10px] mt-1">គណនី</span>
-        </button>
-      </nav>
     </div>
   );
 }

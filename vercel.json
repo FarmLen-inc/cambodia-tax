@@ -1,0 +1,6 @@
+{
+  "buildCommand": "cd khmer-tax-calculator && npm run build",
+  "outputDirectory": "khmer-tax-calculator/.next",
+  "installCommand": "cd khmer-tax-calculator && npm install",
+  "framework": "nextjs"
+}

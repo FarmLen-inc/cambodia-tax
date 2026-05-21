@@ -6,9 +6,19 @@ import Image from "next/image";
 import { taxes } from "../data/taxes";
 
 const TAX_ICONS: Record<string, string> = {
-  house_land_rent: "real_estate_agent",
-  unused_land: "landscape",
-  immovable_property: "domain",
+  house_land_rent:     "real_estate_agent",
+  unused_land:         "landscape",
+  immovable_property:  "domain",
+  public_lighting_tax: "lightbulb",
+  accommodation_tax:   "hotel",
+  transportation_tax:  "directions_car",
+  tax_on_income:       "account_balance",
+  tax_on_salary:       "badge",
+  vat:                 "receipt_long",
+  specific_tax:        "local_bar",
+  minimum_tax:         "bar_chart",
+  withholding_tax:     "content_cut",
+  patent_tax:          "verified",
 };
 
 const CATEGORY_LABELS: Record<string, { km: string; en: string; style: string; icon: string }> = {

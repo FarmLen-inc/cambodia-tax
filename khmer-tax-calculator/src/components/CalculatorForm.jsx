@@ -2,6 +2,21 @@
 
 import { useState } from "react";
 
+const VEHICLE_OPTIONS = [
+  { value: "moto_under_125", label: "ម៉ូតូ ≤ 125cc — ១០,០០០ រៀល/ឆ្នាំ" },
+  { value: "moto_over_125",  label: "ម៉ូតូ > 125cc — ១៥,០០០ រៀល/ឆ្នាំ" },
+  { value: "car_under_1500", label: "រថយន្ត ≤ 1500cc — ១៥០,០០០ រៀល/ឆ្នាំ" },
+  { value: "car_1501_2500",  label: "រថយន្ត 1501–2500cc — ២៥០,០០០ រៀល/ឆ្នាំ" },
+  { value: "car_over_2500",  label: "រថយន្ត > 2500cc — ៤០០,០០០ រៀល/ឆ្នាំ" },
+  { value: "light_truck",    label: "រថយន្តក្រាន់ស្រាល — ៣០០,០០០ រៀល/ឆ្នាំ" },
+  { value: "heavy_truck",    label: "រថយន្តក្រាន់ធ្ងន់ — ៦០០,០០០ រៀល/ឆ្នាំ" },
+  { value: "bus",            label: "រថយន្តក្រុង/បឹស — ៥០០,០០០ រៀល/ឆ្នាំ" },
+  { value: "boat_under_10t", label: "នាវា < 10 តោន — ២០០,០០០ រៀល/ឆ្នាំ" },
+  { value: "boat_over_10t",  label: "នាវា ≥ 10 តោន — ៥០០,០០០ រៀល/ឆ្នាំ" },
+];
+
+const VEHICLE_OPTIONS_MAP = VEHICLE_OPTIONS; // already defined above
+
 const FIELDS = {
   house_land_rent: [
     { name: "monthlyRent",    label: "ប្រាក់ជួលប្រចាំខែ", unit: "រៀល", icon: "payments",       type: "number" },
@@ -13,16 +28,110 @@ const FIELDS = {
   immovable_property: [
     { name: "propertyValue", label: "តម្លៃអចលនទ្រព្យ", unit: "រៀល", icon: "domain", type: "number" },
   ],
+  public_lighting_tax: [
+    { name: "invoiceValue", label: "តម្លៃវិក្កបត្រ (មិនរួម VAT និង PLT)", unit: "រៀល", icon: "receipt_long", type: "number" },
+  ],
+  accommodation_tax: [
+    { name: "accommodationFee", label: "ថ្លៃស្នាក់នៅ (រួម ពន្ធ លើកលែង AT & VAT)", unit: "រៀល", icon: "hotel", type: "number" },
+  ],
+  transportation_tax: [
+    { name: "vehicleType", label: "ប្រភេទយានយន្ត", icon: "directions_car", type: "select", options: VEHICLE_OPTIONS_MAP },
+  ],
+  tax_on_income: [
+    { name: "entityType", label: "ប្រភេទអ្នកបង់ពន្ធ", icon: "business", type: "select", options: [
+      { value: "corporate",    label: "នីតិបុគ្គលទូទៅ (Corporate) — ២០%" },
+      { value: "insurance",    label: "ក្រុមហ៊ុនធានារ៉ាប់រង (Insurance) — ៥%" },
+      { value: "individual",   label: "បុគ្គល/ម្ចាស់អាជីវកម្ម (Individual) — ០–២០%" },
+    ]},
+    { name: "taxableProfit", label: "ប្រាក់ចំណេញសុទ្ធប្រចាំឆ្នាំ", unit: "រៀល", icon: "trending_up", type: "number" },
+  ],
+  tax_on_salary: [
+    { name: "grossSalary",      label: "ប្រាក់ខែសរុប",                      unit: "រៀល", icon: "payments",      type: "number" },
+    { name: "nssfContribution", label: "ការចូលរួម NSSF (ផ្នែកបុគ្គលិក)",  unit: "រៀល", icon: "health_and_safety", type: "number" },
+    { name: "hasSpouse", label: "មានប្ដីប្រពន្ធជាអ្នកផ្គ្គាលចិញ្ចឹម?", icon: "family_restroom", type: "select", options: [
+      { value: "no",  label: "អត់ (No)" },
+      { value: "yes", label: "មាន (Yes) — ១៥០,០០០ រៀល/ខែ" },
+    ]},
+    { name: "numChildren", label: "ចំនួនកូន (អ្នកពឹងផ្អែក)", unit: "នាក់", icon: "child_care", type: "number" },
+  ],
+  vat: [
+    { name: "supplyValue", label: "តម្លៃផ្គត់ផ្គង់ (មិនរួម VAT)", unit: "រៀល", icon: "receipt", type: "number" },
+    { name: "inputVat",    label: "Input VAT (ការទិញ)", unit: "រៀល", icon: "shopping_cart", type: "number" },
+  ],
+  specific_tax: [
+    { name: "supplyType", label: "ប្រភេទការផ្គត់ផ្គង់", icon: "category", type: "select", options: [
+      { value: "local",  label: "ផលិតក្នុងស្រុក (Local Production) — Base × 90%" },
+      { value: "import", label: "នាំចូល (Import) — CIF + ពន្ធគយ" },
+    ]},
+    { name: "productType", label: "ប្រភេទទំនិញ/សេវា", icon: "inventory_2", type: "select", options: [
+      { value: "cigarettes",         label: "បារី / ស៊ីហ្គារ — ២០%" },
+      { value: "beer",               label: "ស្រាបៀរ — ៣០%" },
+      { value: "soft_drinks",        label: "ភេសជ្ជៈ (មិនមែនស្រា) — ១០%" },
+      { value: "air_tickets",        label: "សំបុត្រយន្តហោះ — ១០%" },
+      { value: "entertainment",      label: "សេវាកម្មកំសាន្ត (Karaoke) — ១០%" },
+      { value: "vehicle_under_2000", label: "យានយន្ត < 2000cc — ១០%" },
+      { value: "vehicle_2000_3000",  label: "យានយន្ត 2000–3000cc — ៣០%" },
+      { value: "vehicle_over_3000",  label: "យានយន្ត > 3000cc — ៤៥%" },
+    ]},
+    { name: "grossValue", label: "តម្លៃ (pre-VAT / CIF+ពន្ធគយ)", unit: "រៀល", icon: "price_check", type: "number" },
+  ],
+  minimum_tax: [
+    { name: "annualTurnover",   label: "ចំណូលសរុបប្រចាំឆ្នាំ (excl. VAT)", unit: "រៀល", icon: "store",       type: "number" },
+    { name: "annualNetProfit",  label: "ប្រាក់ចំណេញសុទ្ធប្រចាំឆ្នាំ",       unit: "រៀល", icon: "trending_up", type: "number" },
+  ],
+  withholding_tax: [
+    { name: "paymentType", label: "ប្រភេទការទូទាត់", icon: "swap_horiz", type: "select", options: [
+      { value: "services_resident",      label: "សេវាកម្ម/ប្រឹក្សា (អ្នករស់នៅ) — ១៥%" },
+      { value: "royalties_resident",     label: "រូបិយប័ណ្ណ Royalties (អ្នករស់នៅ) — ១៥%" },
+      { value: "interest_nonbank",       label: "ការប្រាក់ (មិនមែនធនាគារ) — ១៥%" },
+      { value: "rental_resident",        label: "ការជួល Property (អ្នករស់នៅ) — ១០%" },
+      { value: "interest_fixed_deposit", label: "ការប្រាក់ Fixed Deposit — ៦%" },
+      { value: "interest_savings",       label: "ការប្រាក់ Savings Account — ៤%" },
+      { value: "nonresident_all",        label: "ប្រភេទទាំងអស់ (អ្នកមិនរស់នៅ) — ១៤%" },
+    ]},
+    { name: "grossAmount", label: "ទំហំការទូទាត់សរុប", unit: "រៀល", icon: "payments", type: "number" },
+  ],
+  patent_tax: [
+    { name: "taxpayerSize", label: "ទំហំអ្នកបង់ពន្ធ", icon: "corporate_fare", type: "select", options: [
+      { value: "small",       label: "តូច (Small) — ៤០០,០០០ រៀល/ឆ្នាំ" },
+      { value: "medium",      label: "មធ្យម (Medium) — ១,២០០,០០០ រៀល/ឆ្នាំ" },
+      { value: "large_under", label: "ធំ — ≤ ១០,០០០ Million KHR — ៣,០០០,០០០ រៀល/ឆ្នាំ" },
+      { value: "large_over",  label: "ធំ — > ១០,០០០ Million KHR — ៥,០០០,០០០ រៀល/ឆ្នាំ" },
+    ]},
+  ],
 };
 
 const REQUIRED = {
   house_land_rent:    ["monthlyRent", "months", "ratePercent"],
   unused_land:        ["landMarketValue", "ratePercent"],
   immovable_property: ["propertyValue", "ratePercent"],
+  public_lighting_tax: ["invoiceValue", "ratePercent"],
+  accommodation_tax:  ["accommodationFee", "ratePercent"],
+  transportation_tax: ["vehicleType"],
+  tax_on_income:      ["entityType", "taxableProfit"],
+  tax_on_salary:      ["grossSalary"],
+  vat:                ["supplyValue"],
+  specific_tax:       ["supplyType", "productType", "grossValue"],
+  minimum_tax:        ["annualTurnover", "annualNetProfit"],
+  withholding_tax:    ["paymentType", "grossAmount"],
+  patent_tax:         ["taxpayerSize"],
+};
+
+const SELECT_DEFAULTS = {
+  transportation_tax: { vehicleType: "car_under_1500" },
+  tax_on_income:      { entityType: "corporate" },
+  tax_on_salary:      { hasSpouse: "no", numChildren: "0", nssfContribution: "20000" },
+  vat:                { inputVat: "0" },
+  specific_tax:       { supplyType: "local", productType: "beer" },
+  withholding_tax:    { paymentType: "rental_resident" },
+  patent_tax:         { taxpayerSize: "small" },
 };
 
 export default function CalculatorForm({ tax, onCalculate }) {
-  const [inputs, setInputs] = useState({ ratePercent: tax.ratePercent || 0 });
+  const [inputs, setInputs] = useState({
+    ratePercent: tax.ratePercent || 0,
+    ...(SELECT_DEFAULTS[tax.calculatorType] || {}),
+  });
   const [error, setError] = useState("");
 
   const formatNumber = (val) => {
@@ -34,10 +143,12 @@ export default function CalculatorForm({ tax, onCalculate }) {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    // Remove space before storing in state so calculation remains valid
+    const { name, value, type } = e.target;
+    if (type === "select-one") {
+      setInputs((prev) => ({ ...prev, [name]: value }));
+      return;
+    }
     const rawValue = value.replace(/\s/g, "");
-    // Allow empty string or valid positive numbers (with or without decimal)
     if (rawValue === "" || /^\d*\.?\d*$/.test(rawValue)) {
       setInputs((prev) => ({ ...prev, [name]: rawValue }));
     }
@@ -77,14 +188,14 @@ export default function CalculatorForm({ tax, onCalculate }) {
               className="material-symbols-outlined text-primary text-3xl"
               style={{ fontVariationSettings: "'FILL' 1" }}
             >
-              percent
+              {tax.ratePercent === null ? "local_atm" : "percent"}
             </span>
             <div>
               <h3 className="font-label-md text-label-md text-on-surface">
-                អត្រាពន្ធ
+                {tax.ratePercent === null ? "ថ្លៃបង់ពន្ធ" : "អត្រាពន្ធ"}
               </h3>
               <p className="font-body-md text-body-md text-on-surface-variant mt-1">
-                {tax.ratePercent}%
+                {tax.ratePercent === null ? "ថ្លៃថេរតាមប្រភេទយានយន្ត" : `${tax.ratePercent}%`}
               </p>
             </div>
           </div>
@@ -113,25 +224,33 @@ export default function CalculatorForm({ tax, onCalculate }) {
                 {f.unit && <span className="text-outline">{f.unit}</span>}
               </label>
               <div className="relative">
-                {f.prefix ? (
-                  <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-outline pointer-events-none font-body-md">
-                    {f.prefix}
-                  </span>
+                <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-outline pointer-events-none z-10">
+                  <span className="material-symbols-outlined text-[20px]">{f.icon}</span>
+                </span>
+                {f.type === "select" ? (
+                  <select
+                    className="w-full bg-surface rounded-full border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary py-4 pl-10 pr-4 text-body-md font-body-md text-on-surface outline-none transition-all duration-200 appearance-none cursor-pointer"
+                    name={f.name}
+                    value={inputs[f.name] ?? ""}
+                    onChange={handleChange}
+                    required
+                  >
+                    {f.options.map((opt) => (
+                      <option key={opt.value} value={opt.value}>{opt.label}</option>
+                    ))}
+                  </select>
                 ) : (
-                  <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-outline pointer-events-none">
-                    <span className="material-symbols-outlined text-[20px]">{f.icon}</span>
-                  </span>
+                  <input
+                    className="w-full bg-surface rounded-full border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary py-4 pl-10 pr-4 text-body-md font-body-md text-on-surface outline-none transition-all duration-200"
+                    type={f.type === "number" ? "text" : f.type}
+                    inputMode={f.type === "number" ? "decimal" : undefined}
+                    name={f.name}
+                    value={f.type === "number" ? formatNumber(inputs[f.name]) : (inputs[f.name] ?? "")}
+                    onChange={handleChange}
+                    placeholder="0.00"
+                    required
+                  />
                 )}
-                <input
-                  className="w-full bg-surface rounded-full border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary py-4 pl-10 pr-4 text-body-md font-body-md text-on-surface outline-none transition-all duration-200"
-                  type={f.type === "number" ? "text" : f.type}
-                  inputMode={f.type === "number" ? "decimal" : undefined}
-                  name={f.name}
-                  value={f.type === "number" ? formatNumber(inputs[f.name]) : (inputs[f.name] ?? "")}
-                  onChange={handleChange}
-                  placeholder="0.00"
-                  required
-                />
               </div>
             </div>
           ))}
@@ -151,7 +270,7 @@ export default function CalculatorForm({ tax, onCalculate }) {
             </span>
           </div>
           <p className="font-body-md text-body-md text-on-surface-variant italic">
-            {tax.ratePercent}% — {tax.formula}
+            {tax.ratePercent !== null ? `${tax.ratePercent}% — ` : ""}{tax.formula}
           </p>
         </div>
 

@@ -59,6 +59,268 @@ export const calculateTax = (type, inputs) => {
       break;
     }
 
+    case "public_lighting_tax": {
+      const invoiceValue = Math.max(parseFloat(inputs.invoiceValue) || 0, 0);
+      rateUsed = Math.max(parseFloat(inputs.ratePercent) || 0, 0) / 100;
+
+      taxableAmount = invoiceValue;
+      taxAmount = taxableAmount * rateUsed;
+      formulaUsed = "អាករ = តម្លៃវិក្កបត្រ (មិនរួម VAT និង PLT) × ៥%";
+      steps = [
+        `១. តម្លៃវិក្កបត្រ (មិនរួម VAT និង PLT)៖ ${invoiceValue.toLocaleString()} រៀល`,
+        `២. អនុវត្តអត្រា ${(rateUsed * 100).toFixed(2)}%`,
+        `៣. អាករសរុប = ${invoiceValue.toLocaleString()} × ${rateUsed} = ${taxAmount.toLocaleString()} រៀល`,
+      ];
+      break;
+    }
+
+    case "accommodation_tax": {
+      const accommodationFee = Math.max(parseFloat(inputs.accommodationFee) || 0, 0);
+      rateUsed = Math.max(parseFloat(inputs.ratePercent) || 0, 0) / 100;
+
+      taxableAmount = accommodationFee;
+      taxAmount = taxableAmount * rateUsed;
+      formulaUsed = "អាករ = ថ្លៃស្នាក់នៅ (រួម ពន្ធទាំងអស់ លើកលែង AT & VAT) × ២%";
+      steps = [
+        `១. ថ្លៃស្នាក់នៅ (រួម ពន្ធទាំងអស់ លើកលែង AT & VAT)៖ ${accommodationFee.toLocaleString()} រៀល`,
+        `២. អនុវត្តអត្រា ${(rateUsed * 100).toFixed(2)}%`,
+        `៣. អាករសរុប = ${accommodationFee.toLocaleString()} × ${rateUsed} = ${taxAmount.toLocaleString()} រៀល`,
+      ];
+      break;
+    }
+
+    case "tax_on_income": {
+      const entityType = inputs.entityType || "corporate";
+      const profit = Math.max(parseFloat(inputs.taxableProfit) || 0, 0);
+
+      if (entityType === "corporate") {
+        rateUsed = 20;
+        taxableAmount = profit;
+        taxAmount = profit * 0.20;
+        formulaUsed = "ពន្ធ = ប្រាក់ចំណេញសុទ្ធ × ២០%";
+        steps = [
+          `១. ប្រាក់ចំណេញសុទ្ធ៖ ${profit.toLocaleString()} រៀល`,
+          `២. អនុវត្តអត្រា ២០% (នីតិបុគ្គលទូទៅ)`,
+          `៣. ពន្ធ = ${profit.toLocaleString()} × ០.២០ = ${taxAmount.toLocaleString()} រៀល`,
+        ];
+      } else if (entityType === "insurance") {
+        rateUsed = 5;
+        taxableAmount = profit;
+        taxAmount = profit * 0.05;
+        formulaUsed = "ពន្ធ = បុព្វលាភធានារ៉ាប់រងសរុប × ៥%";
+        steps = [
+          `១. បុព្វលាភធានារ៉ាប់រង (Gross Premiums)៖ ${profit.toLocaleString()} រៀល`,
+          `២. អនុវត្តអត្រា ៥% (ក្រុមហ៊ុនធានារ៉ាប់រង)`,
+          `៣. ពន្ធ = ${profit.toLocaleString()} × ០.០៥ = ${taxAmount.toLocaleString()} រៀល`,
+        ];
+      } else {
+        // Individual / Sole proprietorship — annual progressive
+        const BRACKETS = [
+          { max: 18_000_000,   rate: 0.00, cumDeduction: 0 },
+          { max: 24_000_000,   rate: 0.05, cumDeduction: 900_000 },
+          { max: 102_000_000,  rate: 0.10, cumDeduction: 2_100_000 },
+          { max: 150_000_000,  rate: 0.15, cumDeduction: 7_200_000 },
+          { max: Infinity,     rate: 0.20, cumDeduction: 14_700_000 },
+        ];
+        const bracket = BRACKETS.find((b) => profit <= b.max);
+        taxableAmount = profit;
+        taxAmount = Math.max(profit * bracket.rate - bracket.cumDeduction, 0);
+        rateUsed = bracket.rate * 100;
+        formulaUsed = "ពន្ធ = (ប្រាក់ចំណេញ × អត្រា) − ការកាត់ប្រចាំជំហ្វាន";
+        steps = [
+          `១. ប្រាក់ចំណេញសុទ្ធប្រចាំឆ្នាំ៖ ${profit.toLocaleString()} រៀល`,
+          `២. ជំហ្វានពន្ធដែលត្រូវ: ${(bracket.rate * 100).toFixed(0)}% (ការកាត់: ${bracket.cumDeduction.toLocaleString()})`,
+          `៣. ពន្ធ = (${profit.toLocaleString()} × ${bracket.rate}) − ${bracket.cumDeduction.toLocaleString()} = ${taxAmount.toLocaleString()} រៀល`,
+        ];
+      }
+      break;
+    }
+
+    case "tax_on_salary": {
+      const grossSalary = Math.max(parseFloat(inputs.grossSalary) || 0, 0);
+      const nssf = Math.max(parseFloat(inputs.nssfContribution) || 0, 0);
+      const hasSpouse = inputs.hasSpouse === "yes" ? 1 : 0;
+      const numChildren = Math.max(parseInt(inputs.numChildren) || 0, 0);
+
+      const familyAllowance = (hasSpouse + numChildren) * 150_000;
+      taxableAmount = Math.max(grossSalary - nssf - familyAllowance, 0);
+
+      const TOS_BRACKETS = [
+        { max: 1_500_000,   rate: 0.00, cumDeduction: 0 },
+        { max: 2_000_000,   rate: 0.05, cumDeduction: 75_000 },
+        { max: 8_500_000,   rate: 0.10, cumDeduction: 175_000 },
+        { max: 12_500_000,  rate: 0.15, cumDeduction: 600_000 },
+        { max: Infinity,    rate: 0.20, cumDeduction: 1_225_000 },
+      ];
+      const bracket = TOS_BRACKETS.find((b) => taxableAmount <= b.max);
+      taxAmount = Math.max(taxableAmount * bracket.rate - bracket.cumDeduction, 0);
+      rateUsed = bracket.rate * 100;
+      formulaUsed = "ពន្ធ = (ប្រាក់ខែសុទ្ធ × អត្រា) − ការកាត់ប្រចាំជំហ្វាន";
+      steps = [
+        `១. ប្រាក់ខែសរុប៖ ${grossSalary.toLocaleString()} រៀល`,
+        `២. ដក NSSF: −${nssf.toLocaleString()} រៀល`,
+        `៣. ដកការលើកលែងក្រឡួត (${hasSpouse > 0 ? "ប្ដីប្រពន្ធ ១" : ""}${numChildren > 0 ? `; កូន ${numChildren}` : ""}): −${familyAllowance.toLocaleString()} រៀល`,
+        `៤. ប្រាក់ខែសុទ្ធ (មូលដ្ឋានគិតពន្ធ)៖ ${taxableAmount.toLocaleString()} រៀល`,
+        `៥. ជំហ្វានពន្ធ: ${(bracket.rate * 100).toFixed(0)}% (ការកាត់: ${bracket.cumDeduction.toLocaleString()})`,
+        `៦. ពន្ធ = (${taxableAmount.toLocaleString()} × ${bracket.rate}) − ${bracket.cumDeduction.toLocaleString()} = ${taxAmount.toLocaleString()} រៀល`,
+      ];
+      break;
+    }
+
+    case "vat": {
+      const supplyValue = Math.max(parseFloat(inputs.supplyValue) || 0, 0);
+      const inputVat = Math.max(parseFloat(inputs.inputVat) || 0, 0);
+      rateUsed = 10;
+
+      const outputVat = supplyValue * 0.10;
+      taxableAmount = supplyValue;
+      taxAmount = Math.max(outputVat - inputVat, 0);
+      formulaUsed = "VAT សុទ្ធ = Output VAT (១០%) − Input VAT";
+      steps = [
+        `១. តម្លៃផ្គត់ផ្គង់ (មិនរួម VAT)៖ ${supplyValue.toLocaleString()} រៀល`,
+        `២. Output VAT = ${supplyValue.toLocaleString()} × ១០% = ${outputVat.toLocaleString()} រៀល`,
+        `៣. ដក Input VAT (ការទិញ): −${inputVat.toLocaleString()} រៀល`,
+        `៤. VAT សុទ្ធដែលត្រូវបង់ = ${taxAmount.toLocaleString()} រៀល`,
+      ];
+      break;
+    }
+
+    case "specific_tax": {
+      const SPECIFIC_TAX_RATES = {
+        cigarettes:          { label: "បារី / ស៊ីហ្គារ",            rate: 0.20 },
+        beer:                { label: "ស្រាបៀរ",                   rate: 0.30 },
+        soft_drinks:         { label: "ភេសជ្ជៈ (មិនមែនស្រា)",      rate: 0.10 },
+        air_tickets:         { label: "សំបុត្រយន្តហោះ",            rate: 0.10 },
+        entertainment:       { label: "សេវាកម្មកំសាន្ត (Karaoke)",  rate: 0.10 },
+        vehicle_under_2000:  { label: "យានយន្ត < 2000cc",           rate: 0.10 },
+        vehicle_2000_3000:   { label: "យានយន្ត 2000–3000cc",        rate: 0.30 },
+        vehicle_over_3000:   { label: "យានយន្ត > 3000cc",           rate: 0.45 },
+      };
+      const supplyTypeKey = inputs.supplyType || "local";
+      const productKey = inputs.productType || "beer";
+      const grossValue = Math.max(parseFloat(inputs.grossValue) || 0, 0);
+      const selected = SPECIFIC_TAX_RATES[productKey] ?? SPECIFIC_TAX_RATES.beer;
+
+      if (supplyTypeKey === "local") {
+        taxableAmount = grossValue * 0.90;
+        formulaUsed = "អាករ = (តម្លៃ × ៩០%) × អត្រា";
+        steps = [
+          `១. តម្លៃលក់ (pre-VAT)៖ ${grossValue.toLocaleString()} រៀល`,
+          `២. មូលដ្ឋានគិតអាករ (x90%)= ${taxableAmount.toLocaleString()} រៀល`,
+        ];
+      } else {
+        taxableAmount = grossValue;
+        formulaUsed = "អាករ = (CIF + ពន្ធគយ) × អត្រា";
+        steps = [
+          `១. CIF + ពន្ធគយ៖ ${grossValue.toLocaleString()} រៀល`,
+        ];
+      }
+      rateUsed = selected.rate * 100;
+      taxAmount = taxableAmount * selected.rate;
+      steps.push(
+        `៣. ប្រភេទ: ${selected.label} — អត្រា ${rateUsed}%`,
+        `៤. អាករ = ${taxableAmount.toLocaleString()} × ${selected.rate} = ${taxAmount.toLocaleString()} រៀល`,
+      );
+      break;
+    }
+
+    case "minimum_tax": {
+      const turnover = Math.max(parseFloat(inputs.annualTurnover) || 0, 0);
+      const netProfit = Math.max(parseFloat(inputs.annualNetProfit) || 0, 0);
+
+      const mt = turnover * 0.01;
+      const toi = netProfit * 0.20;
+      taxableAmount = turnover;
+      taxAmount = Math.max(mt, toi);
+      rateUsed = 1;
+      formulaUsed = "MT = ចំណូលសរុប × ១%; TOI = ចំណេញ × ២០%; បង់ max(MT, TOI)";
+      steps = [
+        `១. ចំណូលសរុបប្រចាំឆ្នាំ (excl. VAT)៖ ${turnover.toLocaleString()} រៀល`,
+        `២. ពន្ធអប្បបរមា (MT) = ${turnover.toLocaleString()} × ១% = ${mt.toLocaleString()} រៀល`,
+        `៣. ប្រាក់ចំណេញសុទ្ធ៖ ${netProfit.toLocaleString()} រៀល`,
+        `៤. ពន្ធលើប្រាក់ចំណូល (TOI) = ${netProfit.toLocaleString()} × ២០% = ${toi.toLocaleString()} រៀល`,
+        `៥. ពន្ធដែលត្រូវបង់ = max(${mt.toLocaleString()}, ${toi.toLocaleString()}) = ${taxAmount.toLocaleString()} រៀល (${mt >= toi ? "MT ខ្ពស់ជាង" : "TOI ខ្ពស់ជាង"})`,
+      ];
+      break;
+    }
+
+    case "withholding_tax": {
+      const WHT_RATES = {
+        services_resident:        { label: "សេវាកម្ម/ប្រឹក្សាយោបល់ (អ្នករស់នៅ)",  rate: 0.15 },
+        royalties_resident:       { label: "រូបិយប័ណ្ណ (Royalties, អ្នករស់នៅ)",    rate: 0.15 },
+        interest_nonbank:         { label: "ការប្រាក់ (មិនមែនធនាគារ, អ្នករស់នៅ)",  rate: 0.15 },
+        rental_resident:          { label: "ការជួល (អ្នករស់នៅ)",                  rate: 0.10 },
+        interest_fixed_deposit:   { label: "ការប្រាក់ (ប្រាក់បញ្ញើ Fixed Term)",   rate: 0.06 },
+        interest_savings:         { label: "ការប្រាក់ (ប្រាក់សន្សំ Savings)",      rate: 0.04 },
+        nonresident_all:          { label: "ប្រភេទទាំងអស់ (អ្នកមិនរស់នៅ)",         rate: 0.14 },
+      };
+      const paymentKey = inputs.paymentType || "rental_resident";
+      const grossAmount = Math.max(parseFloat(inputs.grossAmount) || 0, 0);
+      const selected = WHT_RATES[paymentKey] ?? WHT_RATES.rental_resident;
+
+      rateUsed = selected.rate * 100;
+      taxableAmount = grossAmount;
+      taxAmount = grossAmount * selected.rate;
+      const netAmount = grossAmount - taxAmount;
+      formulaUsed = "WHT = ទំហំការទូទាត់ × អត្រា";
+      steps = [
+        `១. ចំនួនទូទាត់សរុប៖ ${grossAmount.toLocaleString()} រៀល`,
+        `២. ប្រភេទ: ${selected.label} — អត្រា ${rateUsed}%`,
+        `៣. WHT = ${grossAmount.toLocaleString()} × ${selected.rate} = ${taxAmount.toLocaleString()} រៀល`,
+        `៤. ទទួលបានសុទ្ធ = ${grossAmount.toLocaleString()} − ${taxAmount.toLocaleString()} = ${netAmount.toLocaleString()} រៀល`,
+      ];
+      break;
+    }
+
+    case "patent_tax": {
+      const PATENT_FEES = {
+        small:        { label: "អ្នកបង់ពន្ធតូច (Small)",                 fee: 400_000 },
+        medium:       { label: "អ្នកបង់ពន្ធមធ្យម (Medium)",               fee: 1_200_000 },
+        large_under:  { label: "អ្នកបង់ពន្ធធំ — ≤ ១០,០០០ Million KHR",    fee: 3_000_000 },
+        large_over:   { label: "អ្នកបង់ពន្ធធំ — > ១០,០០០ Million KHR",    fee: 5_000_000 },
+      };
+      const sizeKey = inputs.taxpayerSize || "small";
+      const selected = PATENT_FEES[sizeKey] ?? PATENT_FEES.small;
+
+      rateUsed = 0;
+      taxableAmount = 0;
+      taxAmount = selected.fee;
+      formulaUsed = "ពន្ធ = ថ្លៃថេរប្រចាំឆ្នាំតាមប្រភេទ";
+      steps = [
+        `១. ប្រភេទអ្នកបង់ពន្ធ: ${selected.label}`,
+        `២. ពន្ធប្រចាំឆ្នាំ = ${selected.fee.toLocaleString()} រៀល`,
+        `៣. ត្រូវបង់មុន ៣១ មីនា ប្រចាំឆ្នាំ`,
+      ];
+      break;
+    }
+
+    case "transportation_tax": {
+      const FEE_SCHEDULE = {
+        moto_under_125:    { label: "ម៉ូតូ ≤ 125cc",         fee: 10_000 },
+        moto_over_125:     { label: "ម៉ូតូ > 125cc",         fee: 15_000 },
+        car_under_1500:    { label: "រថយន្ត ≤ 1500cc",       fee: 150_000 },
+        car_1501_2500:     { label: "រថយន្ត 1501–2500cc",    fee: 250_000 },
+        car_over_2500:     { label: "រថយន្ត > 2500cc",       fee: 400_000 },
+        light_truck:       { label: "រថយន្តក្រាន់ស្រាល",     fee: 300_000 },
+        heavy_truck:       { label: "រថយន្តក្រាន់ធ្ងន់",     fee: 600_000 },
+        bus:               { label: "រថយន្តក្រុង/បឹស",       fee: 500_000 },
+        boat_under_10t:    { label: "នាវា < 10 តោន",         fee: 200_000 },
+        boat_over_10t:     { label: "នាវា ≥ 10 តោន",         fee: 500_000 },
+      };
+      const vehicleKey = inputs.vehicleType || "car_under_1500";
+      const selected = FEE_SCHEDULE[vehicleKey] ?? FEE_SCHEDULE["car_under_1500"];
+
+      rateUsed = 0;
+      taxableAmount = 0;
+      taxAmount = selected.fee;
+      formulaUsed = "ពន្ធ = ថ្លៃថេរប្រចាំឆ្នាំតាមប្រភេទយានយន្ត (Prakas No. 738)";
+      steps = [
+        `១. ប្រភេទយានយន្ត៖ ${selected.label}`,
+        `២. ពន្ធប្រចាំឆ្នាំថេរ = ${selected.fee.toLocaleString()} រៀល`,
+      ];
+      break;
+    }
+
     default:
       throw new Error(`Unknown calculator type: ${type}`);
   }

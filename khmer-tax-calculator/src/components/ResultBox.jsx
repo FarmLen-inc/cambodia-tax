@@ -36,7 +36,7 @@ export default function ResultBox({ result, onReset }) {
             <div className="mt-6 flex items-center gap-2 bg-white/10 w-fit px-4 py-2 rounded-full backdrop-blur-md">
               <span className="material-symbols-outlined text-sm">verified</span>
               <span className="font-label-md text-label-md">
-                គណនាតាមអត្រាពន្ធ {result.rateUsed}%
+                {result.rateUsed > 0 ? `គណនាតាមអត្រាពន្ធ ${result.rateUsed}%` : "ថ្លៃថេរប្រចាំឆ្នាំ"}
               </span>
             </div>
           </div>
@@ -60,14 +60,16 @@ export default function ResultBox({ result, onReset }) {
               </span>
               <span className="font-bold text-primary">{fmt(result.taxAmount)}</span>
             </div>
-            <div className="flex justify-between items-center">
-              <span className="text-on-surface-variant font-body-md text-body-md">
-                អត្រាពន្ធ
-              </span>
-              <span className="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-md text-label-md">
-                {result.rateUsed}%
-              </span>
-            </div>
+            {result.rateUsed > 0 && (
+              <div className="flex justify-between items-center">
+                <span className="text-on-surface-variant font-body-md text-body-md">
+                  អត្រាពន្ធ
+                </span>
+                <span className="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-md text-label-md">
+                  {result.rateUsed}%
+                </span>
+              </div>
+            )}
           </div>
         </div>
 

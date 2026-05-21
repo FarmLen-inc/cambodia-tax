@@ -88,7 +88,7 @@ export const taxes = [
     calculatorType: "registration_tax",
     nameKm: "ពន្ធប្រថាប់ត្រា",
     nameEn: "Registration Tax",
-    category: "National Tax",
+    category: "Sub-National Tax",
     summary: "ពន្ធ ៤% លើការផ្ទេរកម្មសិទ្ធិអចលនទ្រព្យ យានយន្ត ឬ ០.១% លើការផ្ទេរភាគហ៊ុន និងកិច្ចសន្យា។",
     whoPays: "Buyer or recipient of the transferred asset",
     taxBase: "Higher of contract price or GDT evaluated value (real estate); market value (vehicles); transaction value (shares/contracts)",

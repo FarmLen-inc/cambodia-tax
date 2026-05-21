@@ -1,0 +1,194 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Khmer Tax - Calculator Form</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@600;700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#cfe6f2",
+                        "surface-container-high": "#d5ecf8",
+                        "outline-variant": "#c6c5d4",
+                        "surface-container-highest": "#cfe6f2",
+                        "inverse-surface": "#1e333c",
+                        "on-secondary-fixed": "#000e5e",
+                        "primary-fixed-dim": "#bdc2ff",
+                        "on-primary-fixed-variant": "#343d96",
+                        "secondary-container": "#8999ff",
+                        "on-surface": "#071e27",
+                        "on-tertiary-container": "#9597a2",
+                        "surface-tint": "#4c56af",
+                        "surface-container": "#dbf1fe",
+                        "surface": "#f3faff",
+                        "on-primary-container": "#8690ee",
+                        "surface-container-low": "#e6f6ff",
+                        "inverse-on-surface": "#dff4ff",
+                        "outline": "#767683",
+                        "on-secondary-container": "#182a8e",
+                        "on-primary": "#ffffff",
+                        "background": "#f3faff",
+                        "tertiary-container": "#2c3039",
+                        "secondary": "#4555b7",
+                        "primary-fixed": "#e0e0ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#c7dde9",
+                        "on-tertiary-fixed-variant": "#434750",
+                        "on-primary-fixed": "#000767",
+                        "primary": "#000666",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#181b24",
+                        "secondary-fixed-dim": "#bbc3ff",
+                        "on-surface-variant": "#454652",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#bdc2ff",
+                        "primary-container": "#1a237e",
+                        "tertiary-fixed": "#e0e2ee",
+                        "secondary-fixed": "#dee0ff",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#c4c6d2",
+                        "on-secondary-fixed-variant": "#2c3c9e",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#f3faff",
+                        "on-background": "#071e27",
+                        "tertiary": "#181b23",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "gutter": "16px",
+                        "column-gap": "24px",
+                        "base": "8px",
+                        "margin-desktop": "32px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Public Sans"],
+                        "headline-lg": ["Public Sans"],
+                        "headline-md": ["Public Sans"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.4", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.4", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "1.5", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: theme('colors.background'); color: theme('colors.on-background'); }
+        h1, h2, h3, h4, h5, h6, .font-headline { font-family: 'Public Sans', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.filled { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+<!-- TopNavBar -->
+<nav class="bg-surface-container-lowest dark:bg-inverse-surface shadow-sm sticky top-0 z-50 w-full docked full-width">
+
+</nav>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-3xl mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-24">
+<header class="mb-12 text-center">
+<h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-4">គណនាពន្ធលើប្រាក់បៀវត្ស</h1>
+
+</header>
+<form class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/30 p-6 md:p-10 flex flex-col gap-8">
+<!-- Exchange Rate Info Card -->
+<div class="bg-surface-container rounded-lg p-6 border border-primary-fixed-dim/50 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl filled">currency_exchange</span>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">អត្រាប្តូរប្រាក់ផ្លូវការ (Official Exchange Rate)</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">1 USD = 4,000 KHR</p>
+</div>
+</div>
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-primary-fixed text-primary font-label-md text-[12px] whitespace-nowrap">
+<span class="material-symbols-outlined text-[16px] mr-1">gavel</span> Fixed by Law
+                </span>
+</div>
+<hr class="border-outline-variant/30">
+<!-- Input Fields -->
+<div class="space-y-6">
+<!-- Salary Input -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface flex justify-between" for="base-salary">
+<span class="">ប្រាក់បៀវត្សគោល (Monthly Salary Base)</span>
+<span class="text-outline">USD</span>
+</label>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 pl-4 flex items-center text-outline pointer-events-none font-body-md">$</span>
+<input class="w-full bg-surface rounded-full border-1.5 border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary py-4 pl-10 pr-4 text-body-md font-body-md text-on-surface transition-all duration-200" id="base-salary" placeholder="0.00" type="number">
+</div>
+</div>
+<!-- Allowances Input -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface flex justify-between" for="allowances">
+<span class="">ប្រាក់បំណាច់ជាប់ពន្ធ (Taxable Allowances)</span>
+<span class="text-outline">USD</span>
+</label>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 pl-4 flex items-center text-outline pointer-events-none font-body-md">$</span>
+<input class="w-full bg-surface rounded-full border-1.5 border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary py-4 pl-10 pr-4 text-body-md font-body-md text-on-surface transition-all duration-200" id="allowances" placeholder="0.00" type="number">
+</div>
+</div>
+<!-- Dependents Input (Optional but common for tax) -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface" for="dependents">
+<span class="">សមាជិកគ្រួសារក្នុងបន្ទុក (Dependents)</span>
+</label>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 pl-4 flex items-center text-outline pointer-events-none">
+<span class="material-symbols-outlined">family_restroom</span>
+</span>
+<select class="w-full bg-surface rounded-full border-1.5 border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary py-4 pl-12 pr-10 text-body-md font-body-md text-on-surface transition-all duration-200 appearance-none" id="dependents">
+<option value="0">0 នាក់ (None)</option>
+<option value="1">1 នាក់</option>
+<option value="2">2 នាក់</option>
+<option value="3">3 នាក់</option>
+<option value="4">4+ នាក់</option>
+</select>
+<span class="absolute inset-y-0 right-0 pr-4 flex items-center text-outline pointer-events-none">
+<span class="material-symbols-outlined">expand_more</span>
+</span>
+</div>
+</div>
+</div>
+<!-- Applicaple Tier Info -->
+<div class="bg-surface-container-low rounded-lg p-5 border border-outline-variant/50 flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<h4 class="font-label-md text-label-md text-on-surface">អត្រាពន្ធត្រូវអនុវត្ត (Applicable Tax Rate Tier)</h4>
+<span class="material-symbols-outlined text-outline cursor-help" title="Based on progressive tax brackets">info</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant italic">Will be calculated automatically based on inputs above.</p>
+</div>
+<!-- Action Button -->
+<button class="w-full bg-primary hover:bg-primary-container text-on-primary rounded-full py-4 px-8 font-label-md text-label-md flex justify-center items-center gap-2 transition-colors duration-300 shadow-md hover:shadow-lg mt-4" type="button">
+<span class="">គណនាពន្ធ (Calculate Tax)</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</form>
+</main>
+<!-- Footer -->
+
+
+
+</body></html>

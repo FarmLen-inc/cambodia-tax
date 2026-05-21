@@ -4,14 +4,14 @@ export const taxes = [
     calculatorType: "house_land_rent",
     nameKm: "ពន្ធលើឈ្នួលផ្ទះនិងដី",
     nameEn: "Tax on House and Land Rent",
-    category: "Sub-National Tax",
-    summary: "A tax imposed on the rental of houses and land.",
+    category: "National Tax",
+    summary: "ពន្ធដារដែលត្រូវប្រមូលលើការជួលផ្ទះនិងដី។",
     whoPays: "Property Owner or Landlord",
-    taxBase: "Gross monthly rental income",
-    formula: "Tax = Monthly Rent × Number of Months × Tax Rate",
-    example: "If rent is 1000/month for 12 months with 10% rate: Tax = 1000 × 12 × 0.10 = 1200",
-    notes: "Rate varies based on property type or location. (To verify from class material)",
-    ratePercent: 10 // Example default, can be overridden
+    taxBase: "Gross rental income (monthly rent × number of months)",
+    formula: "ពន្ធ = ប្រាក់ជួលប្រចាំខែ × ចំនួនខែ × អត្រាពន្ធ",
+    example: "ប្រាក់ជួល ១,០០០/ខែ × ១២ ខែ × ១០% = ១,២០០",
+    notes: "អត្រា ១០% សម្រាប់និវាសនជនកម្ពុជា (Prakas No. 578 MEF.PrK.GDT, September 2024)។",
+    ratePercent: 10,
   },
   {
     id: "unused_land",
@@ -19,14 +19,13 @@ export const taxes = [
     nameKm: "ពន្ធលើដីធ្លីមិនប្រើប្រាស់",
     nameEn: "Tax on Unused Land",
     category: "Sub-National Tax",
-    summary: "A tax on vacant land to encourage usage or development.",
+    summary: "ពន្ធប្រចាំឆ្នាំលើដីទំនេរ ដើម្បីលើកទឹកចិត្តឱ្យមានការប្រើប្រាស់ ឬការអភិវឌ្ឍ។",
     whoPays: "Land Owner",
-    taxBase: "Value of land minus exempted area",
-    formula: "Tax = (Land Area - Exempted Area) × Value per m² × Tax Rate",
-    example: "Land area 2000sqm, exempt 1200sqm, value 1000/sqm, rate 2%: Tax = (2000 - 1200) × 1000 × 0.02",
-    notes: "Rate is generally 2% of the tax base. (To verify from class material)",
+    taxBase: "Total land market value",
+    formula: "ពន្ធ = តម្លៃទីផ្សារដីសរុប × ២%",
+    example: "ដីមានតម្លៃ ៥០,០០០,០០០ រៀល × ២% = ១,០០០,០០០ រៀល",
+    notes: "អត្រា ២% លើតម្លៃទីផ្សារដីសរុប (Prakas No. 573 MEF.PrK.GDT, September 2024)។",
     ratePercent: 2,
-    defaultExemptedArea: 1200 // sq meters
   },
   {
     id: "immovable_property",
@@ -34,15 +33,14 @@ export const taxes = [
     nameKm: "ពន្ធលើអចលនទ្រព្យ",
     nameEn: "Tax on Immovable Property",
     category: "Sub-National Tax",
-    summary: "Annual recurring tax on properties like land, houses, and buildings.",
+    summary: "ពន្ធប្រចាំឆ្នាំលើអចលនទ្រព្យដែលមានតម្លៃលើស ១០០,០០០,០០០ រៀល។",
     whoPays: "Property Owner",
-    taxBase: "Assessed value of property minus exemption amount",
-    formula: "Tax = (Property Value - Exemption Amount) × Tax Rate",
-    example: "Property value 1000000, Exemption 250000, Rate 0.1%: Tax = (1000000 - 250000) × 0.001",
-    notes: "Typical rate is 0.1%. Typical exemption is 100,000,000 KHR. (To verify from class material)",
+    taxBase: "(Property Value × 80%) − 100,000,000 KHR exemption",
+    formula: "ពន្ធ = ((តម្លៃអចលនទ្រព្យ × ៨០%) − ១០០,០០០,០០០ រៀល) × ០.១%",
+    example: "តម្លៃអចលន ២០០,០០០,០០០ → (១៦០,០០០,០០០ − ១០០,០០០,០០០) × ០.១% = ៦០,០០០ រៀល",
+    notes: "អត្រា ០.១% — ការលើកលែង ១០០,០០០,០០០ រៀល កំណត់ដោយច្បាប់ (Prakas No. 576 MEF.PrK.GDT, September 2024)។",
     ratePercent: 0.1,
-    defaultExemptionAmount: 100000000 // In KHR usually, but generic here
-  }
+  },
 ];
 
 export const getTaxById = (id) => taxes.find((t) => t.id === id);

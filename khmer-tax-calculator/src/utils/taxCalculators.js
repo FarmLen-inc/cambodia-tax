@@ -313,13 +313,13 @@ export const calculateTax = (type, inputs) => {
 
     case "withholding_tax": {
       const WHT_RATES = {
-        services_resident:        { label: "សេវាកម្ម/ប្រឹក្សាយោបល់ (អ្នករស់នៅ)",  rate: 0.15 },
-        royalties_resident:       { label: "រូបិយប័ណ្ណ (Royalties, អ្នករស់នៅ)",    rate: 0.15 },
-        interest_nonbank:         { label: "ការប្រាក់ (មិនមែនធនាគារ, អ្នករស់នៅ)",  rate: 0.15 },
-        rental_resident:          { label: "ការជួល (អ្នករស់នៅ)",                  rate: 0.10 },
+        services_resident:        { label: "សេវាកម្ម/ប្រឹក្សាយោបល់ (និវាសនជន)",  rate: 0.15 },
+        royalties_resident:       { label: "រូបិយប័ណ្ណ (Royalties, និវាសនជន)",    rate: 0.15 },
+        interest_nonbank:         { label: "ការប្រាក់ (មិនមែនធនាគារ, និវាសនជន)",  rate: 0.15 },
+        rental_resident:          { label: "ការជួល (និវាសនជន)",                  rate: 0.10 },
         interest_fixed_deposit:   { label: "ការប្រាក់ (ប្រាក់បញ្ញើ Fixed Term)",   rate: 0.06 },
         interest_savings:         { label: "ការប្រាក់ (ប្រាក់សន្សំ Savings)",      rate: 0.04 },
-        nonresident_all:          { label: "ប្រភេទទាំងអស់ (អ្នកមិនរស់នៅ)",         rate: 0.14 },
+        nonresident_all:          { label: "ប្រភេទទាំងអស់ (អនិវាសនជន)",         rate: 0.14 },
       };
       const paymentKey = inputs.paymentType || "rental_resident";
       const grossAmount = Math.max(parseFloat(inputs.grossAmount) || 0, 0);

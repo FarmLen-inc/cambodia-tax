@@ -57,11 +57,11 @@ const FIELDS = {
       { value: "khmer_top",   label: "ភាសាខ្មែរខ្ពស់ជាង (ត្រឹមត្រូវ) — ×១.០" },
       { value: "foreign_top", label: "ភាសាបរទេសខ្ពស់ជាង (ពិន័យ) — ×២.០" },
     ]},
-    { name: "signWidth",  label: "ទទឹងផ្ទាំង", unit: "មែត្រ", icon: "width",  type: "number" },
-    { name: "signHeight", label: "កម្ពស់ផ្ទាំង", unit: "មែត្រ", icon: "height", type: "number" },
+    { name: "signWidth",  label: "ទទឹងផ្ទាំង", unit: "ម៉ែត្រ", icon: "width",  type: "number" },
+    { name: "signHeight", label: "កម្ពស់ផ្ទាំង", unit: "ម៉ែត្រ", icon: "height", type: "number" },
   ],
   tax_on_income: [
-    { name: "entityType", label: "ប្រភេទអ្នកបង់ពន្ធ", icon: "business", type: "select", options: [
+    { name: "entityType", label: "ប្រភេទនៃអ្នកបង់ពន្ធ", icon: "business", type: "select", options: [
       { value: "corporate",    label: "នីតិបុគ្គលទូទៅ (Corporate) — ២០%" },
       { value: "insurance",    label: "ក្រុមហ៊ុនធានារ៉ាប់រង (Insurance) — ៥%" },
       { value: "individual",   label: "បុគ្គល/ម្ចាស់អាជីវកម្ម (Individual) — ០–២០%" },
@@ -104,18 +104,18 @@ const FIELDS = {
   ],
   withholding_tax: [
     { name: "paymentType", label: "ប្រភេទការទូទាត់", icon: "swap_horiz", type: "select", options: [
-      { value: "services_resident",      label: "សេវាកម្ម/ប្រឹក្សា (អ្នករស់នៅ) — ១៥%" },
-      { value: "royalties_resident",     label: "រូបិយប័ណ្ណ Royalties (អ្នករស់នៅ) — ១៥%" },
+      { value: "services_resident",      label: "សេវាកម្ម/ប្រឹក្សា (និវាសនជន) — ១៥%" },
+      { value: "royalties_resident",     label: "រូបិយប័ណ្ណ Royalties (និវាសនជន) — ១៥%" },
       { value: "interest_nonbank",       label: "ការប្រាក់ (មិនមែនធនាគារ) — ១៥%" },
-      { value: "rental_resident",        label: "ការជួល Property (អ្នករស់នៅ) — ១០%" },
+      { value: "rental_resident",        label: "ការជួល Property (និវាសនជន) — ១០%" },
       { value: "interest_fixed_deposit", label: "ការប្រាក់ Fixed Deposit — ៦%" },
       { value: "interest_savings",       label: "ការប្រាក់ Savings Account — ៤%" },
-      { value: "nonresident_all",        label: "ប្រភេទទាំងអស់ (អ្នកមិនរស់នៅ) — ១៤%" },
+      { value: "nonresident_all",        label: "ប្រភេទទាំងអស់ (អនិវាសនជន) — ១៤%" },
     ]},
     { name: "grossAmount", label: "ទំហំការទូទាត់សរុប", unit: "រៀល", icon: "payments", type: "number" },
   ],
   patent_tax: [
-    { name: "taxpayerSize", label: "ទំហំអ្នកបង់ពន្ធ", icon: "corporate_fare", type: "select", options: [
+    { name: "taxpayerSize", label: "ប្រភេទពន្ធ", icon: "corporate_fare", type: "select", options: [
       { value: "small",       label: "តូច (Small) — ៤០០,០០០ រៀល/ឆ្នាំ" },
       { value: "medium",      label: "មធ្យម (Medium) — ១,២០០,០០០ រៀល/ឆ្នាំ" },
       { value: "large_under", label: "ធំ — ≤ ១០,០០០ Million KHR — ៣,០០០,០០០ រៀល/ឆ្នាំ" },
@@ -160,6 +160,8 @@ export default function CalculatorForm({ tax, onCalculate }) {
     ...(SELECT_DEFAULTS[tax.calculatorType] || {}),
   });
   const [error, setError] = useState("");
+  const [currency, setCurrency] = useState("KHR");
+  const [exchangeRate, setExchangeRate] = useState("4000");
 
   const formatNumber = (val) => {
     if (val === undefined || val === null || val === "") return "";
@@ -181,6 +183,8 @@ export default function CalculatorForm({ tax, onCalculate }) {
     }
   };
 
+  const fields = FIELDS[tax.calculatorType] || [];
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setError("");
@@ -190,10 +194,19 @@ export default function CalculatorForm({ tax, onCalculate }) {
       setError("សូមបំពេញគ្រប់វាលដែលតម្រូវ។");
       return;
     }
-    onCalculate(tax.calculatorType, inputs);
-  };
 
-  const fields = FIELDS[tax.calculatorType] || [];
+    const payload = { ...inputs };
+    if (currency === "USD") {
+      const rate = parseFloat(exchangeRate) || 4000;
+      fields.forEach((f) => {
+        if (f.unit === "រៀល" && payload[f.name] !== undefined && payload[f.name] !== "") {
+          payload[f.name] = (parseFloat(payload[f.name]) * rate).toString();
+        }
+      });
+    }
+
+    onCalculate(tax.calculatorType, payload);
+  };
 
   return (
     <div>
@@ -232,6 +245,45 @@ export default function CalculatorForm({ tax, onCalculate }) {
           </span>
         </div>
 
+        {/* Currency Switcher */}
+        <div className="bg-surface-container-lowest rounded-lg p-5 border border-primary/20 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div>
+            <h3 className="font-label-md text-label-md text-on-surface mb-1">រូបិយប័ណ្ណបញ្ចូល (Input Currency)</h3>
+            <p className="font-body-sm text-body-sm text-on-surface-variant">
+              ការគណនាផ្លូវការនឹងបំប្លែងទៅជា "រៀល" ដោយស្វ័យប្រវត្តិ។
+            </p>
+          </div>
+          <div className="flex bg-surface border border-outline-variant rounded-full p-1">
+            <button type="button" onClick={() => setCurrency("KHR")} className={`px-5 py-2 rounded-full font-label-md text-label-md transition-colors ${currency === "KHR" ? "bg-primary text-on-primary shadow-sm" : "text-on-surface hover:bg-surface-variant"}`}>៛ KHR</button>
+            <button type="button" onClick={() => setCurrency("USD")} className={`px-5 py-2 rounded-full font-label-md text-label-md transition-colors ${currency === "USD" ? "bg-primary text-on-primary shadow-sm" : "text-on-surface hover:bg-surface-variant"}`}>$ USD</button>
+          </div>
+        </div>
+
+        {currency === "USD" && (
+          <div className="flex flex-col gap-2">
+            <label className="font-label-md text-label-md text-on-surface flex justify-between">
+              <span>អត្រាប្តូរប្រាក់ (Exchange Rate)</span>
+              <span className="text-outline">៛/USD</span>
+            </label>
+            <div className="relative">
+              <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-outline pointer-events-none z-10">
+                <span className="material-symbols-outlined text-[20px]">currency_exchange</span>
+              </span>
+              <input
+                className="w-full bg-surface rounded-full border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary py-4 pl-10 pr-4 text-body-md font-body-md text-on-surface outline-none transition-all duration-200"
+                type="text"
+                inputMode="decimal"
+                value={formatNumber(exchangeRate)}
+                onChange={(e) => {
+                  const raw = e.target.value.replace(/\s/g, "");
+                  if (raw === "" || /^\d*\.?\d*$/.test(raw)) setExchangeRate(raw);
+                }}
+                required
+              />
+            </div>
+          </div>
+        )}
+
         <hr className="border-outline-variant/30" />
 
         {/* Error */}
@@ -248,7 +300,7 @@ export default function CalculatorForm({ tax, onCalculate }) {
             <div key={f.name} className="flex flex-col gap-2">
               <label className="font-label-md text-label-md text-on-surface flex justify-between">
                 <span>{f.label}</span>
-                {f.unit && <span className="text-outline">{f.unit}</span>}
+                {f.unit && <span className="text-outline">{f.unit === "រៀល" && currency === "USD" ? "USD" : f.unit}</span>}
               </label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-outline pointer-events-none z-10">

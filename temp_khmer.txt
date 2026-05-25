@@ -1,0 +1,314 @@
+khmer-tax-calculator/src/app/taxes/[id]/TaxDetailClient.jsx:16:          <h1 className="font-headline-md text-headline-md text-on-background mb-4">រកមិនឃើញពន្ធ</h1>
+khmer-tax-calculator/src/app/taxes/[id]/TaxDetailClient.jsx:17:          <Link href="/" className="text-primary hover:text-secondary font-label-md text-label-md">← ត្រឡប់ទៅទំព័រដើម</Link>
+khmer-tax-calculator/src/app/taxes/[id]/TaxDetailClient.jsx:33:          ត្រឡប់ទៅទំព័រដើម
+khmer-tax-calculator/src/app/layout.tsx:5:  title: "ប្រព័ន្ធគណនាពន្ធ - ទំព័រដើម",
+khmer-tax-calculator/src/app/layout.tsx:6:  description: "ឧបករណ៍អប់រំសម្រាប់គណនាពន្ធនៅកម្ពុជា។",
+khmer-tax-calculator/src/app/page.tsx:28:    km: "ថ្នាក់ជាតិ",
+khmer-tax-calculator/src/app/page.tsx:34:    km: "ថ្នាក់ក្រោមជាតិ",
+khmer-tax-calculator/src/app/page.tsx:71:                  placeholder="ស្វែងរក..."
+khmer-tax-calculator/src/app/page.tsx:80:              <button onClick={() => toggle("National Tax")} className={`font-label-md text-label-md transition-colors whitespace-nowrap ${filter === "National Tax" ? "text-secondary underline underline-offset-4" : "text-primary hover:text-secondary"}`}>ថ្នាក់ជាតិ</button>
+khmer-tax-calculator/src/app/page.tsx:81:              <button onClick={() => toggle("Sub-National Tax")} className={`font-label-md text-label-md transition-colors whitespace-nowrap ${filter === "Sub-National Tax" ? "text-secondary underline underline-offset-4" : "text-primary hover:text-secondary"}`}>ថ្នាក់ក្រោមជាតិ</button>
+khmer-tax-calculator/src/app/page.tsx:87:              <span className="material-symbols-outlined text-[14px]">public</span>ថ្នាក់ជាតិ
+khmer-tax-calculator/src/app/page.tsx:90:              <span className="material-symbols-outlined text-[14px]">map</span>ថ្នាក់ក្រោមជាតិ
+khmer-tax-calculator/src/app/page.tsx:103:              <span className="font-label-md text-label-md text-secondary">សម្រាប់គោលបំណងអប់រំប៉ុណ្ណោះ</span>
+khmer-tax-calculator/src/app/page.tsx:106:              ប្រព័ន្ធគណនាពន្ធកម្ពុជា
+khmer-tax-calculator/src/app/page.tsx:109:              ស្វែងយល់ពីរបៀបគណនាពន្ធផ្សេងៗនៅកម្ពុជា តាមរយៈឧបករណ៍គណនាដែលងាយស្រួលប្រើ និងមានភាពត្រឹមត្រូវ។ ឧបករណ៍នេះបង្កើតឡើងសម្រាប់ជាជំនួយស្មារតី និងការសិក្សាតែប៉ុណ្ណោះ។
+khmer-tax-calculator/src/app/page.tsx:116:                ចាប់ផ្តើមគណនា
+khmer-tax-calculator/src/app/page.tsx:136:              ឧបករណ៍គណនាពន្ធ
+khmer-tax-calculator/src/app/page.tsx:142:                រកមិនឃើញពន្ធដែលអ្នកស្វែងរកទេ!
+khmer-tax-calculator/src/app/page.tsx:178:                    គណនាពន្ធ
+khmer-tax-calculator/src/app/page.tsx:193:              <span className="text-headline-md font-headline-md text-on-tertiary font-black">ប្រព័ន្ធគណនាពន្ធ</span>
+khmer-tax-calculator/src/app/page.tsx:195:                រក្សាសិទ្ធិគ្រប់យ៉ាង © ២០២៦ ប្រព័ន្ធគណនាពន្ធកម្ពុជា។
+khmer-tax-calculator/src/app/page.tsx:200:                ឧបករណ៍គណនាពន្ធអប់រំសម្រាប់ប្រទេសកម្ពុជា។ មិនមែនជាដំបូន្មានផ្នែកច្បាប់ទេ។
+khmer-tax-calculator/src/utils/taxCalculators.js:16:      formulaUsed = "ពន្ធ = ប្រាក់ជួលប្រចាំខែ × ចំនួនខែ × អត្រាពន្ធ";
+khmer-tax-calculator/src/utils/taxCalculators.js:18:        `១. ប្រាក់ជួលប្រចាំខែ៖ ${rent.toLocaleString()}`,
+khmer-tax-calculator/src/utils/taxCalculators.js:19:        `២. គុណនឹងចំនួនខែ (${months}) ដើម្បីបានមូលដ្ឋានគិតពន្ធ៖ ${taxableAmount.toLocaleString()}`,
+khmer-tax-calculator/src/utils/taxCalculators.js:20:        `៣. អនុវត្តអត្រាពន្ធ ${(rateUsed * 100).toFixed(2)}%`,
+khmer-tax-calculator/src/utils/taxCalculators.js:21:        `៤. ពន្ធសរុប = ${taxableAmount.toLocaleString()} × ${rateUsed} = ${taxAmount.toLocaleString()}`,
+khmer-tax-calculator/src/utils/taxCalculators.js:33:      formulaUsed = "ពន្ធ = តម្លៃទីផ្សារដីសរុប × អត្រាពន្ធ (២%)";
+khmer-tax-calculator/src/utils/taxCalculators.js:35:        `១. តម្លៃទីផ្សារដីសរុប៖ ${marketValue.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:36:        `២. អនុវត្តអត្រាពន្ធ ${(rateUsed * 100).toFixed(2)}%`,
+khmer-tax-calculator/src/utils/taxCalculators.js:37:        `៣. ពន្ធសរុប = ${marketValue.toLocaleString()} × ${rateUsed} = ${taxAmount.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:51:      formulaUsed = "ពន្ធ = ((តម្លៃអចលនទ្រព្យ × ៨០%) − ១០០,០០០,០០០ រៀល) × ០.១%";
+khmer-tax-calculator/src/utils/taxCalculators.js:53:        `១. តម្លៃអចលនទ្រព្យ៖ ${propertyValue.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:54:        `២. គណនាតម្លៃវាយតម្លៃ (៨០%)៖ ${propertyValue.toLocaleString()} × ០.៨ = ${assessedValue.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:55:        `៣. ដកការលើកលែង ១០០,០០០,០០០ រៀល៖ ${assessedValue.toLocaleString()} − ១០០,០០០,០០០ = ${taxableAmount.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:56:        `៤. អនុវត្តអត្រាពន្ធ ${(rateUsed * 100).toFixed(2)}%`,
+khmer-tax-calculator/src/utils/taxCalculators.js:57:        `៥. ពន្ធសរុប = ${taxableAmount.toLocaleString()} × ${rateUsed} = ${taxAmount.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:68:      formulaUsed = "អាករ = តម្លៃវិក្កបត្រ (មិនរួម VAT និង PLT) × ៥%";
+khmer-tax-calculator/src/utils/taxCalculators.js:70:        `១. តម្លៃវិក្កបត្រ (មិនរួម VAT និង PLT)៖ ${invoiceValue.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:71:        `២. អនុវត្តអត្រា ${(rateUsed * 100).toFixed(2)}%`,
+khmer-tax-calculator/src/utils/taxCalculators.js:72:        `៣. អាករសរុប = ${invoiceValue.toLocaleString()} × ${rateUsed} = ${taxAmount.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:83:      formulaUsed = "អាករ = ថ្លៃស្នាក់នៅ (រួម ពន្ធទាំងអស់ លើកលែង AT & VAT) × ២%";
+khmer-tax-calculator/src/utils/taxCalculators.js:85:        `១. ថ្លៃស្នាក់នៅ (រួម ពន្ធទាំងអស់ លើកលែង AT & VAT)៖ ${accommodationFee.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:86:        `២. អនុវត្តអត្រា ${(rateUsed * 100).toFixed(2)}%`,
+khmer-tax-calculator/src/utils/taxCalculators.js:87:        `៣. អាករសរុប = ${accommodationFee.toLocaleString()} × ${rateUsed} = ${taxAmount.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:94:        real_estate: { label: "អចលនទ្រព្យ (ដី/ផ្ទះ)",            rate: 0.04, useMax: true  },
+khmer-tax-calculator/src/utils/taxCalculators.js:95:        vehicle:     { label: "យានយន្ត / មធ្យោបាយដឹកជញ្ជូន",    rate: 0.04, useMax: false },
+khmer-tax-calculator/src/utils/taxCalculators.js:96:        shares:      { label: "ភាគហ៊ុន (Corporate Shares)",       rate: 0.001, useMax: false },
+khmer-tax-calculator/src/utils/taxCalculators.js:97:        contract:    { label: "កិច្ចសន្យារដ្ឋ/សាធារណៈ",           rate: 0.001, useMax: false },
+khmer-tax-calculator/src/utils/taxCalculators.js:108:        ? "ពន្ធ = max(តម្លៃកិច្ចសន្យា, តម្លៃ GDT) × ៤%"
+khmer-tax-calculator/src/utils/taxCalculators.js:109:        : `ពន្ធ = តម្លៃ × ${rateUsed * 100}%`;
+khmer-tax-calculator/src/utils/taxCalculators.js:111:        `១. ប្រភេទផ្ទេរ: ${selected.label}`,
+khmer-tax-calculator/src/utils/taxCalculators.js:114:              `២. តម្លៃកិច្ចសន្យា: ${contractValue.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:115:              `៣. តម្លៃ GDT: ${gdtValue.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:116:              `៤. មូលដ្ឋានគិតពន្ធ = max(${contractValue.toLocaleString()}, ${gdtValue.toLocaleString()}) = ${taxableAmount.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:117:              `៥. ពន្ធ = ${taxableAmount.toLocaleString()} × ${rateUsed * 100}% = ${taxAmount.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:120:              `២. តម្លៃទ្រព្យ/ភាគហ៊ុន: ${contractValue.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:121:              `៣. ពន្ធ = ${contractValue.toLocaleString()} × ${rateUsed * 100}% = ${taxAmount.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:130:        unlit:     { label: "ផ្ទាំងគ្មានពន្លឺ (Unlit)",              rate: 20_000 },
+khmer-tax-calculator/src/utils/taxCalculators.js:131:        lit:       { label: "ផ្ទាំងមានពន្លឺ (Illuminated)",          rate: 40_000 },
+khmer-tax-calculator/src/utils/taxCalculators.js:132:        billboard: { label: "ផ្ទាំងធំ/ផ្លូវ (Large Billboard)",       rate: 80_000 },
+khmer-tax-calculator/src/utils/taxCalculators.js:135:        khmer_top:   { label: "ភាសាខ្មែរខ្ពស់ជាង (ត្រឹមត្រូវ)",     coef: 1.0 },
+khmer-tax-calculator/src/utils/taxCalculators.js:136:        foreign_top: { label: "ភាសាបរទេសខ្ពស់ជាង (ពិន័យ ×២)",        coef: 2.0 },
+khmer-tax-calculator/src/utils/taxCalculators.js:149:      formulaUsed = "ពន្ធ = ទទឹង × កម្ពស់ × អត្រា/m² × មេគុណទីតាំងភាសា";
+khmer-tax-calculator/src/utils/taxCalculators.js:151:        `១. ផ្ទៃផ្ទាំង = ${width} × ${height} = ${area.toLocaleString()} m²`,
+khmer-tax-calculator/src/utils/taxCalculators.js:152:        `២. ប្រភេទ: ${selectedSign.label} — ${selectedSign.rate.toLocaleString()} រៀល/m²`,
+khmer-tax-calculator/src/utils/taxCalculators.js:153:        `៣. ទីតាំងភាសា: ${selectedLang.label} (×${selectedLang.coef})`,
+khmer-tax-calculator/src/utils/taxCalculators.js:154:        `៤. ពន្ធ = ${area.toLocaleString()} × ${selectedSign.rate.toLocaleString()} × ${selectedLang.coef} = ${taxAmount.toLocaleString()} រៀល/ឆ្នាំ`,
+khmer-tax-calculator/src/utils/taxCalculators.js:167:        formulaUsed = "ពន្ធ = ប្រាក់ចំណេញសុទ្ធ × ២០%";
+khmer-tax-calculator/src/utils/taxCalculators.js:169:          `១. ប្រាក់ចំណេញសុទ្ធ៖ ${profit.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:170:          `២. អនុវត្តអត្រា ២០% (នីតិបុគ្គលទូទៅ)`,
+khmer-tax-calculator/src/utils/taxCalculators.js:171:          `៣. ពន្ធ = ${profit.toLocaleString()} × ០.២០ = ${taxAmount.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:177:        formulaUsed = "ពន្ធ = បុព្វលាភធានារ៉ាប់រងសរុប × ៥%";
+khmer-tax-calculator/src/utils/taxCalculators.js:179:          `១. បុព្វលាភធានារ៉ាប់រង (Gross Premiums)៖ ${profit.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:180:          `២. អនុវត្តអត្រា ៥% (ក្រុមហ៊ុនធានារ៉ាប់រង)`,
+khmer-tax-calculator/src/utils/taxCalculators.js:181:          `៣. ពន្ធ = ${profit.toLocaleString()} × ០.០៥ = ${taxAmount.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:196:        formulaUsed = "ពន្ធ = (ប្រាក់ចំណេញ × អត្រា) − ការកាត់ប្រចាំជំហ្វាន";
+khmer-tax-calculator/src/utils/taxCalculators.js:198:          `១. ប្រាក់ចំណេញសុទ្ធប្រចាំឆ្នាំ៖ ${profit.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:199:          `២. ជំហ្វានពន្ធដែលត្រូវ: ${(bracket.rate * 100).toFixed(0)}% (ការកាត់: ${bracket.cumDeduction.toLocaleString()})`,
+khmer-tax-calculator/src/utils/taxCalculators.js:200:          `៣. ពន្ធ = (${profit.toLocaleString()} × ${bracket.rate}) − ${bracket.cumDeduction.toLocaleString()} = ${taxAmount.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:225:      formulaUsed = "ពន្ធ = (ប្រាក់ខែសុទ្ធ × អត្រា) − ការកាត់កងតាមកាំពន្ធ";
+khmer-tax-calculator/src/utils/taxCalculators.js:227:        `១. ប្រាក់ខែសរុប៖ ${grossSalary.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:228:        `២. ដក NSSF: −${nssf.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:229:        `៣. ដកការកាត់កងអ្នកនៅក្នុងបន្ទុក (${hasSpouse > 0 ? "សហព័ទ្ធ ១" : ""}${numChildren > 0 ? `; កូន ${numChildren}` : ""}): −${familyAllowance.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:230:        `៤. ប្រាក់ខែសុទ្ធ (មូលដ្ឋានគិតពន្ធ)៖ ${taxableAmount.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:231:        `៥. កាំពន្ធ: ${(bracket.rate * 100).toFixed(0)}% (ការកាត់: ${bracket.cumDeduction.toLocaleString()})`,
+khmer-tax-calculator/src/utils/taxCalculators.js:232:        `៦. ពន្ធ = (${taxableAmount.toLocaleString()} × ${bracket.rate}) − ${bracket.cumDeduction.toLocaleString()} = ${taxAmount.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:245:      formulaUsed = "VAT សុទ្ធ = Output VAT (១០%) − Input VAT";
+khmer-tax-calculator/src/utils/taxCalculators.js:247:        `១. តម្លៃផ្គត់ផ្គង់ (មិនរួម VAT)៖ ${supplyValue.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:248:        `២. Output VAT = ${supplyValue.toLocaleString()} × ១០% = ${outputVat.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:249:        `៣. ដក Input VAT (ការទិញ): −${inputVat.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:250:        `៤. VAT សុទ្ធដែលត្រូវបង់ = ${taxAmount.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:257:        cigarettes:          { label: "បារី / ស៊ីហ្គារ",            rate: 0.20 },
+khmer-tax-calculator/src/utils/taxCalculators.js:258:        beer:                { label: "ស្រាបៀរ",                   rate: 0.30 },
+khmer-tax-calculator/src/utils/taxCalculators.js:259:        soft_drinks:         { label: "ភេសជ្ជៈ (មិនមែនស្រា)",      rate: 0.10 },
+khmer-tax-calculator/src/utils/taxCalculators.js:260:        air_tickets:         { label: "សំបុត្រយន្តហោះ",            rate: 0.10 },
+khmer-tax-calculator/src/utils/taxCalculators.js:261:        entertainment:       { label: "សេវាកម្មកំសាន្ត (Karaoke)",  rate: 0.10 },
+khmer-tax-calculator/src/utils/taxCalculators.js:262:        vehicle_under_2000:  { label: "យានយន្ត < 2000cc",           rate: 0.10 },
+khmer-tax-calculator/src/utils/taxCalculators.js:263:        vehicle_2000_3000:   { label: "យានយន្ត 2000–3000cc",        rate: 0.30 },
+khmer-tax-calculator/src/utils/taxCalculators.js:264:        vehicle_over_3000:   { label: "យានយន្ត > 3000cc",           rate: 0.45 },
+khmer-tax-calculator/src/utils/taxCalculators.js:273:        formulaUsed = "អាករ = (តម្លៃ × ៩០%) × អត្រា";
+khmer-tax-calculator/src/utils/taxCalculators.js:275:          `១. តម្លៃលក់ (pre-VAT)៖ ${grossValue.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:276:          `២. មូលដ្ឋានគិតអាករ (x90%)= ${taxableAmount.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:280:        formulaUsed = "អាករ = (CIF + ពន្ធគយ) × អត្រា";
+khmer-tax-calculator/src/utils/taxCalculators.js:282:          `១. CIF + ពន្ធគយ៖ ${grossValue.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:288:        `៣. ប្រភេទ: ${selected.label} — អត្រា ${rateUsed * 100}%`,
+khmer-tax-calculator/src/utils/taxCalculators.js:289:        `៤. អាករ = ${taxableAmount.toLocaleString()} × ${selected.rate} = ${taxAmount.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:303:      formulaUsed = "MT = ចំណូលសរុប × ១%; TOI = ចំណេញ × ២០%; បង់ max(MT, TOI)";
+khmer-tax-calculator/src/utils/taxCalculators.js:305:        `១. ចំណូលសរុបប្រចាំឆ្នាំ (excl. VAT)៖ ${turnover.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:306:        `២. ពន្ធអប្បបរមា (MT) = ${turnover.toLocaleString()} × ១% = ${mt.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:307:        `៣. ប្រាក់ចំណេញសុទ្ធ៖ ${netProfit.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:308:        `៤. ពន្ធលើប្រាក់ចំណូល (TOI) = ${netProfit.toLocaleString()} × ២០% = ${toi.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:309:        `៥. ពន្ធដែលត្រូវបង់ = max(${mt.toLocaleString()}, ${toi.toLocaleString()}) = ${taxAmount.toLocaleString()} រៀល (${mt >= toi ? "MT ខ្ពស់ជាង" : "TOI ខ្ពស់ជាង"})`,
+khmer-tax-calculator/src/utils/taxCalculators.js:316:        services_resident:        { label: "សេវាកម្ម/ប្រឹក្សាយោបល់ (និវាសនជន)",  rate: 0.15 },
+khmer-tax-calculator/src/utils/taxCalculators.js:317:        royalties_resident:       { label: "រូបិយប័ណ្ណ (Royalties, និវាសនជន)",    rate: 0.15 },
+khmer-tax-calculator/src/utils/taxCalculators.js:318:        interest_nonbank:         { label: "ការប្រាក់ (មិនមែនធនាគារ, និវាសនជន)",  rate: 0.15 },
+khmer-tax-calculator/src/utils/taxCalculators.js:319:        rental_resident:          { label: "ការជួល (និវាសនជន)",                  rate: 0.10 },
+khmer-tax-calculator/src/utils/taxCalculators.js:320:        interest_fixed_deposit:   { label: "ការប្រាក់ (ប្រាក់បញ្ញើ Fixed Term)",   rate: 0.06 },
+khmer-tax-calculator/src/utils/taxCalculators.js:321:        interest_savings:         { label: "ការប្រាក់ (ប្រាក់សន្សំ Savings)",      rate: 0.04 },
+khmer-tax-calculator/src/utils/taxCalculators.js:322:        nonresident_all:          { label: "ប្រភេទទាំងអស់ (អនិវាសនជន)",         rate: 0.14 },
+khmer-tax-calculator/src/utils/taxCalculators.js:332:      formulaUsed = "WHT = ទំហំការទូទាត់ × អត្រា";
+khmer-tax-calculator/src/utils/taxCalculators.js:334:        `១. ចំនួនទូទាត់សរុប៖ ${grossAmount.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:335:        `២. ប្រភេទ: ${selected.label} — អត្រា ${rateUsed * 100}%`,
+khmer-tax-calculator/src/utils/taxCalculators.js:336:        `៣. WHT = ${grossAmount.toLocaleString()} × ${selected.rate} = ${taxAmount.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:337:        `៤. ទទួលបានសុទ្ធ = ${grossAmount.toLocaleString()} − ${taxAmount.toLocaleString()} = ${netAmount.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:344:        small:        { label: "អ្នកបង់ពន្ធតូច (Small)",                 fee: 400_000 },
+khmer-tax-calculator/src/utils/taxCalculators.js:345:        medium:       { label: "អ្នកបង់ពន្ធមធ្យម (Medium)",               fee: 1_200_000 },
+khmer-tax-calculator/src/utils/taxCalculators.js:346:        large_under:  { label: "អ្នកបង់ពន្ធធំ — ≤ ១០,០០០ Million KHR",    fee: 3_000_000 },
+khmer-tax-calculator/src/utils/taxCalculators.js:347:        large_over:   { label: "អ្នកបង់ពន្ធធំ — > ១០,០០០ Million KHR",    fee: 5_000_000 },
+khmer-tax-calculator/src/utils/taxCalculators.js:355:      formulaUsed = "ពន្ធ = ថ្លៃថេរប្រចាំឆ្នាំតាមប្រភេទ";
+khmer-tax-calculator/src/utils/taxCalculators.js:357:        `១. ប្រភេទអ្នកបង់ពន្ធ: ${selected.label}`,
+khmer-tax-calculator/src/utils/taxCalculators.js:358:        `២. ពន្ធប្រចាំឆ្នាំ = ${selected.fee.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/utils/taxCalculators.js:359:        `៣. ត្រូវបង់មុន ៣១ មីនា ប្រចាំឆ្នាំ`,
+khmer-tax-calculator/src/utils/taxCalculators.js:366:        moto_under_125:    { label: "ម៉ូតូ ≤ 125cc",         fee: 10_000 },
+khmer-tax-calculator/src/utils/taxCalculators.js:367:        moto_over_125:     { label: "ម៉ូតូ > 125cc",         fee: 15_000 },
+khmer-tax-calculator/src/utils/taxCalculators.js:368:        car_under_1500:    { label: "រថយន្ត ≤ 1500cc",       fee: 150_000 },
+khmer-tax-calculator/src/utils/taxCalculators.js:369:        car_1501_2500:     { label: "រថយន្ត 1501–2500cc",    fee: 250_000 },
+khmer-tax-calculator/src/utils/taxCalculators.js:370:        car_over_2500:     { label: "រថយន្ត > 2500cc",       fee: 400_000 },
+khmer-tax-calculator/src/utils/taxCalculators.js:371:        light_truck:       { label: "រថយន្តធុនស្រាល",     fee: 300_000 },
+khmer-tax-calculator/src/utils/taxCalculators.js:372:        heavy_truck:       { label: "រថយន្តធុនធ្ងន់",     fee: 600_000 },
+khmer-tax-calculator/src/utils/taxCalculators.js:373:        bus:               { label: "រថយន្តក្រុង",       fee: 500_000 },
+khmer-tax-calculator/src/utils/taxCalculators.js:374:        boat_under_10t:    { label: "នាវា < 10 តោន",         fee: 200_000 },
+khmer-tax-calculator/src/utils/taxCalculators.js:375:        boat_over_10t:     { label: "នាវា ≥ 10 តោន",         fee: 500_000 },
+khmer-tax-calculator/src/utils/taxCalculators.js:383:      formulaUsed = "ពន្ធ = ថ្លៃថេរប្រចាំឆ្នាំតាមប្រភេទយានយន្ត (Prakas No. 738)";
+khmer-tax-calculator/src/utils/taxCalculators.js:385:        `១. ប្រភេទយានយន្ត៖ ${selected.label}`,
+khmer-tax-calculator/src/utils/taxCalculators.js:386:        `២. ពន្ធប្រចាំឆ្នាំថេរ = ${selected.fee.toLocaleString()} រៀល`,
+khmer-tax-calculator/src/components/CalculatorForm.jsx:6:  { value: "moto_under_125", label: "ម៉ូតូ ≤ 125cc — ១០,០០០ រៀល/ឆ្នាំ" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:7:  { value: "moto_over_125",  label: "ម៉ូតូ > 125cc — ១៥,០០០ រៀល/ឆ្នាំ" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:8:  { value: "car_under_1500", label: "រថយន្ត ≤ 1500cc — ១៥០,០០០ រៀល/ឆ្នាំ" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:9:  { value: "car_1501_2500",  label: "រថយន្ត 1501–2500cc — ២៥០,០០០ រៀល/ឆ្នាំ" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:10:  { value: "car_over_2500",  label: "រថយន្ត > 2500cc — ៤០០,០០០ រៀល/ឆ្នាំ" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:11:  { value: "light_truck",    label: "រថយន្តធុនស្រាល — ៣០០,០០០ រៀល/ឆ្នាំ" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:12:  { value: "heavy_truck",    label: "រថយន្តធុនធ្ងន់ — ៦០០,០០០ រៀល/ឆ្នាំ" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:13:  { value: "bus",            label: "រថយន្តក្រុង — ៥០០,០០០ រៀល/ឆ្នាំ" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:14:  { value: "boat_under_10t", label: "នាវា < 10 តោន — ២០០,០០០ រៀល/ឆ្នាំ" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:15:  { value: "boat_over_10t",  label: "នាវា ≥ 10 តោន — ៥០០,០០០ រៀល/ឆ្នាំ" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:22:    { name: "monthlyRent",    label: "ប្រាក់ជួលប្រចាំខែ", unit: "រៀល", icon: "payments",       type: "number" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:23:    { name: "months",         label: "ចំនួនខែ",           unit: "ខែ",  icon: "calendar_month", type: "number", step: "1" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:26:    { name: "landMarketValue", label: "តម្លៃទីផ្សារដីសរុប", unit: "រៀល", icon: "landscape", type: "number" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:29:    { name: "propertyValue", label: "តម្លៃអចលនទ្រព្យ", unit: "រៀល", icon: "domain", type: "number" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:32:    { name: "invoiceValue", label: "តម្លៃវិក្កបត្រ (មិនរួម VAT និង PLT)", unit: "រៀល", icon: "receipt_long", type: "number" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:35:    { name: "accommodationFee", label: "ថ្លៃស្នាក់នៅ (រួម ពន្ធ លើកលែង AT & VAT)", unit: "រៀល", icon: "hotel", type: "number" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:38:    { name: "vehicleType", label: "ប្រភេទយានយន្ត", icon: "directions_car", type: "select", options: VEHICLE_OPTIONS_MAP },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:41:    { name: "transferType", label: "ប្រភេទការផ្ទេរ", icon: "swap_horiz", type: "select", options: [
+khmer-tax-calculator/src/components/CalculatorForm.jsx:42:      { value: "real_estate", label: "អចលនទ្រព្យ (ដី/ផ្ទះ) — ៤%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:43:      { value: "vehicle",     label: "យានយន្ត / មធ្យោបាយ — ៤%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:44:      { value: "shares",      label: "ភាគហ៊ុន (Corporate Shares) — ០.១%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:45:      { value: "contract",    label: "កិច្ចសន្យារដ្ឋ/សាធារណៈ — ០.១%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:47:    { name: "contractValue", label: "តម្លៃកិច្ចសន្យា / តម្លៃទីផ្សារ", unit: "រៀល", icon: "sell", type: "number" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:48:    { name: "gdtValue", label: "តម្លៃ GDT (អចលនទ្រព្យប៉ុណ្ណោះ)", unit: "រៀល", icon: "account_balance", type: "number" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:51:    { name: "signType", label: "ប្រភេទផ្ទាំងប័ណ្ណ", icon: "signpost", type: "select", options: [
+khmer-tax-calculator/src/components/CalculatorForm.jsx:52:      { value: "unlit",     label: "ផ្ទាំងគ្មានពន្លឺ — ២០,០០០ រៀល/m²/ឆ្នាំ" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:53:      { value: "lit",       label: "ផ្ទាំងមានពន្លឺ — ៤០,០០០ រៀល/m²/ឆ្នាំ" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:54:      { value: "billboard", label: "ផ្ទាំងធំ/ផ្លូវ — ៨០,០០០ រៀល/m²/ឆ្នាំ" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:56:    { name: "languagePosition", label: "ទីតាំងភាសា", icon: "translate", type: "select", options: [
+khmer-tax-calculator/src/components/CalculatorForm.jsx:57:      { value: "khmer_top",   label: "ភាសាខ្មែរខ្ពស់ជាង (ត្រឹមត្រូវ) — ×១.០" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:58:      { value: "foreign_top", label: "ភាសាបរទេសខ្ពស់ជាង (ពិន័យ) — ×២.០" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:60:    { name: "signWidth",  label: "ទទឹងផ្ទាំង", unit: "មែត្រ", icon: "width",  type: "number" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:61:    { name: "signHeight", label: "កម្ពស់ផ្ទាំង", unit: "មែត្រ", icon: "height", type: "number" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:64:    { name: "entityType", label: "ប្រភេទអ្នកបង់ពន្ធ", icon: "business", type: "select", options: [
+khmer-tax-calculator/src/components/CalculatorForm.jsx:65:      { value: "corporate",    label: "នីតិបុគ្គលទូទៅ (Corporate) — ២០%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:66:      { value: "insurance",    label: "ក្រុមហ៊ុនធានារ៉ាប់រង (Insurance) — ៥%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:67:      { value: "individual",   label: "បុគ្គល/ម្ចាស់អាជីវកម្ម (Individual) — ០–២០%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:69:    { name: "taxableProfit", label: "ប្រាក់ចំណេញសុទ្ធប្រចាំឆ្នាំ", unit: "រៀល", icon: "trending_up", type: "number" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:72:    { name: "grossSalary",      label: "ប្រាក់ខែសរុប",                      unit: "រៀល", icon: "payments",      type: "number" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:73:    { name: "nssfContribution", label: "ការចូលរួម NSSF (ផ្នែកបុគ្គលិក)",  unit: "រៀល", icon: "health_and_safety", type: "number" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:74:    { name: "hasSpouse", label: "មានសហព័ទ្ធជាអ្នកនៅក្នុងបន្ទុក?", icon: "family_restroom", type: "select", options: [
+khmer-tax-calculator/src/components/CalculatorForm.jsx:75:      { value: "no",  label: "អត់ (No)" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:76:      { value: "yes", label: "មាន (Yes) — ១៥០,០០០ រៀល/ខែ" }
+khmer-tax-calculator/src/components/CalculatorForm.jsx:78:    { name: "numChildren", label: "ចំនួនកូននៅក្នុងបន្ទុក", unit: "នាក់", icon: "child_care", type: "number" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:81:    { name: "supplyValue", label: "តម្លៃផ្គត់ផ្គង់ (មិនរួម VAT)", unit: "រៀល", icon: "receipt", type: "number" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:82:    { name: "inputVat",    label: "Input VAT (ការទិញ)", unit: "រៀល", icon: "shopping_cart", type: "number" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:85:    { name: "supplyType", label: "ប្រភេទការផ្គត់ផ្គង់", icon: "category", type: "select", options: [
+khmer-tax-calculator/src/components/CalculatorForm.jsx:86:      { value: "local",  label: "ផលិតក្នុងស្រុក (Local Production) — Base × 90%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:87:      { value: "import", label: "នាំចូល (Import) — CIF + ពន្ធគយ" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:89:    { name: "productType", label: "ប្រភេទទំនិញ/សេវា", icon: "inventory_2", type: "select", options: [
+khmer-tax-calculator/src/components/CalculatorForm.jsx:90:      { value: "cigarettes",         label: "បារី / ស៊ីហ្គារ — ២០%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:91:      { value: "beer",               label: "ស្រាបៀរ — ៣០%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:92:      { value: "soft_drinks",        label: "ភេសជ្ជៈ (មិនមែនស្រា) — ១០%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:93:      { value: "air_tickets",        label: "សំបុត្រយន្តហោះ — ១០%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:94:      { value: "entertainment",      label: "សេវាកម្មកំសាន្ត (Karaoke) — ១០%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:95:      { value: "vehicle_under_2000", label: "យានយន្ត < 2000cc — ១០%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:96:      { value: "vehicle_2000_3000",  label: "យានយន្ត 2000–3000cc — ៣០%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:97:      { value: "vehicle_over_3000",  label: "យានយន្ត > 3000cc — ៤៥%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:99:    { name: "grossValue", label: "តម្លៃ (pre-VAT / CIF+ពន្ធគយ)", unit: "រៀល", icon: "price_check", type: "number" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:102:    { name: "annualTurnover",   label: "ចំណូលសរុបប្រចាំឆ្នាំ (excl. VAT)", unit: "រៀល", icon: "store",       type: "number" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:103:    { name: "annualNetProfit",  label: "ប្រាក់ចំណេញសុទ្ធប្រចាំឆ្នាំ",       unit: "រៀល", icon: "trending_up", type: "number" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:106:    { name: "paymentType", label: "ប្រភេទការទូទាត់", icon: "swap_horiz", type: "select", options: [
+khmer-tax-calculator/src/components/CalculatorForm.jsx:107:      { value: "services_resident",      label: "សេវាកម្ម/ប្រឹក្សា (និវាសនជន) — ១៥%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:108:      { value: "royalties_resident",     label: "រូបិយប័ណ្ណ Royalties (និវាសនជន) — ១៥%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:109:      { value: "interest_nonbank",       label: "ការប្រាក់ (មិនមែនធនាគារ) — ១៥%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:110:      { value: "rental_resident",        label: "ការជួល Property (និវាសនជន) — ១០%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:111:      { value: "interest_fixed_deposit", label: "ការប្រាក់ Fixed Deposit — ៦%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:112:      { value: "interest_savings",       label: "ការប្រាក់ Savings Account — ៤%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:113:      { value: "nonresident_all",        label: "ប្រភេទទាំងអស់ (អនិវាសនជន) — ១៤%" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:115:    { name: "grossAmount", label: "ទំហំការទូទាត់សរុប", unit: "រៀល", icon: "payments", type: "number" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:118:    { name: "taxpayerSize", label: "ទំហំអ្នកបង់ពន្ធ", icon: "corporate_fare", type: "select", options: [
+khmer-tax-calculator/src/components/CalculatorForm.jsx:119:      { value: "small",       label: "តូច (Small) — ៤០០,០០០ រៀល/ឆ្នាំ" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:120:      { value: "medium",      label: "មធ្យម (Medium) — ១,២០០,០០០ រៀល/ឆ្នាំ" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:121:      { value: "large_under", label: "ធំ — ≤ ១០,០០០ Million KHR — ៣,០០០,០០០ រៀល/ឆ្នាំ" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:122:      { value: "large_over",  label: "ធំ — > ១០,០០០ Million KHR — ៥,០០០,០០០ រៀល/ឆ្នាំ" },
+khmer-tax-calculator/src/components/CalculatorForm.jsx:190:      setError("សូមបំពេញគ្រប់វាលដែលតម្រូវ។");
+khmer-tax-calculator/src/components/CalculatorForm.jsx:222:                {tax.ratePercent === null ? "ថ្លៃបង់ពន្ធ" : "អត្រាពន្ធ"}
+khmer-tax-calculator/src/components/CalculatorForm.jsx:225:                {tax.ratePercent === null ? "ថ្លៃថេរតាមប្រភេទយានយន្ត" : `${tax.ratePercent}%`}
+khmer-tax-calculator/src/components/CalculatorForm.jsx:231:            កំណត់ដោយច្បាប់
+khmer-tax-calculator/src/components/CalculatorForm.jsx:290:              អត្រាពន្ធត្រូវអនុវត្ត
+khmer-tax-calculator/src/components/CalculatorForm.jsx:309:          <span>គណនាពន្ធ</span>
+khmer-tax-calculator/src/components/ResultBox.jsx:13:          លទ្ធផលនៃការគណនាពន្ធ
+khmer-tax-calculator/src/components/ResultBox.jsx:16:          របាយការណ៍សង្ខេបអំពីកាតព្វកិច្ចពន្ធរបស់អ្នកសម្រាប់ការគណនានេះ
+khmer-tax-calculator/src/components/ResultBox.jsx:29:              ពន្ធសរុបដែលត្រូវបង់
+khmer-tax-calculator/src/components/ResultBox.jsx:39:                {result.rateUsed > 0 ? `គណនាតាមអត្រាពន្ធ ${result.rateUsed}%` : "ថ្លៃថេរប្រចាំឆ្នាំ"}
+khmer-tax-calculator/src/components/ResultBox.jsx:48:            ព័ត៌មានលម្អិត
+khmer-tax-calculator/src/components/ResultBox.jsx:53:                មូលដ្ឋានគណនា
+khmer-tax-calculator/src/components/ResultBox.jsx:59:                ពន្ធដែលត្រូវបង់
+khmer-tax-calculator/src/components/ResultBox.jsx:66:                  អត្រាពន្ធ
+khmer-tax-calculator/src/components/ResultBox.jsx:83:            ទាញយកជា PDF
+khmer-tax-calculator/src/components/ResultBox.jsx:91:              គណនាឡើងវិញ
+khmer-tax-calculator/src/components/ResultBox.jsx:107:          <h4 className="font-label-md text-label-md text-primary mb-1">បញ្ជាក់</h4>
+khmer-tax-calculator/src/components/ResultBox.jsx:109:            ការគណនានេះគឺសម្រាប់ជាឯកសារយោងតែប៉ុណ្ណោះ។ លទ្ធផលពិតប្រាកដអាចមានការប្រែប្រួលផ្អែកលើបទប្បញ្ញត្តិពន្ធដារចុងក្រោយ និងលក្ខខណ្ឌជាក់ស្តែងរបស់អ្នក។ សូមពិគ្រោះជាមួយអ្នកជំនាញពន្ធដារសម្រាប់ព័ត៌មានផ្លូវការ។
+khmer-tax-calculator/src/data/taxes.js:5:    nameKm: "ពន្ធលើឈ្នួលផ្ទះនិងដី",
+khmer-tax-calculator/src/data/taxes.js:8:    summary: "ពន្ធដារដែលត្រូវប្រមូលលើការជួលផ្ទះនិងដី។",
+khmer-tax-calculator/src/data/taxes.js:11:    formula: "ពន្ធ = ប្រាក់ជួលប្រចាំខែ × ចំនួនខែ × អត្រាពន្ធ",
+khmer-tax-calculator/src/data/taxes.js:12:    example: "ប្រាក់ជួល ១,០០០/ខែ × ១២ ខែ × ១០% = ១,២០០",
+khmer-tax-calculator/src/data/taxes.js:13:    notes: "អត្រា ១០% សម្រាប់និវាសនជនកម្ពុជា (Prakas No. 578 MEF.PrK.GDT, September 2024)។",
+khmer-tax-calculator/src/data/taxes.js:19:    nameKm: "ពន្ធលើដីធ្លីមិនប្រើប្រាស់",
+khmer-tax-calculator/src/data/taxes.js:22:    summary: "ពន្ធប្រចាំឆ្នាំលើដីទំនេរ ដើម្បីលើកទឹកចិត្តឱ្យមានការប្រើប្រាស់ ឬការអភិវឌ្ឍ។",
+khmer-tax-calculator/src/data/taxes.js:25:    formula: "ពន្ធ = តម្លៃទីផ្សារដីសរុប × ២%",
+khmer-tax-calculator/src/data/taxes.js:26:    example: "ដីមានតម្លៃ ៥០,០០០,០០០ រៀល × ២% = ១,០០០,០០០ រៀល",
+khmer-tax-calculator/src/data/taxes.js:27:    notes: "អត្រា ២% លើតម្លៃទីផ្សារដីសរុប (Prakas No. 573 MEF.PrK.GDT, September 2024)។",
+khmer-tax-calculator/src/data/taxes.js:33:    nameKm: "ពន្ធលើអចលនទ្រព្យ",
+khmer-tax-calculator/src/data/taxes.js:36:    summary: "ពន្ធប្រចាំឆ្នាំលើអចលនទ្រព្យដែលមានតម្លៃលើស ១០០,០០០,០០០ រៀល។",
+khmer-tax-calculator/src/data/taxes.js:39:    formula: "ពន្ធ = ((តម្លៃអចលនទ្រព្យ × ៨០%) − ១០០,០០០,០០០ រៀល) × ០.១%",
+khmer-tax-calculator/src/data/taxes.js:40:    example: "តម្លៃអចលន ២០០,០០០,០០០ → (១៦០,០០០,០០០ − ១០០,០០០,០០០) × ០.១% = ៦០,០០០ រៀល",
+khmer-tax-calculator/src/data/taxes.js:41:    notes: "អត្រា ០.១% — ការលើកលែង ១០០,០០០,០០០ រៀល កំណត់ដោយច្បាប់ (Prakas No. 576 MEF.PrK.GDT, September 2024)។",
+khmer-tax-calculator/src/data/taxes.js:47:    nameKm: "អាករសម្រាប់បំភ្លឺសាធារណៈ",
+khmer-tax-calculator/src/data/taxes.js:50:    summary: "អាករលើផលិតផលស្រា និងថ្នាំជក់ក្នុងដំណាក់កាលផ្គត់ផ្គង់ដំបូង។",
+khmer-tax-calculator/src/data/taxes.js:53:    formula: "អាករ = តម្លៃវិក្កបត្រ (មិនរួម VAT និង PLT) × ៥%",
+khmer-tax-calculator/src/data/taxes.js:54:    example: "តម្លៃ ១,០០០,០០០ រៀល × ៥% = ៥០,០០០ រៀល",
+khmer-tax-calculator/src/data/taxes.js:55:    notes: "អត្រា ៥% លើផលិតផលស្រា និងថ្នាំជក់ (Sub-Decree 2023; Prakas No. 573 MEF.PrK.GDT, September 2024)។",
+khmer-tax-calculator/src/data/taxes.js:61:    nameKm: "អាករលើការស្នាក់នៅ",
+khmer-tax-calculator/src/data/taxes.js:64:    summary: "អាករលើសេវាស្នាក់នៅ ដូចជាសណ្ឋាគារ ហោស្ទែល និងគេហដ្ឋានសម្រាប់ជួល។",
+khmer-tax-calculator/src/data/taxes.js:67:    formula: "អាករ = ថ្លៃស្នាក់នៅ (រួម ពន្ធទាំងអស់ លើកលែង AT & VAT) × ២%",
+khmer-tax-calculator/src/data/taxes.js:68:    example: "ថ្លៃស្នាក់នៅ ១,០០០,០០០ រៀល × ២% = ២០,០០០ រៀល",
+khmer-tax-calculator/src/data/taxes.js:69:    notes: "អត្រា ២% (Prakas No. 575 MEF.PrK.GDT, September 2024)។",
+khmer-tax-calculator/src/data/taxes.js:75:    nameKm: "ពន្ធលើមធ្យោបាយដឹកជញ្ជូន",
+khmer-tax-calculator/src/data/taxes.js:78:    summary: "ពន្ធប្រចាំឆ្នាំថេរតាមប្រភេទ និងទំហំម៉ាស៊ីនយានយន្ត។",
+khmer-tax-calculator/src/data/taxes.js:81:    formula: "ពន្ធ = ថ្លៃថេរប្រចាំឆ្នាំតាមប្រភេទយានយន្ត",
+khmer-tax-calculator/src/data/taxes.js:82:    example: "ម៉ូតូ ≤125cc: ១០,០០០ រៀល/ឆ្នាំ; រថយន្ត ≤1500cc: ១៥០,០០០ រៀល/ឆ្នាំ",
+khmer-tax-calculator/src/data/taxes.js:83:    notes: "ថ្លៃថេរតាមប្រភេទ (Prakas No. 738 MEF, October 2024)។",
+khmer-tax-calculator/src/data/taxes.js:89:    nameKm: "ពន្ធប្រថាប់ត្រា",
+khmer-tax-calculator/src/data/taxes.js:92:    summary: "ពន្ធ ៤% លើការផ្ទេរកម្មសិទ្ធិអចលនទ្រព្យ យានយន្ត ឬ ០.១% លើការផ្ទេរភាគហ៊ុន និងកិច្ចសន្យា។",
+khmer-tax-calculator/src/data/taxes.js:95:    formula: "ពន្ធ = max(តម្លៃកិច្ចសន្យា, តម្លៃ GDT) × ៤% (អចលន/យានយន្ត) ឬ ០.១% (ភាគហ៊ុន/កិច្ចសន្យា)",
+khmer-tax-calculator/src/data/taxes.js:96:    example: "ទិញដី GDT ២៤០,០០០,០០០ > កិច្ចសន្យា ២០០,០០០,០០០ → ២៤០,០០០,០០០ × ៤% = ៩,៦០០,០០០ រៀល",
+khmer-tax-calculator/src/data/taxes.js:97:    notes: "ត្រូវបង់ក្នុងរយៈ ៣ ខែ (LoT 2023, Ch.10, Art.127–141)។",
+khmer-tax-calculator/src/data/taxes.js:103:    nameKm: "ពន្ធតែមប្រិ៍សារពើពន្ធ",
+khmer-tax-calculator/src/data/taxes.js:106:    summary: "ពន្ធប្រចាំឆ្នាំលើផ្ទាំងប័ណ្ណពាណិជ្ជកម្ម គណនាតាមផ្ទៃ និងប្រភេទពន្លឺ។",
+khmer-tax-calculator/src/data/taxes.js:109:    formula: "ពន្ធ = ទទឹង × កម្ពស់ × អត្រា/m² × មេគុណទីតាំងភាសា",
+khmer-tax-calculator/src/data/taxes.js:110:    example: "ផ្ទាំង ៣m × ១m មានពន្លឺ × ៤០,០០០ × ១.០ = ១២០,០០០ រៀល/ឆ្នាំ",
+khmer-tax-calculator/src/data/taxes.js:111:    notes: "ភាសាខ្មែរត្រូវដាក់ខ្ពស់ជាងភាសាបរទេស។ ពន្ធនូវបង់ជារៀងរាល់ឆ្នាំ (LoT 2023, Ch.11, Art.142–144)។",
+khmer-tax-calculator/src/data/taxes.js:118:    nameKm: "ពន្ធលើប្រាក់ចំណូល",
+khmer-tax-calculator/src/data/taxes.js:121:    summary: "ពន្ធប្រចាំឆ្នាំលើប្រាក់ចំណេញសុទ្ធរបស់អង្គភាព ឬបុគ្គលដែលធ្វើអាជីវកម្ម។",
+khmer-tax-calculator/src/data/taxes.js:124:    formula: "ពន្ធ = ប្រាក់ចំណេញសុទ្ធ × អត្រា (២០% / ៥% / កាំពន្ធ)",
+khmer-tax-calculator/src/data/taxes.js:125:    example: "ប្រាក់ចំណេញ ១០០,០០០,០០០ × ២០% = ២០,០០០,០០០ រៀល",
+khmer-tax-calculator/src/data/taxes.js:126:    notes: "នីតិបុគ្គល ២០%; ក្រុមហ៊ុនធានារ៉ាប់រង ៥%; បុគ្គល ០–២០% (LoT 2023, Ch.2)។",
+khmer-tax-calculator/src/data/taxes.js:132:    nameKm: "ពន្ធលើប្រាក់បៀវត្ស",
+khmer-tax-calculator/src/data/taxes.js:135:    summary: "ពន្ធប្រចាំខែដែលកាត់ពីប្រាក់ខែបុគ្គលិក តាមកាំពន្ធ ០–២០%។",
+khmer-tax-calculator/src/data/taxes.js:138:    formula: "ពន្ធ = (ប្រាក់ខែសុទ្ធ × អត្រា) − ការកាត់កងតាមកាំពន្ធ",
+khmer-tax-calculator/src/data/taxes.js:139:    example: "ប្រាក់ខែ ៣,៣៣០,០០០ × ១០% − ១៧៥,០០០ = ១៥៨,០០០ រៀល",
+khmer-tax-calculator/src/data/taxes.js:140:    notes: "កាំពន្ធ ០–២០% (Sub-Decree No.196, 2022)។ ការកាត់កងអ្នកនៅក្នុងបន្ទុក: ប្ដីប្រពន្ធ ១៥០,០០០ រៀល/ខែ; កូន ១៥០,០០០ រៀល/ខែ/នាក់។",
+khmer-tax-calculator/src/data/taxes.js:146:    nameKm: "អាករលើតម្លៃបន្ថែម",
+khmer-tax-calculator/src/data/taxes.js:149:    summary: "អាករ ១០% លើការផ្គត់ផ្គង់ទំនិញ និងសេវាកម្មក្នុងស្រុក (០% ការនាំចេញ)។",
+khmer-tax-calculator/src/data/taxes.js:152:    formula: "VAT = តម្លៃផ្គត់ផ្គង់ × ១០%",
+khmer-tax-calculator/src/data/taxes.js:153:    example: "តម្លៃ ១,០០០,០០០ រៀល × ១០% = ១០០,០០០ រៀល VAT",
+khmer-tax-calculator/src/data/taxes.js:154:    notes: "អត្រា ១០% ក្នុងស្រុក; ០% ការនាំចេញ (LoT 2023, Ch.5; Sub-Decree No.49, 2024)។",
+khmer-tax-calculator/src/data/taxes.js:160:    nameKm: "អាករពិសេស",
+khmer-tax-calculator/src/data/taxes.js:163:    summary: "អាករលើទំនិញ និងសេវាកម្មជ្រើសរើស ដូចជាស្រា ថ្នាំជក់ យានយន្ត ។ល។",
+khmer-tax-calculator/src/data/taxes.js:166:    formula: "អាករ = (តម្លៃ × ៩០%) × អត្រា (ការផលិតក្នុងស្រុក)",
+khmer-tax-calculator/src/data/taxes.js:167:    example: "ស្រាបៀរ ១០,០០០,០០០ × ៩០% × ៣០% = ២,៧០០,០០០ រៀល",
+khmer-tax-calculator/src/data/taxes.js:168:    notes: "អត្រាខុសៗគ្នាតាមប្រភេទ (LoT 2023, Ch.4, Art.80–87)។",
+khmer-tax-calculator/src/data/taxes.js:174:    nameKm: "ពន្ធអប្បបរមា",
+khmer-tax-calculator/src/data/taxes.js:177:    summary: "ពន្ធ ១% លើចំណូលសរុប អនុវត្តនៅពេល MT លើសជាង TOI ប្រចាំឆ្នាំ។",
+khmer-tax-calculator/src/data/taxes.js:180:    formula: "MT = ចំណូលសរុប × ១%; TOI = ចំណេញ × ២០%; បង់ max(MT, TOI)",
+khmer-tax-calculator/src/data/taxes.js:181:    example: "ចំណូល ៥០០M × ១% = ៥M; TOI = ២M → បង់ ៥M (MT ខ្ពស់ជាង)",
+khmer-tax-calculator/src/data/taxes.js:182:    notes: "អត្រា ១% (LoT 2023, Ch.2, Art.36)។ QIP ក្នុងរយៈ tax holiday ត្រូវបានលើកលែង។",
+khmer-tax-calculator/src/data/taxes.js:188:    nameKm: "ពន្ធកាត់ទុក",
+khmer-tax-calculator/src/data/taxes.js:191:    summary: "ពន្ធដែលកាត់ចេញ នៅពេលធ្វើការទូទាត់ជាក់លាក់ ១០–១៥% (និវាសនជន) / ១៤% (អនិវាសនជន)។",
+khmer-tax-calculator/src/data/taxes.js:194:    formula: "WHT = ទំហំការទូទាត់ × អត្រា",
+khmer-tax-calculator/src/data/taxes.js:195:    example: "ការជួល ២,០០០ USD × ១០% = ២០០ USD WHT; ទទួល ១,៨០០ USD",
+khmer-tax-calculator/src/data/taxes.js:196:    notes: "និវាសនជន ១០–១៥%; អនិវាសនជន ១៤% (LoT 2023, Ch.2, Art.25–32)។",
+khmer-tax-calculator/src/data/taxes.js:202:    nameKm: "ពន្ធប្រកាស (ប៉ាតង់)",
+khmer-tax-calculator/src/data/taxes.js:205:    summary: "ថ្លៃថេរប្រចាំឆ្នាំសម្រាប់អាជ្ញាប័ណ្ណអាជីវកម្ម តាមទំហំអ្នកបង់ពន្ធ។",
+khmer-tax-calculator/src/data/taxes.js:208:    formula: "ពន្ធ = ថ្លៃថេរតាមប្រភេទ (តូច / មធ្យម / ធំ)",
+khmer-tax-calculator/src/data/taxes.js:209:    example: "អ្នកបង់ពន្ធតូច: ៤០០,០០០ រៀល/ឆ្នាំ",
+khmer-tax-calculator/src/data/taxes.js:210:    notes: "ថ្លៃថេរ (LoT 2023, Ch.13)។ ត្រូវបង់មុន ៣១ មីនា ប្រចាំឆ្នាំ។",

@@ -100,7 +100,7 @@ export const taxes = [
   {
     id: "fiscal_stamp_duty",
     calculatorType: "fiscal_stamp_duty",
-    nameKm: "ពន្ធតែមប្រិស",
+    nameKm: "ពន្ធតែមប្រិ៍សារពើពន្ធ",
     nameEn: "Fiscal Stamp Duty (Signboard Tax)",
     category: "Sub-National Tax",
     summary: "ពន្ធប្រចាំឆ្នាំលើផ្ទាំងប័ណ្ណពាណិជ្ជកម្ម គណនាតាមផ្ទៃ និងប្រភេទពន្លឺ។",

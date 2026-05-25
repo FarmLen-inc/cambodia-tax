@@ -117,14 +117,15 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="flex-1 relative w-full h-64 md:h-96 rounded-lg overflow-hidden shadow-inner border border-surface-container-lowest">
+          <div className="flex-1 relative w-full h-64 md:h-96 rounded-2xl overflow-hidden shadow-lg shadow-primary/5 border border-surface-container-lowest bg-white">
             <Image
-              src="/hero-image.png"
-              alt="Financial background"
+              src="/angkor_wat.jpg"
+              alt="Angkor Wat background"
               fill
-              className="object-cover opacity-80 mix-blend-multiply"
+              className="object-cover hover:scale-105 transition-transform duration-700 ease-in-out"
+              priority
             />
-            <div className="absolute inset-0 bg-gradient-to-tr from-surface/80 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-background/20 via-transparent to-transparent pointer-events-none" />
           </div>
         </section>
 

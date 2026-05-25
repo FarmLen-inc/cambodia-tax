@@ -106,7 +106,7 @@ export const taxes = [
     summary: "ពន្ធប្រចាំឆ្នាំលើផ្ទាំងប័ណ្ណពាណិជ្ជកម្ម គណនាតាមផ្ទៃ និងប្រភេទពន្លឺ។",
     whoPays: "Business operating commercial signboards or billboards",
     taxBase: "Sign area (width × height in m²) × unit rate × language position coefficient",
-    formula: "ពន្ធ = ទទឹង × កម្ពស់ × អត្រា/m² × hệ số ទីតាំងភាសា",
+    formula: "ពន្ធ = ទទឹង × កម្ពស់ × អត្រា/m² × មេគុណទីតាំងភាសា",
     example: "ផ្ទាំង ៣m × ១m មានពន្លឺ × ៤០,០០០ × ១.០ = ១២០,០០០ រៀល/ឆ្នាំ",
     notes: "ភាសាខ្មែរត្រូវដាក់ខ្ពស់ជាងភាសាបរទេស។ ពន្ធនូវបង់ជារៀងរាល់ឆ្នាំ (LoT 2023, Ch.11, Art.142–144)។",
     ratePercent: null,

@@ -146,7 +146,7 @@ export const calculateTax = (type, inputs) => {
       taxableAmount = area;
       rateUsed = 0;
       taxAmount = area * selectedSign.rate * selectedLang.coef;
-      formulaUsed = "ពន្ធ = ទទឹង × កម្ពស់ × អត្រា/m² × hệ số ភាសា";
+      formulaUsed = "ពន្ធ = ទទឹង × កម្ពស់ × អត្រា/m² × មេគុណទីតាំងភាសា";
       steps = [
         `១. ផ្ទៃផ្ទាំង = ${width} × ${height} = ${area.toLocaleString()} m²`,
         `២. ប្រភេទ: ${selectedSign.label} — ${selectedSign.rate.toLocaleString()} រៀល/m²`,

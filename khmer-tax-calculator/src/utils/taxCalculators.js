@@ -102,11 +102,11 @@ export const calculateTax = (type, inputs) => {
       const gdtValue = Math.max(parseFloat(inputs.gdtValue) || 0, 0);
 
       taxableAmount = selected.useMax ? Math.max(contractValue, gdtValue) : contractValue;
-      rateUsed = selected.rate * 100;
+      rateUsed = selected.rate;
       taxAmount = taxableAmount * selected.rate;
       formulaUsed = selected.useMax
         ? "ពន្ធ = max(តម្លៃកិច្ចសន្យា, តម្លៃ GDT) × ៤%"
-        : `ពន្ធ = តម្លៃ × ${rateUsed}%`;
+        : `ពន្ធ = តម្លៃ × ${rateUsed * 100}%`;
       steps = [
         `១. ប្រភេទផ្ទេរ: ${selected.label}`,
         ...(selected.useMax
@@ -114,11 +114,11 @@ export const calculateTax = (type, inputs) => {
               `២. តម្លៃកិច្ចសន្យា: ${contractValue.toLocaleString()} រៀល`,
               `៣. តម្លៃ GDT: ${gdtValue.toLocaleString()} រៀល`,
               `៤. មូលដ្ឋានគិតពន្ធ = max(${contractValue.toLocaleString()}, ${gdtValue.toLocaleString()}) = ${taxableAmount.toLocaleString()} រៀល`,
-              `៥. ពន្ធ = ${taxableAmount.toLocaleString()} × ${rateUsed}% = ${taxAmount.toLocaleString()} រៀល`,
+              `៥. ពន្ធ = ${taxableAmount.toLocaleString()} × ${rateUsed * 100}% = ${taxAmount.toLocaleString()} រៀល`,
             ]
           : [
               `២. តម្លៃទ្រព្យ/ភាគហ៊ុន: ${contractValue.toLocaleString()} រៀល`,
-              `៣. ពន្ធ = ${contractValue.toLocaleString()} × ${rateUsed}% = ${taxAmount.toLocaleString()} រៀល`,
+              `៣. ពន្ធ = ${contractValue.toLocaleString()} × ${rateUsed * 100}% = ${taxAmount.toLocaleString()} រៀល`,
             ]
         ),
       ];
@@ -161,7 +161,7 @@ export const calculateTax = (type, inputs) => {
       const profit = Math.max(parseFloat(inputs.taxableProfit) || 0, 0);
 
       if (entityType === "corporate") {
-        rateUsed = 20;
+        rateUsed = 0.20;
         taxableAmount = profit;
         taxAmount = profit * 0.20;
         formulaUsed = "ពន្ធ = ប្រាក់ចំណេញសុទ្ធ × ២០%";
@@ -171,7 +171,7 @@ export const calculateTax = (type, inputs) => {
           `៣. ពន្ធ = ${profit.toLocaleString()} × ០.២០ = ${taxAmount.toLocaleString()} រៀល`,
         ];
       } else if (entityType === "insurance") {
-        rateUsed = 5;
+        rateUsed = 0.05;
         taxableAmount = profit;
         taxAmount = profit * 0.05;
         formulaUsed = "ពន្ធ = បុព្វលាភធានារ៉ាប់រងសរុប × ៥%";
@@ -192,7 +192,7 @@ export const calculateTax = (type, inputs) => {
         const bracket = BRACKETS.find((b) => profit <= b.max);
         taxableAmount = profit;
         taxAmount = Math.max(profit * bracket.rate - bracket.cumDeduction, 0);
-        rateUsed = bracket.rate * 100;
+        rateUsed = bracket.rate;
         formulaUsed = "ពន្ធ = (ប្រាក់ចំណេញ × អត្រា) − ការកាត់ប្រចាំជំហ្វាន";
         steps = [
           `១. ប្រាក់ចំណេញសុទ្ធប្រចាំឆ្នាំ៖ ${profit.toLocaleString()} រៀល`,
@@ -221,14 +221,14 @@ export const calculateTax = (type, inputs) => {
       ];
       const bracket = TOS_BRACKETS.find((b) => taxableAmount <= b.max);
       taxAmount = Math.max(taxableAmount * bracket.rate - bracket.cumDeduction, 0);
-      rateUsed = bracket.rate * 100;
-      formulaUsed = "ពន្ធ = (ប្រាក់ខែសុទ្ធ × អត្រា) − ការកាត់ប្រចាំជំហ្វាន";
+      rateUsed = bracket.rate;
+      formulaUsed = "ពន្ធ = (ប្រាក់ខែសុទ្ធ × អត្រា) − ការកាត់កងតាមកាំពន្ធ";
       steps = [
         `១. ប្រាក់ខែសរុប៖ ${grossSalary.toLocaleString()} រៀល`,
         `២. ដក NSSF: −${nssf.toLocaleString()} រៀល`,
-        `៣. ដកការលើកលែងក្រឡួត (${hasSpouse > 0 ? "ប្ដីប្រពន្ធ ១" : ""}${numChildren > 0 ? `; កូន ${numChildren}` : ""}): −${familyAllowance.toLocaleString()} រៀល`,
+        `៣. ដកការកាត់កងអ្នកនៅក្នុងបន្ទុក (${hasSpouse > 0 ? "ប្ដីប្រពន្ធ ១" : ""}${numChildren > 0 ? `; កូន ${numChildren}` : ""}): −${familyAllowance.toLocaleString()} រៀល`,
         `៤. ប្រាក់ខែសុទ្ធ (មូលដ្ឋានគិតពន្ធ)៖ ${taxableAmount.toLocaleString()} រៀល`,
-        `៥. ជំហ្វានពន្ធ: ${(bracket.rate * 100).toFixed(0)}% (ការកាត់: ${bracket.cumDeduction.toLocaleString()})`,
+        `៥. កាំពន្ធ: ${(bracket.rate * 100).toFixed(0)}% (ការកាត់: ${bracket.cumDeduction.toLocaleString()})`,
         `៦. ពន្ធ = (${taxableAmount.toLocaleString()} × ${bracket.rate}) − ${bracket.cumDeduction.toLocaleString()} = ${taxAmount.toLocaleString()} រៀល`,
       ];
       break;
@@ -237,7 +237,7 @@ export const calculateTax = (type, inputs) => {
     case "vat": {
       const supplyValue = Math.max(parseFloat(inputs.supplyValue) || 0, 0);
       const inputVat = Math.max(parseFloat(inputs.inputVat) || 0, 0);
-      rateUsed = 10;
+      rateUsed = 0.10;
 
       const outputVat = supplyValue * 0.10;
       taxableAmount = supplyValue;
@@ -282,10 +282,10 @@ export const calculateTax = (type, inputs) => {
           `១. CIF + ពន្ធគយ៖ ${grossValue.toLocaleString()} រៀល`,
         ];
       }
-      rateUsed = selected.rate * 100;
+      rateUsed = selected.rate;
       taxAmount = taxableAmount * selected.rate;
       steps.push(
-        `៣. ប្រភេទ: ${selected.label} — អត្រា ${rateUsed}%`,
+        `៣. ប្រភេទ: ${selected.label} — អត្រា ${rateUsed * 100}%`,
         `៤. អាករ = ${taxableAmount.toLocaleString()} × ${selected.rate} = ${taxAmount.toLocaleString()} រៀល`,
       );
       break;
@@ -299,7 +299,7 @@ export const calculateTax = (type, inputs) => {
       const toi = netProfit * 0.20;
       taxableAmount = turnover;
       taxAmount = Math.max(mt, toi);
-      rateUsed = 1;
+      rateUsed = 0.01;
       formulaUsed = "MT = ចំណូលសរុប × ១%; TOI = ចំណេញ × ២០%; បង់ max(MT, TOI)";
       steps = [
         `១. ចំណូលសរុបប្រចាំឆ្នាំ (excl. VAT)៖ ${turnover.toLocaleString()} រៀល`,
@@ -325,14 +325,14 @@ export const calculateTax = (type, inputs) => {
       const grossAmount = Math.max(parseFloat(inputs.grossAmount) || 0, 0);
       const selected = WHT_RATES[paymentKey] ?? WHT_RATES.rental_resident;
 
-      rateUsed = selected.rate * 100;
+      rateUsed = selected.rate;
       taxableAmount = grossAmount;
       taxAmount = grossAmount * selected.rate;
       const netAmount = grossAmount - taxAmount;
       formulaUsed = "WHT = ទំហំការទូទាត់ × អត្រា";
       steps = [
         `១. ចំនួនទូទាត់សរុប៖ ${grossAmount.toLocaleString()} រៀល`,
-        `២. ប្រភេទ: ${selected.label} — អត្រា ${rateUsed}%`,
+        `២. ប្រភេទ: ${selected.label} — អត្រា ${rateUsed * 100}%`,
         `៣. WHT = ${grossAmount.toLocaleString()} × ${selected.rate} = ${taxAmount.toLocaleString()} រៀល`,
         `៤. ទទួលបានសុទ្ធ = ${grossAmount.toLocaleString()} − ${taxAmount.toLocaleString()} = ${netAmount.toLocaleString()} រៀល`,
       ];
@@ -368,9 +368,9 @@ export const calculateTax = (type, inputs) => {
         car_under_1500:    { label: "រថយន្ត ≤ 1500cc",       fee: 150_000 },
         car_1501_2500:     { label: "រថយន្ត 1501–2500cc",    fee: 250_000 },
         car_over_2500:     { label: "រថយន្ត > 2500cc",       fee: 400_000 },
-        light_truck:       { label: "រថយន្តក្រាន់ស្រាល",     fee: 300_000 },
-        heavy_truck:       { label: "រថយន្តក្រាន់ធ្ងន់",     fee: 600_000 },
-        bus:               { label: "រថយន្តក្រុង/បឹស",       fee: 500_000 },
+        light_truck:       { label: "រថយន្តធុនស្រាល",     fee: 300_000 },
+        heavy_truck:       { label: "រថយន្តធុនធ្ងន់",     fee: 600_000 },
+        bus:               { label: "រថយន្តក្រុង",       fee: 500_000 },
         boat_under_10t:    { label: "នាវា < 10 តោន",         fee: 200_000 },
         boat_over_10t:     { label: "នាវា ≥ 10 តោន",         fee: 500_000 },
       };

@@ -8,9 +8,9 @@ const VEHICLE_OPTIONS = [
   { value: "car_under_1500", label: "រថយន្ត ≤ 1500cc — ១៥០,០០០ រៀល/ឆ្នាំ" },
   { value: "car_1501_2500",  label: "រថយន្ត 1501–2500cc — ២៥០,០០០ រៀល/ឆ្នាំ" },
   { value: "car_over_2500",  label: "រថយន្ត > 2500cc — ៤០០,០០០ រៀល/ឆ្នាំ" },
-  { value: "light_truck",    label: "រថយន្តក្រាន់ស្រាល — ៣០០,០០០ រៀល/ឆ្នាំ" },
-  { value: "heavy_truck",    label: "រថយន្តក្រាន់ធ្ងន់ — ៦០០,០០០ រៀល/ឆ្នាំ" },
-  { value: "bus",            label: "រថយន្តក្រុង/បឹស — ៥០០,០០០ រៀល/ឆ្នាំ" },
+  { value: "light_truck",    label: "រថយន្តធុនស្រាល — ៣០០,០០០ រៀល/ឆ្នាំ" },
+  { value: "heavy_truck",    label: "រថយន្តធុនធ្ងន់ — ៦០០,០០០ រៀល/ឆ្នាំ" },
+  { value: "bus",            label: "រថយន្តក្រុង — ៥០០,០០០ រៀល/ឆ្នាំ" },
   { value: "boat_under_10t", label: "នាវា < 10 តោន — ២០០,០០០ រៀល/ឆ្នាំ" },
   { value: "boat_over_10t",  label: "នាវា ≥ 10 តោន — ៥០០,០០០ រៀល/ឆ្នាំ" },
 ];
@@ -71,11 +71,11 @@ const FIELDS = {
   tax_on_salary: [
     { name: "grossSalary",      label: "ប្រាក់ខែសរុប",                      unit: "រៀល", icon: "payments",      type: "number" },
     { name: "nssfContribution", label: "ការចូលរួម NSSF (ផ្នែកបុគ្គលិក)",  unit: "រៀល", icon: "health_and_safety", type: "number" },
-    { name: "hasSpouse", label: "មានប្ដីប្រពន្ធជាអ្នកផ្គ្គាលចិញ្ចឹម?", icon: "family_restroom", type: "select", options: [
+    { name: "hasSpouse", label: "មានសហព័ទ្ធជាអ្នកនៅក្នុងបន្ទុក?", icon: "family_restroom", type: "select", options: [
       { value: "no",  label: "អត់ (No)" },
-      { value: "yes", label: "មាន (Yes) — ១៥០,០០០ រៀល/ខែ" },
+      { value: "yes", label: "មាន (Yes) — ១៥០,០០០ រៀល/ខែ" }
     ]},
-    { name: "numChildren", label: "ចំនួនកូន (អ្នកពឹងផ្អែក)", unit: "នាក់", icon: "child_care", type: "number" },
+    { name: "numChildren", label: "ចំនួនកូននៅក្នុងបន្ទុក", unit: "នាក់", icon: "child_care", type: "number" },
   ],
   vat: [
     { name: "supplyValue", label: "តម្លៃផ្គត់ផ្គង់ (មិនរួម VAT)", unit: "រៀល", icon: "receipt", type: "number" },

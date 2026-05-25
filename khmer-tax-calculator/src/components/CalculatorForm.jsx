@@ -82,7 +82,7 @@ const FIELDS = {
     { name: "inputVat",    label: "Input VAT (ការទិញ)", unit: "រៀល", icon: "shopping_cart", type: "number" },
   ],
   specific_tax: [
-    { name: "supplyType", label: "ប្រភេទការផ្គត់ផ្គង់", icon: "category", type: "select", options: [
+    { name: "supplyType", label: "ប្រភេទការផលិត និងផ្គត់ផ្គង់ (ការផលិតក្នុងស្រុក ឬការនាំចូល)", icon: "category", type: "select", options: [
       { value: "local",  label: "ផលិតក្នុងស្រុក (Local Production) — Base × 90%" },
       { value: "import", label: "នាំចូល (Import) — CIF + ពន្ធគយ" },
     ]},
@@ -96,26 +96,26 @@ const FIELDS = {
       { value: "vehicle_2000_3000",  label: "យានយន្ត 2000–3000cc — ៣០%" },
       { value: "vehicle_over_3000",  label: "យានយន្ត > 3000cc — ៤៥%" },
     ]},
-    { name: "grossValue", label: "តម្លៃ (pre-VAT / CIF+ពន្ធគយ)", unit: "រៀល", icon: "price_check", type: "number" },
+    { name: "grossValue", label: "តម្លៃមិនរួមអាករគ្រប់ប្រភេទ ឬ (តម្លៃគិតពន្ធនាំចូល + ពន្ធគយ)", unit: "រៀល", icon: "price_check", type: "number" },
   ],
   minimum_tax: [
-    { name: "annualTurnover",   label: "ចំណូលសរុបប្រចាំឆ្នាំ (excl. VAT)", unit: "រៀល", icon: "store",       type: "number" },
-    { name: "annualNetProfit",  label: "ប្រាក់ចំណេញសុទ្ធប្រចាំឆ្នាំ",       unit: "រៀល", icon: "trending_up", type: "number" },
+    { name: "annualTurnover",   label: "ផលរបរសរុបប្រចាំឆ្នាំ (excl. VAT)", unit: "រៀល", icon: "store",       type: "number" },
+    { name: "annualNetProfit",  label: "ប្រាក់ចំណេញជាប់ពន្ធ",       unit: "រៀល", icon: "trending_up", type: "number" },
   ],
   withholding_tax: [
-    { name: "paymentType", label: "ប្រភេទការទូទាត់", icon: "swap_horiz", type: "select", options: [
-      { value: "services_resident",      label: "សេវាកម្ម/ប្រឹក្សា (និវាសនជន) — ១៥%" },
-      { value: "royalties_resident",     label: "រូបិយប័ណ្ណ Royalties (និវាសនជន) — ១៥%" },
+    { name: "paymentType", label: "ប្រភេទនៃអត្រាពន្ធកាត់ទុក", icon: "swap_horiz", type: "select", options: [
+      { value: "services_resident",      label: "សេវាកម្ម និងការប្រឹក្សា (និវាសនជន) — ១៥%" },
+      { value: "royalties_resident",     label: "សួយសារអាករ Royalties (និវាសនជន) — ១៥%" },
       { value: "interest_nonbank",       label: "ការប្រាក់ (មិនមែនធនាគារ) — ១៥%" },
-      { value: "rental_resident",        label: "ការជួល Property (និវាសនជន) — ១០%" },
-      { value: "interest_fixed_deposit", label: "ការប្រាក់ Fixed Deposit — ៦%" },
-      { value: "interest_savings",       label: "ការប្រាក់ Savings Account — ៤%" },
-      { value: "nonresident_all",        label: "ប្រភេទទាំងអស់ (អនិវាសនជន) — ១៤%" },
+      { value: "rental_resident",        label: "ការជួលទ្រព្យសម្បត្តិ — ១០%" },
+      { value: "interest_fixed_deposit", label: "ការប្រាក់ប្រាក់បញ្ញើមានកាលកំណត់ — ៦%" },
+      { value: "interest_savings",       label: "ការប្រាក់គណនីសន្សំ — ៤%" },
+      { value: "nonresident_all",        label: "និវាសនជនក្រៅប្រទេស — ១៤%" },
     ]},
-    { name: "grossAmount", label: "ទំហំការទូទាត់សរុប", unit: "រៀល", icon: "payments", type: "number" },
+    { name: "grossAmount", label: "ទំហំទឹកប្រាក់ដែលត្រូវទូទាត់", unit: "រៀល", icon: "payments", type: "number" },
   ],
   patent_tax: [
-    { name: "taxpayerSize", label: "ប្រភេទពន្ធ", icon: "corporate_fare", type: "select", options: [
+    { name: "taxpayerSize", label: "ប្រភេទអាជីវកម្ម", icon: "corporate_fare", type: "select", options: [
       { value: "small",       label: "តូច (Small) — ៤០០,០០០ រៀល/ឆ្នាំ" },
       { value: "medium",      label: "មធ្យម (Medium) — ១,២០០,០០០ រៀល/ឆ្នាំ" },
       { value: "large_under", label: "ធំ — ≤ ១០,០០០ Million KHR — ៣,០០០,០០០ រៀល/ឆ្នាំ" },
@@ -348,7 +348,7 @@ export default function CalculatorForm({ tax, onCalculate }) {
               info
             </span>
           </div>
-          <p className="font-body-md text-body-md text-on-surface-variant italic">
+          <p className="font-body-md text-body-md text-on-surface-variant italic whitespace-pre-wrap">
             {tax.ratePercent !== null ? `${tax.ratePercent}% — ` : ""}{tax.formula}
           </p>
         </div>

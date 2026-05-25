@@ -226,7 +226,7 @@ export const calculateTax = (type, inputs) => {
       steps = [
         `១. ប្រាក់ខែសរុប៖ ${grossSalary.toLocaleString()} រៀល`,
         `២. ដក NSSF: −${nssf.toLocaleString()} រៀល`,
-        `៣. ដកការកាត់កងអ្នកនៅក្នុងបន្ទុក (${hasSpouse > 0 ? "ប្ដីប្រពន្ធ ១" : ""}${numChildren > 0 ? `; កូន ${numChildren}` : ""}): −${familyAllowance.toLocaleString()} រៀល`,
+        `៣. ដកការកាត់កងអ្នកនៅក្នុងបន្ទុក (${hasSpouse > 0 ? "សហព័ទ្ធ ១" : ""}${numChildren > 0 ? `; កូន ${numChildren}` : ""}): −${familyAllowance.toLocaleString()} រៀល`,
         `៤. ប្រាក់ខែសុទ្ធ (មូលដ្ឋានគិតពន្ធ)៖ ${taxableAmount.toLocaleString()} រៀល`,
         `៥. កាំពន្ធ: ${(bracket.rate * 100).toFixed(0)}% (ការកាត់: ${bracket.cumDeduction.toLocaleString()})`,
         `៦. ពន្ធ = (${taxableAmount.toLocaleString()} × ${bracket.rate}) − ${bracket.cumDeduction.toLocaleString()} = ${taxAmount.toLocaleString()} រៀល`,

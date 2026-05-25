@@ -20,9 +20,9 @@ export default function TaxDetailClient({ tax }) {
     );
   }
 
-  const handleCalculate = (type, inputs) => {
+  const handleCalculate = (type, inputs, currencyData) => {
     const calcResult = calculateTax(type, inputs);
-    setResult(calcResult);
+    setResult({ ...calcResult, ...currencyData });
   };
 
   return (

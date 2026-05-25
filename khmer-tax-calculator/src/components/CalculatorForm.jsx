@@ -205,7 +205,7 @@ export default function CalculatorForm({ tax, onCalculate }) {
       });
     }
 
-    onCalculate(tax.calculatorType, payload);
+    onCalculate(tax.calculatorType, payload, { inputCurrency: currency, exchangeRate: parseFloat(exchangeRate) || 4000 });
   };
 
   return (
@@ -232,10 +232,10 @@ export default function CalculatorForm({ tax, onCalculate }) {
             </span>
             <div>
               <h3 className="font-label-md text-label-md text-on-surface">
-                {tax.ratePercent === null ? "ថ្លៃបង់ពន្ធ" : "អត្រាពន្ធ"}
+                {tax.ratePercent === null ? "ទម្រង់នៃការគិតពន្ធ" : "អត្រាពន្ធ"}
               </h3>
               <p className="font-body-md text-body-md text-on-surface-variant mt-1">
-                {tax.ratePercent === null ? "ថ្លៃថេរតាមប្រភេទយានយន្ត" : `${tax.ratePercent}%`}
+                {tax.ratePercent === null ? "អត្រាថេរ ផ្អែកលើច្បាប់កំណត់" : `${tax.ratePercent}%`}
               </p>
             </div>
           </div>

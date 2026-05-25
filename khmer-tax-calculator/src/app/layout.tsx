@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "ប្រព័ន្ធគណនាពន្ធ - ទំព័រដើម",
-  description: "ឧបករណ៍អប់រំសម្រាប់គណនាពន្ធនៅកម្ពុជា។",
+  description: "ប្រព័ន្ធអប់រំសម្រាប់គណនាពន្ធនៅកម្ពុជា។",
 };
 
 export default function RootLayout({

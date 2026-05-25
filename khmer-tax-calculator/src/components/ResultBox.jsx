@@ -4,6 +4,11 @@ export default function ResultBox({ result, onReset }) {
   if (!result) return null;
 
   const fmt = (n) => Number(n).toLocaleString(undefined, { maximumFractionDigits: 2 });
+  const isUSD = result.inputCurrency === "USD";
+  const rate = result.exchangeRate || 4000;
+
+  const displayAmt = (v) => isUSD ? `$${fmt(Number(v) / rate)}` : `${fmt(v)} ៛`;
+  const subAmt = (v) => isUSD ? `(~ ${fmt(v)} ៛)` : "";
 
   return (
     <div className="mt-6">
@@ -30,8 +35,13 @@ export default function ResultBox({ result, onReset }) {
             </span>
             <div className="flex items-baseline gap-4 flex-wrap">
               <span className="font-headline-lg text-5xl md:text-6xl text-white">
-                {fmt(result.taxAmount)}
+                {displayAmt(result.taxAmount)}
               </span>
+              {isUSD && (
+                <span className="font-headline-md text-2xl text-white/80">
+                  {subAmt(result.taxAmount)}
+                </span>
+              )}
             </div>
             <div className="mt-6 flex items-center gap-2 bg-white/10 w-fit px-4 py-2 rounded-full backdrop-blur-md">
               <span className="material-symbols-outlined text-sm">verified</span>
@@ -52,13 +62,19 @@ export default function ResultBox({ result, onReset }) {
               <span className="text-on-surface-variant font-body-md text-body-md">
                 មូលដ្ឋានគណនា
               </span>
-              <span className="font-bold text-on-surface">{fmt(result.taxableAmount)}</span>
+              <span className="font-bold text-on-surface text-right">
+                {displayAmt(result.taxableAmount)} <br className="md:hidden" />
+                {isUSD && <span className="font-normal text-sm text-on-surface-variant ml-2">{subAmt(result.taxableAmount)}</span>}
+              </span>
             </div>
             <div className="flex justify-between items-center pb-3 border-b border-outline-variant/20">
               <span className="text-on-surface-variant font-body-md text-body-md">
                 ពន្ធដែលត្រូវបង់
               </span>
-              <span className="font-bold text-primary">{fmt(result.taxAmount)}</span>
+              <span className="font-bold text-primary text-right">
+                {displayAmt(result.taxAmount)} <br className="md:hidden" />
+                {isUSD && <span className="font-normal text-sm text-primary/70 ml-2">{subAmt(result.taxAmount)}</span>}
+              </span>
             </div>
             {result.rateUsed > 0 && (
               <div className="flex justify-between items-center">

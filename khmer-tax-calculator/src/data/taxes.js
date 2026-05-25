@@ -205,7 +205,7 @@ export const taxes = [
     summary: "ពន្ធ ឬថ្លៃអាជ្ញាប័ណ្ណអាជីវកម្មប្រចាំឆ្នាំ ដែលអនុវត្តតាមប្រភេទ និងទំហំអ្នកជាប់ពន្ធ។",
     whoPays: "All registered business entities (due by March 31 annually)",
     taxBase: "Fixed annual fee by taxpayer size category",
-    formula: "ពន្ធ = ថ្លៃថេរប្រចាំឆ្នាំ ដោយផ្អែកលើប្រភេទអាជីវកម្ម (តូច មធ្យម ធំ)",
+    formula: "ពន្ធប្រកាស (ប៉ាតង់) = ថ្លៃថេរប្រចាំឆ្នាំ ដោយផ្អែកលើប្រភេទអាជីវកម្ម (តូច មធ្យម ធំ)",
     example: "អ្នកបង់ពន្ធតូច: ៤០០,០០០ រៀល/ឆ្នាំ",
     notes: "ថ្លៃថេរ (LoT 2023, Ch.13)។ ត្រូវបង់មុន ៣១ មីនា ប្រចាំឆ្នាំ។",
     ratePercent: null,

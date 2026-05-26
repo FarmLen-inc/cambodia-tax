@@ -3,16 +3,25 @@
 import { useState } from "react";
 
 const VEHICLE_OPTIONS = [
-  { value: "moto_under_125", label: "ម៉ូតូ ≤ 125cc — ១០,០០០ រៀល/ឆ្នាំ" },
-  { value: "moto_over_125",  label: "ម៉ូតូ > 125cc — ១៥,០០០ រៀល/ឆ្នាំ" },
-  { value: "car_under_1500", label: "រថយន្ត ≤ 1500cc — ១៥០,០០០ រៀល/ឆ្នាំ" },
-  { value: "car_1501_2500",  label: "រថយន្ត 1501–2500cc — ២៥០,០០០ រៀល/ឆ្នាំ" },
-  { value: "car_over_2500",  label: "រថយន្ត > 2500cc — ៤០០,០០០ រៀល/ឆ្នាំ" },
-  { value: "light_truck",    label: "រថយន្តធុនស្រាល — ៣០០,០០០ រៀល/ឆ្នាំ" },
-  { value: "heavy_truck",    label: "រថយន្តធុនធ្ងន់ — ៦០០,០០០ រៀល/ឆ្នាំ" },
-  { value: "bus",            label: "រថយន្តក្រុង — ៥០០,០០០ រៀល/ឆ្នាំ" },
-  { value: "boat_under_10t", label: "នាវា < 10 តោន — ២០០,០០០ រៀល/ឆ្នាំ" },
-  { value: "boat_over_10t",  label: "នាវា ≥ 10 តោន — ៥០០,០០០ រៀល/ឆ្នាំ" },
+  { value: "moto_under_125", label: "ម៉ូតូ កម្លាំងស៊ីឡាំង ≤ 125cc — ១០,០០០ រៀល/ឆ្នាំ" },
+
+  { value: "moto_over_125",  label: "ម៉ូតូ កម្លាំងស៊ីឡាំង > 125cc — ១៥,០០០ រៀល/ឆ្នាំ" },
+
+  { value: "car_under_1500", label: "រថយន្ត កម្លាំងស៊ីឡាំង ≤ 1500cc — ១៥០,០០០ រៀល/ឆ្នាំ" },
+
+  { value: "car_1501_2500",  label: "រថយន្ត កម្លាំងស៊ីឡាំង 1501cc–2500cc — ២៥០,០០០ រៀល/ឆ្នាំ" },
+
+  { value: "car_over_2500",  label: "រថយន្ត កម្លាំងស៊ីឡាំង > 2500cc — ៤០០,០០០ រៀល/ឆ្នាំ" },
+
+  { value: "light_truck",    label: "រថយន្តដឹកទំនិញធុនស្រាល — ៣០០,០០០ រៀល/ឆ្នាំ" },
+
+  { value: "heavy_truck",    label: "រថយន្តដឹកទំនិញធុនធ្ងន់ — ៦០០,០០០ រៀល/ឆ្នាំ" },
+
+  { value: "bus",            label: "រថយន្តដឹកអ្នកដំណើរ — ៥០០,០០០ រៀល/ឆ្នាំ" },
+
+  { value: "boat_under_10t", label: "នាវា ទម្ងន់ក្រោម ១០ តោន — ២០០,០០០ រៀល/ឆ្នាំ" },
+
+  { value: "boat_over_10t",  label: "នាវា ទម្ងន់ចាប់ពី ១០ តោនឡើង — ៥០០,០០០ រៀល/ឆ្នាំ" }
 ];
 
 const VEHICLE_OPTIONS_MAP = VEHICLE_OPTIONS; // already defined above
@@ -23,16 +32,16 @@ const FIELDS = {
     { name: "months",         label: "ចំនួនខែ",           unit: "ខែ",  icon: "calendar_month", type: "number", step: "1" },
   ],
   unused_land: [
-    { name: "landMarketValue", label: "តម្លៃទីផ្សារដីសរុប", unit: "រៀល", icon: "landscape", type: "number" },
+    { name: "landMarketValue", label: "តម្លៃដីធ្លីជាប់ពន្ធ (តម្លៃទីផ្សារដីសរុប)", unit: "រៀល", icon: "landscape", type: "number" },
   ],
   immovable_property: [
     { name: "propertyValue", label: "តម្លៃអចលនទ្រព្យ", unit: "រៀល", icon: "domain", type: "number" },
   ],
   public_lighting_tax: [
-    { name: "invoiceValue", label: "តម្លៃវិក្កបត្រ (មិនរួម VAT និង PLT)", unit: "រៀល", icon: "receipt_long", type: "number" },
+    { name: "invoiceValue", label: "តម្លៃវិក្កយបត្រ មិនរួម អាករលើតម្លៃបន្ថែម និង អាករសម្រាប់បំភ្លឺសាធារណៈ", unit: "រៀល", icon: "receipt_long", type: "number" },
   ],
   accommodation_tax: [
-    { name: "accommodationFee", label: "ថ្លៃស្នាក់នៅ (រួម ពន្ធ លើកលែង AT & VAT)", unit: "រៀល", icon: "hotel", type: "number" },
+    { name: "accommodationFee", label: "ថ្លៃស្នាក់នៅរួមបញ្ចូលពន្ធគ្រប់ប្រភេទ លើកលែង អាករលើការស្នាក់នៅ និង អតប", unit: "រៀល", icon: "hotel", type: "number" },
   ],
   transportation_tax: [
     { name: "vehicleType", label: "ប្រភេទយានយន្ត", icon: "directions_car", type: "select", options: VEHICLE_OPTIONS_MAP },
@@ -40,22 +49,22 @@ const FIELDS = {
   registration_tax: [
     { name: "transferType", label: "ប្រភេទការផ្ទេរ", icon: "swap_horiz", type: "select", options: [
       { value: "real_estate", label: "អចលនទ្រព្យ (ដី/ផ្ទះ) — ៤%" },
-      { value: "vehicle",     label: "យានយន្ត / មធ្យោបាយ — ៤%" },
+      { value: "vehicle",     label: "យានយន្ត — ៤%" },
       { value: "shares",      label: "ភាគហ៊ុន (Corporate Shares) — ០.១%" },
-      { value: "contract",    label: "កិច្ចសន្យារដ្ឋ/សាធារណៈ — ០.១%" },
+      { value: "contract",    label: "កិច្ចសន្យារដ្ឋ — ០.១%" },
     ]},
-    { name: "contractValue", label: "តម្លៃកិច្ចសន្យា / តម្លៃទីផ្សារ", unit: "រៀល", icon: "sell", type: "number" },
-    { name: "gdtValue", label: "តម្លៃ GDT (អចលនទ្រព្យប៉ុណ្ណោះ)", unit: "រៀល", icon: "account_balance", type: "number" },
+    { name: "contractValue", label: "តម្លៃកិច្ចសន្យា", unit: "រៀល", icon: "sell", type: "number" },
+    { name: "gdtValue", label: "តម្លៃកំណត់ដោយរដ្ឋបាលសារពើពន្ធ", unit: "រៀល", icon: "account_balance", type: "number" },
   ],
   fiscal_stamp_duty: [
-    { name: "signType", label: "ប្រភេទផ្ទាំងប័ណ្ណ", icon: "signpost", type: "select", options: [
+    { name: "signType", label: "ប្រភេទផ្ទាំងផ្សព្វផ្សាយ", icon: "signpost", type: "select", options: [
       { value: "unlit",     label: "ផ្ទាំងគ្មានពន្លឺ — ២០,០០០ រៀល/m²/ឆ្នាំ" },
       { value: "lit",       label: "ផ្ទាំងមានពន្លឺ — ៤០,០០០ រៀល/m²/ឆ្នាំ" },
-      { value: "billboard", label: "ផ្ទាំងធំ/ផ្លូវ — ៨០,០០០ រៀល/m²/ឆ្នាំ" },
+      { value: "billboard", label: "ផ្ទាំងធំតាមដងផ្លូវ — ៨០,០០០ រៀល/m²/ឆ្នាំ" },
     ]},
-    { name: "languagePosition", label: "ទីតាំងភាសា", icon: "translate", type: "select", options: [
-      { value: "khmer_top",   label: "ភាសាខ្មែរខ្ពស់ជាង (ត្រឹមត្រូវ) — ×១.០" },
-      { value: "foreign_top", label: "ភាសាបរទេសខ្ពស់ជាង (ពិន័យ) — ×២.០" },
+    { name: "languagePosition", label: "ទីតាំងអក្សរភាសា", icon: "translate", type: "select", options: [
+      { value: "khmer_top",   label: "អក្សរខ្មែរស្ថិតនៅខាងលើ (ត្រឹមត្រូវ) — ×១.០" },
+      { value: "foreign_top", label: "អក្សរបរទេសស្ថិតនៅខាងលើ (ពិន័យ) — ×២.០" },
     ]},
     { name: "signWidth",  label: "ទទឹងផ្ទាំង", unit: "ម៉ែត្រ", icon: "width",  type: "number" },
     { name: "signHeight", label: "កម្ពស់ផ្ទាំង", unit: "ម៉ែត្រ", icon: "height", type: "number" },
@@ -349,7 +358,7 @@ export default function CalculatorForm({ tax, onCalculate }) {
             </span>
           </div>
           <p className="font-body-md text-body-md text-on-surface-variant italic whitespace-pre-wrap">
-            {tax.ratePercent !== null ? `${tax.ratePercent}% — ` : ""}{tax.formula}
+            {tax.formula}
           </p>
         </div>
 

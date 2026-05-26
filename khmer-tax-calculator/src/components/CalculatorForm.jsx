@@ -61,10 +61,10 @@ const FIELDS = {
     { name: "signHeight", label: "កម្ពស់ផ្ទាំង", unit: "ម៉ែត្រ", icon: "height", type: "number" },
   ],
   tax_on_income: [
-    { name: "entityType", label: "ប្រភេទនៃអ្នកបង់ពន្ធ", icon: "business", type: "select", options: [
+    { name: "entityType", label: "ប្រភេទនៃអ្នកជាប់ពន្ធ", icon: "business", type: "select", options: [
       { value: "corporate",    label: "នីតិបុគ្គលទូទៅ (Corporate) — ២០%" },
       { value: "insurance",    label: "ក្រុមហ៊ុនធានារ៉ាប់រង (Insurance) — ៥%" },
-      { value: "individual",   label: "បុគ្គល/ម្ចាស់អាជីវកម្ម (Individual) — ០–២០%" },
+      { value: "individual",   label: "រូបវន្តបុគ្គល (Individual) — ០–២០%" },
     ]},
     { name: "taxableProfit", label: "ប្រាក់ចំណេញសុទ្ធប្រចាំឆ្នាំ", unit: "រៀល", icon: "trending_up", type: "number" },
   ],
@@ -78,7 +78,7 @@ const FIELDS = {
     { name: "numChildren", label: "ចំនួនកូននៅក្នុងបន្ទុក", unit: "នាក់", icon: "child_care", type: "number" },
   ],
   vat: [
-    { name: "supplyValue", label: "តម្លៃផ្គត់ផ្គង់ (មិនរួម VAT)", unit: "រៀល", icon: "receipt", type: "number" },
+    { name: "supplyValue", label: "តម្លៃជាប់អាករ (មិនរួម VAT)", unit: "រៀល", icon: "receipt", type: "number" },
     { name: "inputVat",    label: "Input VAT (ការទិញ)", unit: "រៀល", icon: "shopping_cart", type: "number" },
   ],
   specific_tax: [
